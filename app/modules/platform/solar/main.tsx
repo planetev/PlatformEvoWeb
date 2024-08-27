@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Listsurvey from "./survey/list-survey";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
+import { useSearchParams } from 'next/navigation';
 interface TabDashboard {
   value: string;
   label: string;
@@ -16,6 +17,9 @@ interface TabDashboard {
 
 const MainPage = () => {
   const router = useRouter();
+
+
+
 
   const tabsDashboard: TabDashboard[] = [
     { value: "1", label: "Dashboard", component: "1" },
@@ -26,13 +30,22 @@ const MainPage = () => {
   const handleClick = () => {
     router.push("/platform/solar/survey/createsurvey");
    };
+   const searchParams = useSearchParams();
+   const currentTab = searchParams.get('tab') || "1";
+
+   const navigateToSolarTab = (tabValue: string) => {
+     const newSearchParams = new URLSearchParams(searchParams.toString());
+     newSearchParams.set('tab', tabValue);
+     router.push(`/platform/solar?${newSearchParams.toString()}`);
+   };
 
   return (
     <>
       <Main>
+        {searchParams}
         <Head ltext={"Solar"} />
         <div className="w-full">
-          <Tabs defaultValue="1" className="w-full">
+          <Tabs defaultValue={currentTab} className="w-full" onValueChange={navigateToSolarTab}>
           <div className="flex items-center justify-between">
             <TabsList className="grid grid-cols-3 w-[600px]">
               {tabsDashboard.map((tab) => (

@@ -4,13 +4,18 @@ import Head from "@/components/custom/Head";
 import Main from "@/components/main";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { SolarInstallation } from "@/app/inteface/solar";
-import { convertDate } from "@/lib/convertDate";
+import { SolarInstallation, StatusSolarSurvey } from "@/app/inteface/solar";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import Woi from "./form/woi";
 import { Input } from "@/components/ui/input";
@@ -36,8 +41,19 @@ import Images from "./form/image";
 import Size from "./form/size";
 import Elemore from "./form/elemore";
 import Lgn from "./form/lgn";
+import { addDays, format } from "date-fns";
 import Miter from "./form/miter";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { createSolarSurvey } from "@/service/Solar/solarSurveyCallAPI";
+import { useAuth } from "@/app/context/AuthContext";
+import { toast } from "@/components/ui/use-toast";
+
+
+
 const Createsurvey = () => {
+  const router = useRouter();
+  const { token, session } = useAuth();
   const [date, setDate] = useState<Date>();
   const [date1, setDate1] = useState<Date>();
   const [date2, setDate2] = useState<Date>();
@@ -47,7 +63,42 @@ const Createsurvey = () => {
     customer_name: Yup.string().required("customer_name is required"),
   });
 
-  const initialData: SolarInstallation = {
+  function navigateToSolar() {
+    const queryParams: SolarQueryParams = {
+      id: '123',
+      type: 'residential'
+    };
+
+    const state: SolarState = {
+      previousPage: '/home',
+      userPreferences: {
+        theme: 'light'
+      }
+    };
+
+    router.push({
+      pathname: '/platform/solar',
+      query: queryParams
+    }, undefined, {
+      shallow: true,
+      state: state
+    });
+  }
+
+  const convertDate = (date: any) => {
+    if (!date) {
+      return ""; // รีเทิร์นค่าว่างถ้าไม่มีค่า
+    }
+
+    try {
+      return format(date, "yyyy-MM-dd"); // คอนเวิร์ตวันที่ถ้ามีค่า
+    } catch (error) {
+      console.error("Invalid date", error);
+      return ""; // รีเทิร์นค่าว่างถ้าคอนเวิร์ตไม่สำเร็จ
+    }
+  };
+
+  const initialData: any = {
     datebook: "",
     wno: "",
     status: "",
@@ -138,6 +189,32 @@ const Createsurvey = () => {
     setRows(updatedRows);
   };
 
+  const navigateToSolarTab = (tabValue: string) => {
+    // ใช้ URLSearchParams เพื่อสร้าง query string
+    const searchParams = new URLSearchParams({ tab: "2" });
+    router.push(`/platform/solar?${searchParams.toString()}`);
+  };
+
+  const createSolarSurveys = useMutation({
+    mutationFn: async ({ token, payload }: any) => {
+      return await createSolarSurvey({ token, payload });
+    },
+    onSuccess: (res) => {
+      if (res) {
+        toast({
+          title: "Create Successful",
+          className: "bg-green-500 text-white font-semibold",
+          description: "You have successfully logged in.",
+        });
+      // router.push("/platform/solar",);
+      navigateToSolarTab("2");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
   return (
     <>
       <Main>
@@ -149,15 +226,14 @@ const Createsurvey = () => {
               initialValues={initialData}
               validationSchema={validationSchema}
               onSubmit={async (values) => {
-                const formData = new FormData();
                 const payload = {
                   wno: values.wno,
                   status: values.status,
-                  datebook: convertDate(date),
+                  datebook: convertDate(date) || "",
                   customer_name: values.customer_name,
                   tel: values.tel,
-                  date_Installation: convertDate(date1),
-                  collection_date: convertDate(date2),
+                  date_Installation: convertDate(date1) || "",
+                  collection_date: convertDate(date2) || "",
                   production_targets: values.production_targets,
                   servey_name: values.servey_name,
                   longlat: values.longlat,
@@ -194,16 +270,16 @@ const Createsurvey = () => {
                   inverter: values.inverter,
                   panel: values.panel,
                   mounting: values.mounting,
-                  imagehome: values.imagehome,
-                  imagesmiter: values.imagesmiter,
-                  imagesout: values.imagesout,
-                  imagesin: values.imagesin,
-                  imagessolar: values.imagessolar,
-                  imagesins: values.imagesins,
+                  imagehome: values.imagehome || [],
+                  imagesmiter: values.imagesmiter || [],
+                  imagesout: values.imagesout || [],
+                  imagesin: values.imagesin || [],
+                  imagessolar: values.imagessolar || [],
+                  imagesins: values.imagesins || [],
 
                   boq: rows,
                 };
-                // createSolarSurveys.mutate({ payload });
+                createSolarSurveys.mutate({ token, payload });
 
                 console.log("payload", payload);
               }}
@@ -237,10 +313,17 @@ const Createsurvey = () => {
                           In Solar
                         </Badge>
                         <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                          <Button variant="outline" size="sm">
-                          cancel
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            type="button"
+                            onClick={() => router.back()}
+                          >
+                            cancel
                           </Button>
-                          <Button size="sm">Create Survey</Button>
+                          <Button type="submit" size="sm">
+                            Create Survey
+                          </Button>
                         </div>
                       </div>
                       <div className="grid gap-4 p-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8 overflow-auto ">
@@ -278,7 +361,6 @@ const Createsurvey = () => {
                             setFieldValue={setFieldValue}
                             handleChange={handleChange}
                           />
-
                         </div>
 
                         <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
@@ -290,6 +372,28 @@ const Createsurvey = () => {
                               <div className="grid gap-6">
                                 <div className="grid gap-3">
                                   <Label htmlFor="status">สถานะ</Label>
+                                  <Select
+                                    name="status"
+                                    onValueChange={(value) =>
+                                      setFieldValue("status", value)
+                                    }
+                                  >
+                                    <SelectTrigger
+                                      id="category"
+                                      aria-label="Select category"
+                                    >
+                                      <SelectValue placeholder="เลือกสถานะ" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {StatusSolarSurvey.map((i, x: number) => (
+                                        <>
+                                          <SelectItem key={x} value={i.name}>
+                                            {i.name}
+                                          </SelectItem>
+                                        </>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
                                 </div>
                               </div>
                             </CardContent>
@@ -317,8 +421,6 @@ const Createsurvey = () => {
                             setFieldValue={setFieldValue}
                             handleChange={handleChange}
                           />
-
-
                         </div>
                       </div>
                       <div className="flex items-center justify-center gap-2 md:hidden">

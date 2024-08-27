@@ -63,27 +63,7 @@ const Createsurvey = () => {
     customer_name: Yup.string().required("customer_name is required"),
   });
 
-  function navigateToSolar() {
-    const queryParams: SolarQueryParams = {
-      id: '123',
-      type: 'residential'
-    };
 
-    const state: SolarState = {
-      previousPage: '/home',
-      userPreferences: {
-        theme: 'light'
-      }
-    };
-
-    router.push({
-      pathname: '/platform/solar',
-      query: queryParams
-    }, undefined, {
-      shallow: true,
-      state: state
-    });
-  }
 
   const convertDate = (date: any) => {
     if (!date) {

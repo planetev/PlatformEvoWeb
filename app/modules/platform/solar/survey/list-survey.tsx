@@ -21,11 +21,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { debounce } from "@/lib/debounced";
 import { getSolarSurvey } from "@/service/Solar/solarSurveyCallAPI";
 import { useQuery } from "@tanstack/react-query";
-import { Eye, MoreHorizontal } from "lucide-react";
+import { Edit, Eye, FileText, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { FaRegFilePdf } from "react-icons/fa";
+import TableListServey from "./table/table-list-servey";
 
 const Listsurvey = () => {
   const router = useRouter();
@@ -46,7 +49,7 @@ const Listsurvey = () => {
     queryFn: async () => {
       try {
         const res: any = await getSolarSurvey({
-          serach: search,
+          search,
           page,
           pageSize,
           token,
@@ -58,6 +61,9 @@ const Listsurvey = () => {
       }
     },
   });
+  useEffect(() => {
+    refetch();
+  }, [search]);
 
   console.log("listData", listData);
 
@@ -127,6 +133,40 @@ const Listsurvey = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() =>
+                router.push("/platform/solar/survey/view/" + data.id)
+              }
+            >
+              <Eye className="mr-2 h-4 w-4" />
+              View
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                router.push("/platform/solar/survey/edit/" + data.id)
+              }
+            >
+              <Edit className="mr-2 h-4 w-4" />
+              Edit
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={() => console.log("MOU action")}>
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Survey Report
+                </div>
+
+                <Badge
+                  variant="secondary"
+                  className="flex items-center space-x-1 border border-gray-600 border-dotted px-1 py-0.5 text-xs"
+                >
+                  <FaRegFilePdf className="h-3 w-3" />
+
+                  <span>PDF</span>
+                </Badge>
+              </div>
+            </DropdownMenuItem>
 
             {/* <DropdownMenuItem
               onClick={() => router.push("/platform/solar/" + data.id)}
@@ -170,44 +210,38 @@ const Listsurvey = () => {
   ];
   return (
     <>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div className="flex flex-col items-start ">
-                <CardTitle className="text-start">SurveySolar</CardTitle>
-                <CardDescription>
-                  Manage your surveies and view their charger performance.
-                </CardDescription>
-              </div>
-              <div className="flex items-center mb-3 space-x-3">
-                <InputFilter setSearch={setSearch} />
-              </div>
-            </CardHeader>
-            <CardContent>
-
-              {listData?.rows ? (
-                <TableCustom rows={rows} data={listData.rows} />
-              ) : (
-                <NoContent />
-              )}
-            </CardContent>
-            <CardFooter className="flex items-center justify-between">
-              <Paginations
-                totalRows={10}
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-                page={page}
-                setPage={setPage}
-              />
-            </CardFooter>
-          </Card>
-        </>
-      )}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div className="flex flex-col items-start ">
+            <CardTitle className="text-start">SurveySolar</CardTitle>
+            <CardDescription>
+              Manage your surveies and view their charger performance.
+            </CardDescription>
+          </div>
+          <div className="flex items-center mb-3 space-x-3">
+            <InputFilter search={search} setSearch={setSearch} />
+          </div>
+        </CardHeader>
+        <CardContent>
+          {/* <TableCustom rows={rows} data={listData?.rows} /> */}
+          <TableListServey  data={listData?.rows} />
+        </CardContent>
+        <CardFooter className="flex items-center justify-between">
+          <Paginations
+            totalRows={10}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            page={page}
+            setPage={setPage}
+          />
+        </CardFooter>
+      </Card>
     </>
   );
 };
 
 export default Listsurvey;
+
+// ) : (
+//   <NoContent />
+// )}

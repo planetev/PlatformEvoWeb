@@ -42,7 +42,7 @@ const MainPage = () => {
   return (
     <>
       <Main>
-        {searchParams}
+
         <Head ltext={"Solar"} />
         <div className="w-full">
           <Tabs defaultValue={currentTab} className="w-full" onValueChange={navigateToSolarTab}>

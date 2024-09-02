@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -10,36 +10,33 @@ import {
 } from "@/components/ui/table";
 
 const TableCustom = ({ rows, data }: any) => {
-  return (
-    <>
+  // Memoize the table rows and data to prevent unnecessary re-renders
+  const renderedRows = useMemo(() => {
+    return (
       <Table>
         <TableHeader>
           <TableRow>
             {rows.map((row: any) => (
-              <React.Fragment key={row.id}>
-                <TableHead>{row.columname}</TableHead>
-              </React.Fragment>
+              <TableHead key={row.id}>{row.columname}</TableHead>
             ))}
           </TableRow>
         </TableHeader>
         <TableBody>
           {data?.map((item: any) => (
             <TableRow key={item.id} className="bg-white">
-              {rows?.map((column: any, index: number) => (
-                <>
-                  <TableCell key={index} className={column.cls}>
-                    {column.render
-                      ? column.render(item)
-                      : item[column.columname]}
-                  </TableCell>
-                </>
+              {rows.map((column: any) => (
+                <TableCell key={column.id} className={column.cls}>
+                  {column.render ? column.render(item) : item[column.columname]}
+                </TableCell>
               ))}
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </>
-  );
+    );
+  }, [rows, data]);
+
+  return renderedRows;
 };
 
 export default TableCustom;

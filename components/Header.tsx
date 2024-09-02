@@ -150,7 +150,7 @@ const Header = () => {
           <MenubarMenu>
             <MenubarTrigger className="font-semibold">
               <Badge variant="secondary" className="border-gray-600">
-                Platform
+                Planet<span className="text-emerald-500">EV</span>
               </Badge>
             </MenubarTrigger>
             <MenubarContent>

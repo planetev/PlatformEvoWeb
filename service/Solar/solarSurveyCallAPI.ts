@@ -1,21 +1,21 @@
 import axios, { AxiosResponse } from "axios";
 
 interface Base3 {
-  serach?: string;
+  search?: string;
   page?: number;
   pageSize?: number;
   token: any;
 }
 
 export const getSolarSurvey = async ({
-  serach,
+  search,
   page,
   pageSize,
   token,
 }: Base3): Promise<any[]> => {
   try {
     const params = {
-      serach,
+      search,
       page,
       pageSize,
     };
@@ -24,6 +24,31 @@ export const getSolarSurvey = async ({
       process.env.NEXT_PUBLIC_API + "solar/survey",
       {
         params,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (error: any) {
+    console.error("Error fetching survey data:", error);
+    throw error;
+  }
+};
+
+
+export const getSolarSurveyById = async ({
+  id,
+  token,
+}: any): Promise<any[]> => {
+  try {
+
+
+    const res: AxiosResponse<any[]> = await axios.get(
+      process.env.NEXT_PUBLIC_API + "solar/survey/" + id,
+      {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -177,7 +177,11 @@ const Sidebar = () => {
         <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
           <div className="border-b p-2">
             <Button variant="outline" size="icon" aria-label="Home">
-              <GiOffshorePlatform className="size-5 fill-foreground  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 " />
+
+              <h2
+               className="text-md font-extrabold  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 text-emerald-500">
+                EV</h2>
+              {/* <GiOffshorePlatform className="size-5 fill-foreground  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 " /> */}
             </Button>
           </div>
           <nav className="grid gap-1 p-2">

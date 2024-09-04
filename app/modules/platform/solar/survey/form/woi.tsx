@@ -20,6 +20,8 @@ import Link from "next/link";
 
 import React from "react";
 import { addDays, format } from "date-fns";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { empoyee_survey } from "@/app/inteface/charger";
 const Woi = ({
   date,
   setDate,
@@ -195,7 +197,7 @@ const Woi = ({
                 <div className="relative">
                   <Input
                     id="name"
-                    type="text"
+                    type="number"
                     className="w-full"
                     name="production_targets"
                     onChange={handleChange}
@@ -211,14 +213,25 @@ const Woi = ({
                   ผู้สำรวจ
                 </Label>
 
-                <Input
-                  id="name"
-                  type="text"
-                  className="w-full"
+                <Select
                   name="servey_name"
-                  onChange={handleChange}
-                  value={values.servey_name}
-                />
+                  onValueChange={(value) =>
+                    setFieldValue("servey_name", value)
+                  }
+                >
+                  <SelectTrigger id="category" aria-label="Select category">
+                    <SelectValue placeholder="เลือกเจ้าหน้าที่สำรวจ" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {empoyee_survey.map((i, x: number) => (
+                      <>
+                        <SelectItem key={x} value={i.name}>
+                          {i.name}
+                        </SelectItem>
+                      </>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

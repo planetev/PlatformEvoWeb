@@ -24,7 +24,7 @@ const Lgn = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   L-N (V)
                 </Label>
-                <Input id="name"  type="number" className="w-full"  name="ln"
+                <Input id="name" type="text" className="w-full"  name="ln"
                   onChange={handleChange}
                   value={values.ln} />
               </div>
@@ -32,7 +32,7 @@ const Lgn = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   L-G (V)
                 </Label>
-                <Input id="name"    type="number" className="w-full"
+                <Input id="name" type="text" className="w-full"
                 name="lg"
                 onChange={handleChange}
                 value={values.lg}
@@ -45,7 +45,7 @@ const Lgn = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   N-G (V)
                 </Label>
-                <Input id="name"  type="number" className="w-full"
+                <Input id="name" type="text" className="w-full"
                   name="ng"
                   onChange={handleChange}
                   value={values.ng}

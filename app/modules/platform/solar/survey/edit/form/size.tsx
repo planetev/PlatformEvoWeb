@@ -25,7 +25,7 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
                 </Label>
                 <Input
                   id="name"
-                  type="number"
+                  type="text"
                   className="w-full"
                   name="p1"
                   onChange={handleChange}
@@ -36,14 +36,9 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   แปหนา (มม.)
                 </Label>
-                <Input
-                  id="name"
-                  type="number"
-                  className="w-full"
-                  name="p2"
+                <Input id="name" type="text" className="w-full"    name="p2"
                   onChange={handleChange}
-                  value={values.p2}
-                />
+                  value={values.p2} />
               </div>
             </div>
 
@@ -52,27 +47,17 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   จันทึก (นิ้ว)
                 </Label>
-                <Input
-                  id="name"
-                   type="number"
-                  className="w-full"
-                  name="p3"
+                <Input id="name" type="text" className="w-full"name="p3"
                   onChange={handleChange}
-                  value={values.p3}
-                />
+                  value={values.p3} />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   จันทึกหนา (มม.)
                 </Label>
-                <Input
-                  id="name"
-                 type="number"
-                  className="w-full"
-                  name="p4"
+                <Input id="name" type="text" className="w-full" name="p4"
                   onChange={handleChange}
-                  value={values.p4}
-                />
+                  value={values.p4} />
               </div>
             </div>
           </div>
@@ -88,27 +73,17 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   ระยะห่างแป (ม.)
                 </Label>
-                <Input
-                  id="name"
-                     type="number"
-                  className="w-full"
-                  name="pp1"
+                <Input id="name" type="text" className="w-full" name="pp1"
                   onChange={handleChange}
-                  value={values.pp1}
-                />
+                  value={values.pp1} />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   ระยะห่างจันทึก (ม.)
                 </Label>
-                <Input
-                  id="name"
-                    type="number"
-                  className="w-full"
-                  name="pp2"
+                <Input id="name" type="text" className="w-full" name="pp2"
                   onChange={handleChange}
-                  value={values.pp2}
-                />
+                  value={values.pp2} />
               </div>
             </div>
           </div>

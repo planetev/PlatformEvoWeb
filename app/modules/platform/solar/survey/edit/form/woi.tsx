@@ -18,10 +18,19 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import Link from "next/link";
 
-import React from "react";
+import React, { use, useEffect } from "react";
 import { addDays, format } from "date-fns";
-const Woi = () => {
-
+const Woi = ({
+  values,
+  setFieldValue,
+  date,
+  setDate,
+  handleChange,
+  date1,
+  setDate1,
+  date2,
+  setDate2,
+}: any) => {
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
@@ -43,8 +52,8 @@ const Woi = () => {
                   type="text"
                   className="w-full"
                   name="wno"
-                  // onChange={handleChange}
-                  // value={values.wno}
+                  onChange={handleChange}
+                  value={values.wno}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -52,7 +61,7 @@ const Woi = () => {
                   วันที่นัดหมาย
                 </Label>
 
-                {/* <Popover>
+                <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
@@ -66,7 +75,7 @@ const Woi = () => {
                       {date ? (
                         format(date, "MM/dd/yyyy")
                       ) : (
-                        <span className="text-gray-300">โปรดเลือกวันที่</span>
+                        <span className="0"> {values?.datebook}</span>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -79,7 +88,7 @@ const Woi = () => {
                       initialFocus
                     />
                   </PopoverContent>
-                </Popover> */}
+                </Popover>
               </div>
             </div>
 
@@ -93,8 +102,8 @@ const Woi = () => {
                   type="text"
                   className="w-full"
                   name="customer_name"
-                  // onChange={handleChange}
-                  // value={values.customer_name}
+                  onChange={handleChange}
+                  value={values.customer_name}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -107,8 +116,8 @@ const Woi = () => {
                   type="text"
                   className="w-full"
                   name="tel"
-                  // onChange={handleChange}
-                  // value={values.tel}
+                  onChange={handleChange}
+                  value={values.tel}
                 />
               </div>
             </div>
@@ -117,7 +126,7 @@ const Woi = () => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   วันที่ติดตั้ง
                 </Label>
-                {/* <Popover>
+                <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
@@ -130,7 +139,7 @@ const Woi = () => {
                       {date1 ? (
                         format(date1, "MM/dd/yyyy")
                       ) : (
-                        <span className="text-gray-300">โปรดเลือกวันที่</span>
+                        <span className="text-gray-300">{values?.date_Installation}</span>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -142,14 +151,14 @@ const Woi = () => {
                       initialFocus
                     />
                   </PopoverContent>
-                </Popover> */}
+                </Popover>
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="location" className="font-medium text-gray-500">
                   วันที่เก็บ
                 </Label>
 
-                {/* <Popover>
+                <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
@@ -162,7 +171,7 @@ const Woi = () => {
                       {date2 ? (
                         format(date2, "MM/dd/yyyy")
                       ) : (
-                        <span className="text-gray-300">โปรดเลือกวันที่</span>
+                        <span className="text-gray-300">{values?.collection_date}</span>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -174,7 +183,7 @@ const Woi = () => {
                       initialFocus
                     />
                   </PopoverContent>
-                </Popover> */}
+                </Popover>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -188,8 +197,8 @@ const Woi = () => {
                     type="text"
                     className="w-full"
                     name="production_targets"
-                    // onChange={handleChange}
-                    // value={values.production_targets}
+                    onChange={handleChange}
+                    value={values.production_targets}
                   />
                   <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                     kw
@@ -206,8 +215,8 @@ const Woi = () => {
                   type="text"
                   className="w-full"
                   name="servey_name"
-                  // onChange={handleChange}
-                  // value={values.servey_name}
+                  onChange={handleChange}
+                  value={values.servey_name}
                 />
               </div>
             </div>
@@ -223,8 +232,8 @@ const Woi = () => {
                     type="text"
                     className="w-full h-10 pr-20" // Add padding to the right to avoid text overlapping the button
                     name="longlat"
-                    // onChange={handleChange}
-                    // value={values.longlat}
+                    onChange={handleChange}
+                    value={values.longlat}
                   />
                   <Button
                     size="sm"
@@ -250,8 +259,8 @@ const Woi = () => {
                   type="text"
                   className="w-full"
                   name="location"
-                  // onChange={handleChange}
-                  // value={values.location}
+                  onChange={handleChange}
+                  value={values.location}
                 />
               </div>
             </div>

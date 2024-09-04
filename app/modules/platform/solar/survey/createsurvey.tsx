@@ -239,7 +239,6 @@ const Createsurvey = () => {
                   pp1: values.pp1,
                   pp2: values.pp2,
                   ele: values.ele,
-
                   ln: values.ln,
                   lg: values.lg,
                   ng: values.ng,
@@ -259,9 +258,10 @@ const Createsurvey = () => {
 
                   boq: rows,
                 };
-                createSolarSurveys.mutate({ token, payload });
-
                 console.log("payload", payload);
+                 createSolarSurveys.mutate({ token, payload });
+
+
               }}
             >
               {({

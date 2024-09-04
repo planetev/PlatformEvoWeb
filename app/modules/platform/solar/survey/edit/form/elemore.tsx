@@ -23,16 +23,16 @@ const Elemore = ({ values, setFieldValue, handleChange }: any) => {
       <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
         <CardHeader>
           <CardTitle>ข้อมูลไฟฟ้าเพื่มเติม</CardTitle>
-
+          <CardDescription>หากเลือก ALL จะเป็นการเลือกทุกอย่าง</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-2">
             <Label htmlFor="location" className="font-medium text-gray-500">
-              ข้อมูลไฟฟ้าเพื่มเติม
+              ข้อมูลไฟฟ้าเพื่มเติม {values.ele}
             </Label>
             <Select
              name="ele"
-              value={values.ele}
+             value={values.ele}
              onValueChange={(value) =>
                setFieldValue("ele", value)
              }
@@ -40,15 +40,21 @@ const Elemore = ({ values, setFieldValue, handleChange }: any) => {
               <SelectTrigger id="category" aria-label="Select category">
                 <SelectValue placeholder="ประเภทไฟฟ้า" />
               </SelectTrigger>
-
               <SelectContent>
-                {additionalElectricalInfo.map((i, x: number) => (
-                  <>
-                    <SelectItem key={x} value={i.name}>
-                      {i.name}
-                    </SelectItem>
-                  </>
-                ))}
+                      {additionalElectricalInfo.map(
+                        (i, x: number) =>
+                          (!values.ele ||
+                            i.name !== values.ele ||
+                            x ===
+                            additionalElectricalInfo.findIndex(
+                                (item) => item.name === values.ele
+                              )) && (
+                            <SelectItem key={x} value={i.name}>
+                              {i.name}
+                            </SelectItem>
+                          )
+                      )}
+
               </SelectContent>
             </Select>
           </div>

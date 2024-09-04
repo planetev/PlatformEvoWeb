@@ -1,5 +1,12 @@
 "use client";
-import { imagesArray, imagesIN, imagesMiter, imagesOut, imagesSolarE, Inverter } from "@/app/inteface/solar";
+import {
+  imagesArray,
+  imagesIN,
+  imagesMiter,
+  imagesOut,
+  imagesSolarE,
+  Inverter,
+} from "@/app/inteface/solar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +38,7 @@ const SolarCus = ({ listGetID }: any) => {
     <>
       <div className="flex items-center gap-4 p-2">
         <Button variant="outline" size="icon" className="h-7 w-7">
-          <ChevronLeft className="h-4 w-4"  onClick={() => router.back()} />
+          <ChevronLeft className="h-4 w-4" onClick={() => router.back()} />
           <span className="sr-only">Back</span>
         </Button>
         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
@@ -42,25 +49,25 @@ const SolarCus = ({ listGetID }: any) => {
         </Badge>
 
         <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            type="button"
-                            className="uppercase"
-                            onClick={() => router.back()}
-                          >
-                              pdf
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            type="button"
-                            className="uppercase"
-                            onClick={() => router.back()}
-                          >
-                            edit
-                          </Button>
-                        </div>
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            className="uppercase"
+            onClick={() => router.back()}
+          >
+            pdf
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            className="uppercase"
+            onClick={() => router.back()}
+          >
+            edit
+          </Button>
+        </div>
       </div>
       <div className="grid gap-4 p-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8 overflow-auto ">
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -425,7 +432,8 @@ const SolarCus = ({ listGetID }: any) => {
                         accept="image/*"
                         className="sr-only"
                       />
-                      {listGetID?.imagesmiter && listGetID?.imagesmiter[index] ? (
+                      {listGetID?.imagesmiter &&
+                      listGetID?.imagesmiter[index] ? (
                         <div className="relative w-full h-48">
                           <img
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesmiter[index].path}`}
@@ -524,7 +532,7 @@ const SolarCus = ({ listGetID }: any) => {
                         accept="image/*"
                         className="sr-only"
                       />
-                      { listGetID?.imagesin && listGetID?.imagesin[index] ? (
+                      {listGetID?.imagesin && listGetID?.imagesin[index] ? (
                         <div className="relative w-full h-48">
                           <img
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesin[index].path}`}
@@ -551,14 +559,11 @@ const SolarCus = ({ listGetID }: any) => {
           </Card>
 
           <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>Solar Edge</CardTitle>
-          <CardDescription>
-            {" "}
-            DESIGNER REPORT
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+            <CardHeader>
+              <CardTitle>Solar Edge</CardTitle>
+              <CardDescription> DESIGNER REPORT</CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="grid gap-6 sm:grid-cols-2">
                 {imagesSolarE.map((image, index) => (
                   <div key={index} className="space-y-2">
@@ -575,7 +580,8 @@ const SolarCus = ({ listGetID }: any) => {
                         accept="image/*"
                         className="sr-only"
                       />
-                      {listGetID?.imagessolar && listGetID?.imagessolar[index] ? (
+                      {listGetID?.imagessolar &&
+                      listGetID?.imagessolar[index] ? (
                         <div className="relative w-full h-48">
                           <img
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagessolar[index].path}`}
@@ -601,16 +607,15 @@ const SolarCus = ({ listGetID }: any) => {
             </CardContent>
           </Card>
 
-
           <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>Installation model Inverter Room</CardTitle>
-          <CardDescription>
-            {" "}
-            Installation model Inverter Room
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+            <CardHeader>
+              <CardTitle>Installation model Inverter Room</CardTitle>
+              <CardDescription>
+                {" "}
+                Installation model Inverter Room
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="grid gap-6 sm:grid-cols-2">
                 {Inverter.map((image, index) => (
                   <div key={index} className="space-y-2">

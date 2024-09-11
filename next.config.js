@@ -1,6 +1,6 @@
 // next.config.js
 module.exports = {
-  // basePath: "/evp",
+  basePath: "/evp",
   images: {
     remotePatterns: [
       {

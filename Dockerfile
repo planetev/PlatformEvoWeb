@@ -27,4 +27,4 @@ COPY --from=builder /app/package.json ./package.json
 
 EXPOSE 5173
 
-CMD ["yarn", "start"]
+# CMD ["yarn", "start"]

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    image: platfromev-web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: platfromev-web
+    ports:
+      - "5173:5173"
+    environment:
+      NODE_ENV: production
+
+    command: ["yarn", "start"]

@@ -61,9 +61,9 @@ const Listsurvey = () => {
       }
     },
   });
-  useEffect(() => {
-    refetch();
-  }, [search]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [search]);
 
   console.log("listData", listData);
 

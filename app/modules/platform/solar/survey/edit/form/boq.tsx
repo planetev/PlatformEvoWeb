@@ -24,6 +24,25 @@ const Boq = ({
   removeRow,
 }: any) => {
   console.log('values', values)
+
+  const addRowsEdit = () => {
+    setFieldValue("boq", [
+      ...values.boq,
+      {
+        no: "",
+        description: "",
+        brand: "",
+        model: "",
+        qty: "",
+        unit: "",
+      },
+    ]);
+  }
+  const removeRowEdit = (index: any) => {
+    const list = [...values.boq];
+    list.splice(index, 1);
+    setFieldValue("boq", list);
+  }
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-1">
@@ -221,7 +240,7 @@ const Boq = ({
                   {/* <Pencil className="h-4 w-4 cursor-pointer" /> */}
                   <Trash2
                     className="h-4 w-4 cursor-pointer"
-                    onClick={() => removeRow(index)}
+                    onClick={() => removeRowEdit(index)}
                   />
                 </div>
               </div>
@@ -229,9 +248,9 @@ const Boq = ({
           </div>
         </CardContent>
         <CardFooter className="justify-center border-t p-4">
-          <Button type="button" size="sm" variant="ghost" className="gap-1" onClick={addRow}>
+          <Button type="button" size="sm" variant="ghost" className="gap-1" onClick={addRowsEdit}>
             <PlusCircle className="h-3.5 w-3.5" />
-            Add Rows
+            เพิ่มรายการ
           </Button>
         </CardFooter>
       </Card>

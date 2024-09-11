@@ -30,10 +30,10 @@ export default function NotFound() {
          </div>
        </div>
 
-       <h2 className="text-4xl font-bold mb-4 text-slate-700">Oops! You've Gone Off the Grid</h2>
+       <h2 className="text-4xl font-bold mb-4 text-slate-700">Oops! Yourve Gone Off the Grid</h2>
        <p className="text-xl mb-8 text-slate-600 max-w-2xl mx-auto">
          It seems your energy-efficient journey has taken an unexpected detour.
-         Let's get you back on track to a brighter, cleaner future.
+         Lets get you back on track to a brighter, cleaner future.
        </p>
 
        <form onSubmit={handleSearch} className="mb-12">

@@ -20,7 +20,13 @@ import Link from "next/link";
 
 import React from "react";
 import { addDays, format } from "date-fns";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { empoyee_survey } from "@/app/inteface/charger";
 const Woi = ({
   date,
@@ -32,15 +38,16 @@ const Woi = ({
   values,
   setFieldValue,
   handleChange,
+  touched,
+  errors,
 }: any) => {
-
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
         <CardHeader>
           <CardTitle>Work order information</CardTitle>
           <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+          ข้อมูลเกี่ยวกับใบสั่งงาน
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -98,7 +105,10 @@ const Woi = ({
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
-                  ชื่อลูกค้า
+
+                  {touched.customer_name && errors.customer_name ? (
+                    <div style={{ color: "red" }}>ชื่อลูกค้า:{errors.customer_name}</div>
+                  ) : "ชื่อลูกค้า"}
                 </Label>
                 <Input
                   id="name"
@@ -111,7 +121,9 @@ const Woi = ({
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="location" className="font-medium text-gray-500">
-                  เบอร์ติดต่อ
+                   {touched.tel && errors.tel ? (
+                    <div style={{ color: "red" }}>{errors.tel}</div>
+                  ) : "เบอร์ติดต่อ"}
                 </Label>
 
                 <Input
@@ -215,9 +227,7 @@ const Woi = ({
 
                 <Select
                   name="servey_name"
-                  onValueChange={(value) =>
-                    setFieldValue("servey_name", value)
-                  }
+                  onValueChange={(value) => setFieldValue("servey_name", value)}
                 >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="เลือกเจ้าหน้าที่สำรวจ" />

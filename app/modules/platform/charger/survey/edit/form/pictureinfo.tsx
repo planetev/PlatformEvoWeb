@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,9 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, X, ZoomIn } from "lucide-react";
 import { imageChager } from "@/app/inteface/charger";
 import {
   Tooltip,
@@ -17,10 +18,94 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
-const Pictureinfo = () => {
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+const Pictureinfo = ({
+  values,
+  setFieldValue,
+  handleChange,
+  touched,
+  errors,
+}: any) => {
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [previewImages, setPreviewImages] = useState<string[]>(
+    new Array(imageChager.length).fill("")
+  );
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return text.substr(0, maxLength) + "...";
+  };
+  const resizeImage = (
+    file: File,
+    maxWidth: number,
+    maxHeight: number
+  ): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new (window as any).Image() as HTMLImageElement;
+        img.src = e.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          let width = img.width;
+          let height = img.height;
+
+          // Calculate new dimensions while maintaining aspect ratio
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height *= maxWidth / width));
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width *= maxHeight / height));
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Convert canvas to base64 string
+          const dataUrl = canvas.toDataURL(file.type);
+          resolve(dataUrl);
+        };
+        img.onerror = (err: any) => reject(err);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const resizedBase64String = await resizeImage(file, 800, 800);
+
+      const newPreviewImages = [...previewImages];
+      newPreviewImages[index] = resizedBase64String;
+
+      setPreviewImages(newPreviewImages);
+
+      setFieldValue("image_mou", newPreviewImages);
+    }
+  };
+  const handleRemoveImage = (index: number) => {
+    const newPreviewImages = [...previewImages];
+    newPreviewImages[index] = "";
+    setPreviewImages(newPreviewImages);
+    const fileInput = document.getElementById(
+      `picture-${index}`
+    ) as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
   };
   return (
     <>
@@ -48,18 +133,71 @@ const Pictureinfo = () => {
                       id={`picture-${i.id}`}
                       type="file"
                       accept="image/*"
-                      // onChange={(e) => handleImageChange(e, index)}
+                      onChange={(e) => handleImageChange(e, x)}
                       className="sr-only"
                     />
+                  {values?.image_mou?.[x] ? (
+                    <div className="relative w-full h-48">
+                      <Image
+                        src={
+                          values?.image_mou?.[x]?.path
+                            ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[x].path}`
+                            : values?.image_mou?.[x]
+                        }
+                        alt={`Preview ${i.id}`}
+                        className="w-full  object-cover h-full rounded-md"
+                        width={800}
+                        height={800}
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="icon"
+                        className="absolute top-2 right-2"
+                        onClick={() => handleRemoveImage(x)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="icon"
+                            className="absolute bottom-2 right-2"
+                            onClick={() =>
+                              setSelectedImage(previewImages[x])
+                            }
+                          >
+                            <ZoomIn className="h-4 w-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-3xl">
+                          <Image
+                            src={
+                              values?.image_mou?.[x]?.path
+                                ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[x].path}`
+                                : values?.image_mou?.[x]
+                            }
+                            alt="Full size preview"
+                            className="w-full h-auto object-contain"
+                            width={800}
+                            height={800}
+                          />
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  ) : (
                     <label
-                      htmlFor={`picture-${i.id}`}
+                      htmlFor={`picture-${x}`}
                       className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
                     >
                       <ImageIcon className="h-10 w-10 text-gray-400" />
                       <span className="mt-2 text-sm text-gray-500">
-                        คลิกเพื่อเลือกรูปภาพ
+                        ไม่มีรูปภาพ
                       </span>
                     </label>
+                  )}
                   </div>
                 </div>
               ))}

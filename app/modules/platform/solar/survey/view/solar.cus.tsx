@@ -16,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -384,10 +385,12 @@ const SolarCus = ({ listGetID }: any) => {
                       /> */}
                       {listGetID?.imagehome && listGetID?.imagehome[index] ? (
                         <div className="relative w-full h-48">
-                          <img
+                          <Image
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagehome[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (
@@ -426,19 +429,21 @@ const SolarCus = ({ listGetID }: any) => {
                       {image.name}
                     </Label>
                     <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <Input
+                      {/* <Input
                         id={`picture-house-${index}`}
                         type="file"
                         accept="image/*"
                         className="sr-only"
-                      />
+                      /> */}
                       {listGetID?.imagesmiter &&
                       listGetID?.imagesmiter[index] ? (
                         <div className="relative w-full h-48">
-                          <img
+                          <Image
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesmiter[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (
@@ -475,18 +480,20 @@ const SolarCus = ({ listGetID }: any) => {
                       {image.name}
                     </Label>
                     <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <Input
+                      {/* <Input
                         id={`picture-house-${index}`}
                         type="file"
                         accept="image/*"
                         className="sr-only"
-                      />
+                      /> */}
                       {listGetID?.imagesout && listGetID?.imagesout[index] ? (
                         <div className="relative w-full h-48">
-                          <img
+                          <Image
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesout[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (
@@ -526,18 +533,20 @@ const SolarCus = ({ listGetID }: any) => {
                       {image.name}
                     </Label>
                     <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <Input
+                      {/* <Input
                         id={`picture-house-${index}`}
                         type="file"
                         accept="image/*"
                         className="sr-only"
-                      />
+                      /> */}
                       {listGetID?.imagesin && listGetID?.imagesin[index] ? (
                         <div className="relative w-full h-48">
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesin[index].path}`}
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesout[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (
@@ -574,19 +583,21 @@ const SolarCus = ({ listGetID }: any) => {
                       {image.name}
                     </Label>
                     <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <Input
+                      {/* <Input
                         id={`picture-house-${index}`}
                         type="file"
                         accept="image/*"
                         className="sr-only"
-                      />
+                      /> */}
                       {listGetID?.imagessolar &&
                       listGetID?.imagessolar[index] ? (
                         <div className="relative w-full h-48">
-                          <img
+                          <Image
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagessolar[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (
@@ -626,18 +637,20 @@ const SolarCus = ({ listGetID }: any) => {
                       {image.name}
                     </Label>
                     <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <Input
+                      {/* <Input
                         id={`picture-house-${index}`}
                         type="file"
                         accept="image/*"
                         className="sr-only"
-                      />
+                      /> */}
                       {listGetID?.imagesins && listGetID?.imagesins[index] ? (
                         <div className="relative w-full h-48">
-                          <img
+                        <Image
                             src={`${process.env.NEXT_PUBLIC_IMG}${listGetID?.imagesins[index].path}`}
                             alt={`Preview ${image.id}`}
-                            className="w-full h-full object-cover rounded-md"
+                            className="w-full  object-cover h-full rounded-md"
+                            width={800}
+                            height={800}
                           />
                         </div>
                       ) : (

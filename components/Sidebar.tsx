@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import {
   AudioLines,
@@ -55,6 +55,7 @@ import { VscAccount } from "react-icons/vsc";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TbAuth2Fa } from "react-icons/tb";
+import { useAuth } from "@/app/context/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,11 +66,11 @@ import Link from "next/link";
 import { SiPostman } from "react-icons/si";
 
 const Sidebar = () => {
-  const pathname = usePathname()
+  const { token, session } = useAuth();
+  const pathname = usePathname();
   const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
     {}
   );
-
 
   const handleSubMenuToggle = (menuTitle: string) => {
     setOpenSubMenus((prevState) => ({
@@ -117,24 +118,24 @@ const Sidebar = () => {
     {
       label: "Users",
       icon: <UserRoundCog className="size-5" />,
-      path: "/admin/users",
+      path: "/platform/admin/users",
     },
-    {
-      label: "Configuration",
-      icon: <Bolt className="size-5" />,
-      path: "/admin/configuration",
-    },
-    { label: "API", icon: <Code2 className="size-5" />, path: "/admin/api" },
-    {
-      label: "Key Register",
-      icon: <KeySquare className="size-5" />,
-      path: "/admin/key-register",
-    },
-    {
-      label: "Cron Script",
-      icon: <FileTerminal className="size-5" />,
-      path: "/admin/cron-script",
-    },
+    // {
+    //   label: "Configuration",
+    //   icon: <Bolt className="size-5" />,
+    //   path: "/admin/configuration",
+    // },
+    // { label: "API", icon: <Code2 className="size-5" />, path: "/admin/api" },
+    // {
+    //   label: "Key Register",
+    //   icon: <KeySquare className="size-5" />,
+    //   path: "/admin/key-register",
+    // },
+    // {
+    //   label: "Cron Script",
+    //   icon: <FileTerminal className="size-5" />,
+    //   path: "/admin/cron-script",
+    // },
   ];
 
   const authMenuItems: any[] = [
@@ -177,10 +178,9 @@ const Sidebar = () => {
         <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
           <div className="border-b p-2">
             <Button variant="outline" size="icon" aria-label="Home">
-
-              <h2
-               className="text-md font-extrabold  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 text-emerald-500">
-                EV</h2>
+              <h2 className="text-md font-extrabold  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 text-emerald-500">
+                EV
+              </h2>
               {/* <GiOffshorePlatform className="size-5 fill-foreground  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 " /> */}
             </Button>
           </div>
@@ -192,7 +192,9 @@ const Sidebar = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className={`rounded-lg ${pathname === item?.path ? "bg-gray-200" : ""}`}
+                      className={`rounded-lg ${
+                        pathname === item?.path ? "bg-gray-200" : ""
+                      }`}
                       aria-label={item?.aria}
                     >
                       {item?.icon}
@@ -206,28 +208,33 @@ const Sidebar = () => {
             ))}
           </nav>
           <Separator />
-
-          {/* <nav className="grid gap-1 p-2">
-            {adminMenuItems.map((item, index) => (
-              <Tooltip key={index}>
-                <TooltipTrigger asChild>
-                  <Link href={item?.path}>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className={`rounded-lg ${pathname === item?.path ? "bg-gray-200" : ""}`}
-                      aria-label={item?.label}
-                    >
-                      {item?.icon}
-                    </Button>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent side="right" sideOffset={5}>
-                  {item?.label}
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </nav> */}
+          {token && session && session?.user?.role === "ADMIN" && (
+            <>
+              <nav className="grid gap-1 p-2">
+                {adminMenuItems.map((item, index) => (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <Link href={item?.path}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={`rounded-lg ${
+                            pathname === item?.path ? "bg-gray-200" : ""
+                          }`}
+                          aria-label={item?.label}
+                        >
+                          {item?.icon}
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" sideOffset={5}>
+                      {item?.label}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </nav>
+            </>
+          )}
 
           {/* <Separator />
           <nav className="grid gap-1 p-2">
@@ -262,7 +269,9 @@ const Sidebar = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className={`rounded-lg mt-auto ${pathname === item?.path ? "bg-gray-200" : ""}`}
+                      className={`rounded-lg mt-auto ${
+                        pathname === item?.path ? "bg-gray-200" : ""
+                      }`}
                       aria-label={item.label}
                     >
                       {item.icon}

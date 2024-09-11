@@ -187,7 +187,7 @@ const Boq = ({
         <CardFooter className="justify-center border-t p-4">
           <Button type="button" size="sm" variant="ghost" className="gap-1" onClick={addRow}>
             <PlusCircle className="h-3.5 w-3.5" />
-            Add Rows
+            เพื่มรายการ
           </Button>
         </CardFooter>
       </Card>

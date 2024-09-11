@@ -29,7 +29,15 @@ import { Calendar } from "@/components/ui/calendar";
 import { addDays, format } from "date-fns";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
-const Surveyinfo = ({ date, setDate }: any) => {
+const Surveyinfo = ({
+  date,
+  setDate,
+  values,
+  setFieldValue,
+  handleChange,
+  touched,
+  errors,
+}: any) => {
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
@@ -44,14 +52,22 @@ const Surveyinfo = ({ date, setDate }: any) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
-                  ชื่อโครงการ (ชื่อภาษาอังกฤษ)
+                  {touched.pgen && errors.pgen ? (
+                    <div style={{ color: "red" }}>
+                      ชื่อโครงการ (ชื่อภาษาอังกฤษ):{errors.pgen}
+                    </div>
+                  ) : (
+                    "ชื่อโครงการ (ชื่อภาษาอังกฤษ)"
+                  )}
                 </Label>
                 <Input
                   id="name"
                   type="text"
                   className="w-full"
-                  name="wno"
+                  name="pgen"
+                  value={values.pgen}
                   placeholder=""
+                  onChange={handleChange}
                 />
               </div>
 
@@ -59,7 +75,14 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ชื่อโครงการ (ชื่อภาษาไทย)
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="pjth"
+                  value={values.pjth}
+                  onChange={handleChange}
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
@@ -104,7 +127,9 @@ const Surveyinfo = ({ date, setDate }: any) => {
                     id="location"
                     type="text"
                     className="w-full h-10 pr-20" // Add padding to the right to avoid text overlapping the button
-                    name="longlat"
+                    name="latlong"
+                    value={values.latlong}
+                    onChange={handleChange}
                     // onChange={handleChange}
                     // value={values.longlat}
                   />
@@ -127,28 +152,56 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ชื่อ - นามสกุล (เจ้าหน้าที่โครงการ)
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="name_po"
+                  value={values.name_po}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   เบอร์ติดต่อ (เจ้าหน้าที่โครงการ)
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="tel_po"
+                  value={values.tel_po}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   LineID (เจ้าหน้าที่โครงการ)
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="line_po"
+                  value={values.line_po}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   e-mail (เจ้าหน้าที่โครงการ)
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="email_po"
+                  value={values.email_po}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
@@ -156,10 +209,10 @@ const Surveyinfo = ({ date, setDate }: any) => {
                   เจ้าหน้าที่สำรวจ
                 </Label>
                 <Select
-                  name="status"
-                  // onValueChange={(value) =>
-                  //   setFieldValue("status", value)
-                  // }
+                  name="staff_survey"
+                  onValueChange={(value) =>
+                    setFieldValue("staff_survey", value)
+                  }
                 >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="เลือกเจ้าหน้าที่สำรวจ" />
@@ -179,14 +232,24 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   เบอร์เจ้าหน้าที่สำรวจ
                 </Label>
-                <Input id="name" type="text" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="text"
+                  className="w-full"
+                  name="tel_survey"
+                  value={values.tel_survey}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ประเภทของระบบไฟฟ้า ที่สามารถใช้งานได้
                 </Label>
-                <Select>
+                <Select
+                  name="type_ele"
+                  onValueChange={(value) => setFieldValue("type_ele", value)}
+                >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="ประเภทของระบบไฟฟ้า" />
                   </SelectTrigger>
@@ -201,7 +264,10 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   Main ควบคุม
                 </Label>
-                <Select>
+                <Select
+                  name="main_ele"
+                  onValueChange={(value) => setFieldValue("main_ele", value)}
+                >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="เลือก Main ควบคุม" />
                   </SelectTrigger>
@@ -216,13 +282,16 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   การยึดเครื่องประจุไฟฟ้า (รูปแบบการติดตั้ง)
                 </Label>
-                <Select>
+                <Select
+                  name="install_ele"
+                  onValueChange={(value) => setFieldValue("install_ele", value)}
+                >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="เลือกรูปแบบการติดตั้ง" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="3 phase">ยึดผนัง</SelectItem>
-                    <SelectItem value="1 phase">ตั้งพื้นพร้อมขา</SelectItem>
+                    <SelectItem value="ยึดผนัง">ยึดผนัง</SelectItem>
+                    <SelectItem value="ตั้งพื้นพร้อมขา">ตั้งพื้นพร้อมขา</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -231,13 +300,24 @@ const Surveyinfo = ({ date, setDate }: any) => {
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   งานที่จอดรถยนต์ไฟฟ้า
                 </Label>
-                <Input id="name" type="number" className="w-full" name="wno" />
+                <Input
+                  id="name"
+                  type="number"
+                  className="w-full"
+                  name="parking_ele"
+                  value={values.parking_ele}
+                  onChange={handleChange}
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   หมายเหตุ
                 </Label>
-                <Textarea id="description" className="min-h-32" />
+                <Textarea
+                  id="description"
+                  className="min-h-32"
+                  onChange={(e) => setFieldValue("remark", e.target.value)}
+                />
               </div>
             </div>
           </div>

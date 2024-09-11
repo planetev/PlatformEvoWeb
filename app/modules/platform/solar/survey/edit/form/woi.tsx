@@ -20,6 +20,8 @@ import Link from "next/link";
 
 import React, { use, useEffect } from "react";
 import { addDays, format } from "date-fns";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { empoyee_survey } from "@/app/inteface/charger";
 const Woi = ({
   values,
   setFieldValue,
@@ -139,7 +141,7 @@ const Woi = ({
                       {date1 ? (
                         format(date1, "MM/dd/yyyy")
                       ) : (
-                        <span className="text-gray-300">{values?.date_Installation}</span>
+                        <span className="t">{values?.date_Installation}</span>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -171,7 +173,7 @@ const Woi = ({
                       {date2 ? (
                         format(date2, "MM/dd/yyyy")
                       ) : (
-                        <span className="text-gray-300">{values?.collection_date}</span>
+                        <span className="">{values?.collection_date}</span>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -209,15 +211,31 @@ const Woi = ({
                 <Label htmlFor="location" className="font-medium text-gray-500">
                   ผู้สำรวจ
                 </Label>
-
-                <Input
-                  id="name"
-                  type="text"
-                  className="w-full"
+                <Select
                   name="servey_name"
-                  onChange={handleChange}
                   value={values.servey_name}
-                />
+                  onValueChange={(value) => setFieldValue("servey_name", value)}
+                >
+                  <SelectTrigger id="servey_name" aria-label="Select servey_name">
+                    <SelectValue placeholder="เลือกผู้สำรวจ" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {empoyee_survey.map(
+                      (i, x: number) =>
+                        (!values.servey_name ||
+                          i.name !== values.servey_name ||
+                          x ===
+                          empoyee_survey.findIndex(
+                              (item) => item.name === values.servey_name
+                            )) && (
+                          <SelectItem key={x} value={i.name}>
+                            {i.name}
+                          </SelectItem>
+                        )
+                    )}
+                  </SelectContent>
+                </Select>
+
               </div>
             </div>
 

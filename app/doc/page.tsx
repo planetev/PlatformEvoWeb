@@ -289,7 +289,7 @@ const Page = () => {
       <div className="prose max-w-3xl">
         <h1 className="text-3xl font-bold text-primary">Acme UI Documentation</h1>
         <p className="text-muted-foreground">
-          Welcome to the Acme UI Documentation. Here you'll find detailed information and examples for all the UI components in our library.
+          Welcome to the Acme UI Documentation. Here your find detailed information and examples for all the UI components in our library.
         </p>
         <h2 className="text-2xl font-semibold">Buttons</h2>
         <p>

@@ -7,7 +7,7 @@ interface Base3 {
   token: any;
 }
 
-export const getSolarSurvey = async ({
+export const getChargerSurvey = async ({
   search,
   page,
   pageSize,
@@ -21,7 +21,7 @@ export const getSolarSurvey = async ({
     };
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "solar/survey",
+      process.env.NEXT_PUBLIC_API + "charger/survey",
       {
         params,
         headers: {
@@ -38,7 +38,7 @@ export const getSolarSurvey = async ({
 };
 
 
-export const getSolarSurveyById = async ({
+export const getChargerSurveyById = async ({
   id,
   token,
 }: any): Promise<any[]> => {
@@ -46,7 +46,7 @@ export const getSolarSurveyById = async ({
 
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "solar/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "charger/survey/" + id,
       {
 
         headers: {
@@ -62,14 +62,14 @@ export const getSolarSurveyById = async ({
   }
 };
 
-export const createSolarSurvey = async ({
+export const createChargerSurvey = async ({
   token,
   payload,
 }: any): Promise<any> => {
   try {
     console.log('payload', payload)
     const res = await axios.post(
-      process.env.NEXT_PUBLIC_API + "solar/survey",
+      process.env.NEXT_PUBLIC_API + "charger/survey",
       payload,
       {
         headers: {
@@ -85,10 +85,10 @@ export const createSolarSurvey = async ({
   }
 };
 
-export const updateSolarSurvey = async ({ id, token, payload }: any): Promise<any> => {
+export const updateChargerSurvey = async ({ id, token, payload }: any): Promise<any> => {
   try {
     const res = await axios.put(
-      process.env.NEXT_PUBLIC_API + "solar/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "charger/survey/" + id,
       payload,
       {
         headers: {

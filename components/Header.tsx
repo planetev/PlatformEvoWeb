@@ -89,10 +89,8 @@ import { useAuth } from "@/app/context/AuthContext";
 import { signOut } from "next-auth/react";
 const Header = () => {
   const { token, session } = useAuth();
-  console.log("session", session);
   const [isMuted, setIsMuted] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  console.log("isDrawerOpen", isDrawerOpen);
   const handleMute = () => {
     setIsMuted(!isMuted);
   };
@@ -536,7 +534,7 @@ const Header = () => {
           >
             <AiFillOpenAI className="mr-2 h-6 w-6" />
           </a> */}
-          <Badge variant="secondary" className="border-gray-600">
+          <Badge variant={`${session?.user?.role === 'ADMIN' ? 'destructive' : "secondary"}`} >
             {session?.user?.role}
           </Badge>
           <DropdownMenu>
@@ -571,21 +569,21 @@ const Header = () => {
                   <span>Profile</span>
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                {/* <DropdownMenuItem>
                   <CreditCard className="mr-2 h-4 w-4" />
                   <span>Billing</span>
                   <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                   <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                {/* <DropdownMenuItem>
                   <Keyboard className="mr-2 h-4 w-4" />
                   <span>Keyboard shortcuts</span>
                   <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuGroup>
 
 

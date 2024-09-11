@@ -1,12 +1,12 @@
 import { BoxIcon } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
     <div className="mx-auto max-w-md text-center">
-      <img
+      <Image
         src="https://ui.shadcn.com/placeholder.svg"
         width={200}
         height={200}

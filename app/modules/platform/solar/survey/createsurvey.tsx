@@ -60,7 +60,11 @@ const Createsurvey = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const validationSchema = Yup.object({
-    customer_name: Yup.string().required("customer_name is required"),
+    customer_name: Yup.string().required("กรุณากรอกชื่อลูกค้า"),
+    tel: Yup.string()
+    .matches(/^0/, "เบอร์โทรศัพท์ต้องขึ้นต้นด้วย 0")
+    .length(10, "เบอร์โทรศัพท์ต้องมี 10 ตัวอักษร")
+    .required("กรุณากรอกเบอร์โทรศัพท์"),
   });
 
 
@@ -192,6 +196,11 @@ const Createsurvey = () => {
     },
     onError: (err) => {
       console.log(err);
+      toast({
+        title: "Create Unsuccessful",
+        className: "bg-red-500 text-white font-semibold",
+        description: "ตรวจพบความผิดปกติ",
+      });
     },
   });
 
@@ -259,7 +268,9 @@ const Createsurvey = () => {
                   boq: rows,
                 };
                 console.log("payload", payload);
-                 createSolarSurveys.mutate({ token, payload });
+                createSolarSurveys.mutate({ token, payload });
+
+
 
 
               }}
@@ -301,7 +312,7 @@ const Createsurvey = () => {
                           >
                             cancel
                           </Button>
-                          <Button type="submit" size="sm">
+                          <Button type="submit" size="sm" disabled={!values.customer_name}>
                             Create Survey
                           </Button>
                         </div>
@@ -318,6 +329,8 @@ const Createsurvey = () => {
                             values={values}
                             setFieldValue={setFieldValue}
                             handleChange={handleChange}
+                            errors={errors}
+                            touched={touched}
                           />
                           <Sif
                             values={values}

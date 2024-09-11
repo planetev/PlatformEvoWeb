@@ -9,8 +9,8 @@ import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Woi from "./form/woi";
 import { useAuth } from "@/app/context/AuthContext";
-import { getSolarSurveyById } from "@/service/Solar/solarSurveyCallAPI";
-import { useQuery } from "@tanstack/react-query";
+import { getSolarSurveyById, updateSolarSurvey } from "@/service/Solar/solarSurveyCallAPI";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import Boq from "./form/boq";
@@ -39,12 +39,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { addDays, format } from "date-fns";
 import { StatusSolarSurvey } from "@/app/inteface/solar";
 import Size from "./form/size";
 import Elemore from "./form/elemore";
 import Lgn from "./form/lgn";
 import Miter from "./form/miter";
 import Sif from "./form/sif";
+import { toast } from "@/components/ui/use-toast";
 
 const Formedit = ({ id }: EditsurveyProps) => {
   const { token, session } = useAuth();
@@ -157,17 +159,59 @@ const Formedit = ({ id }: EditsurveyProps) => {
     mounting: listData?.mounting,
     boq: listData?.boq,
     imagehome: listData?.imagehome  ,
-    imagesmiter: [],
-    imagesout: [],
-    imagesin: [],
-    imagessolar: [],
-    imagesins: [],
+    imagesmiter: listData?.imagesmiter,
+    imagesout: listData?.imagesout,
+    imagesin: listData?.imagesin,
+    imagessolar: listData?.imagessolar,
+    imagesins: listData?.imagesins,
   };
   console.log("initialData", initialData);
 
   const validationSchema = Yup.object({
     customer_name: Yup.string().required("customer_name is required"),
   });
+
+  const navigateToSolarTab = (tabValue: string) => {
+    const searchParams = new URLSearchParams({ tab: "2" });
+    router.push(`/platform/solar?${searchParams.toString()}`);
+  };
+  const updateSolarSurveys = useMutation({
+    mutationFn: async ({ id,token, payload }: any) => {
+      return await updateSolarSurvey({ id,token, payload });
+    },
+    onSuccess: (res) => {
+      if (res) {
+        toast({
+          title: "แก้ไขข้อมูลสำเร็จ",
+          className: "bg-green-500 text-white font-semibold",
+          description: "ดำเนินการแก้ไขข้อมูลสำเร็จ",
+        });
+      // router.push("/platform/solar",);
+         navigateToSolarTab("2");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+      toast({
+        title: "แก้ไขข้อมูลไม่สำเร็จ",
+        className: "bg-red-500 text-white font-semibold",
+        description: "ตรวจพบความผิดปกติ",
+      });
+    },
+  });
+
+  const convertDate = (date: any) => {
+    if (!date) {
+      return ""; // รีเทิร์นค่าว่างถ้าไม่มีค่า
+    }
+
+    try {
+      return format(date, "yyyy-MM-dd"); // คอนเวิร์ตวันที่ถ้ามีค่า
+    } catch (error) {
+      console.error("Invalid date", error);
+      return ""; // รีเทิร์นค่าว่างถ้าคอนเวิร์ตไม่สำเร็จ
+    }
+  };
   return (
     <>
       <div className="w-full ">
@@ -177,43 +221,44 @@ const Formedit = ({ id }: EditsurveyProps) => {
             validationSchema={validationSchema}
             enableReinitialize={true}
             onSubmit={async (values) => {
+
               const payload = {
                 wno: values.wno,
                 status: values.status,
-                // datebook: convertDate(date) || "",
+                 datebook: convertDate(date) || values.datebook,
                 customer_name: values.customer_name,
                 tel: values.tel,
-                // date_Installation: convertDate(date1) || "",
-                // collection_date: convertDate(date2) || "",
-                production_targets: values.production_targets,
+                date_Installation: convertDate(date1) || values.date_Installation,
+                collection_date: convertDate(date2) || values.collection_date,
+                production_targets: values.production_targets || '',
                 servey_name: values.servey_name,
                 longlat: values.longlat,
                 location: values.location,
 
                 building_type: values.building_type,
                 material_type: values.material_type,
-                roof_condition: values.roof_condition,
-                slope: values.slope,
+                roof_condition: values.roof_condition || '',
+                slope: values.slope || '',
                 direction: values.direction,
-                size_roof: values.size_roof,
+                size_roof: values.size_roof || '',
                 frame_made: values.frame_made,
                 grounding: values.grounding,
                 internet: values.internet,
-                wifi: values.wifi,
+                wifi: values.wifi || '',
                 results: values.results,
                 remarks: values.remarks,
                 solar_type: values.solar_type,
-                p1: values.p1,
-                p2: values.p2,
-                p3: values.p3,
-                p4: values.p4,
-                pp1: values.pp1,
-                pp2: values.pp2,
+                p1: values.p1 || '',
+                p2: values.p2 || '',
+                p3: values.p3 || '',
+                p4: values.p4 || '',
+                pp1: values.pp1 || '',
+                pp2: values.pp2 || '',
                 ele: values.ele,
 
-                ln: values.ln,
-                lg: values.lg,
-                ng: values.ng,
+                ln: values.ln || '',
+                lg: values.lg || '',
+                ng: values.ng || '',
                 miter_size: values.miter_size,
                 miter_id: values.miter_id,
 
@@ -228,11 +273,12 @@ const Formedit = ({ id }: EditsurveyProps) => {
                 imagessolar: values.imagessolar || [],
                 imagesins: values.imagesins || [],
 
-                // boq: rows,
+                boq: values.boq,
               };
-              // createSolarSurveys.mutate({ token, payload });
+              console.log("payload-update", payload);
+              updateSolarSurveys.mutate({ id, token, payload });
 
-              console.log("payload", payload);
+
             }}
           >
             {({
@@ -247,6 +293,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
             }) => {
               return (
                 <>
+                  <form onSubmit={handleSubmit}>
                   <div className="flex items-center gap-4 p-2">
                     <Button variant="outline" size="icon" className="h-7 w-7">
                       <ChevronLeft className="h-4 w-4" />
@@ -374,6 +421,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
                       />
                     </div>
                   </div>
+                  </form>
                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogContent className="rounded-lg shadow-lg max-w-lg bg-white p-6">
                       <DialogHeader>

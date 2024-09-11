@@ -18,15 +18,31 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-const Crw = () => {
+const Crw = ({ values, setFieldValue, handleChange, touched, errors }: any) => {
   const items = ["ALL", "PVC", "EMT", "HDPE", "IMC"];
+  const [selectedItems, setSelectedItems] = useState([]);
+  const handleChangeAll = (newSelectedItems: any) => {
+    if (newSelectedItems.includes("ALL")) {
+      newSelectedItems = ["PVC", "EMT", "HDPE", "IMC"];
+      setSelectedItems(newSelectedItems);
+      setFieldValue("work_tor_ele", newSelectedItems);
+    }
+
+    setSelectedItems(newSelectedItems);
+    setFieldValue("work_tor_ele", newSelectedItems);
+  };
   const [work, setWork] = useState(0);
   const handleWork = (e: any) => {
     const { value } = e.target;
     const total = value - 40;
     setWork(total);
+    setFieldValue("work_ele", Number(value));
+    setFieldValue("work_free_ele", 40);
+    setFieldValue("work_true_ele", work);
   };
+  console.log('fffff', values.work_tor_ele)
   return (
+
     <>
       <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
         <CardHeader>
@@ -38,9 +54,9 @@ const Crw = () => {
             <ToggleGroup
               size="lg"
               type="multiple"
-              // value={selectedItems} // Bind selected items to the ToggleGroup
+              value={values.work_tor_ele} // Bind selected items to the ToggleGroup
               variant="outline"
-              // onValueChange={handleChange} // Handle the value change
+              onValueChange={handleChangeAll} // Handle the value change
             >
               {items.map((item) => (
                 <ToggleGroupItem key={item} value={item}>
@@ -77,7 +93,8 @@ const Crw = () => {
                   <Input
                     id="stock-1"
                     type="number"
-                    defaultValue="100"
+                    value={values.work_ele}
+                    name="work_ele"
                     onChange={handleWork}
                   />
                 </TableCell>
@@ -96,7 +113,7 @@ const Crw = () => {
                   <Label htmlFor="price-1" className="sr-only">
                     Price
                   </Label>
-                  <Input id="price-1" type="number" value={work} disabled />
+                  <Input id="price-1" type="number" value={values.work_ele - 40} disabled />
                 </TableCell>
               </TableRow>
             </TableBody>

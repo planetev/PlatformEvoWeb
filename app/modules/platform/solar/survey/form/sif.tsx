@@ -45,7 +45,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
         <CardHeader>
           <CardTitle>Survey information</CardTitle>
           <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+          ข้อมูลที่ได้รับจากการสำรวจ
           </CardDescription>
         </CardHeader>
         <CardContent>

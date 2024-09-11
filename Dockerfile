@@ -18,7 +18,7 @@ ENV NEXT_PUBLIC_IMG=http://137.59.112.61:3001/
 ENV NEXT_PUBLIC_API_PDF=http://localhost:4432/
 ENV NEXTAUTH_SECRET='$argon2id$v=19$m=16,t=2,p=1$WWNpcjZYZm11TVRtczdOMg$rGioT108CRn21BwwplPVZg'
 ENV JWT_SECRET='$argon2id$v=19$m=16,t=2,p=1$WWNpcjZYZm11TVRtczdOMg$rGioT108CRn21BwwplPVZg'
-ENV NEXTAUTH_URL=http://137.59.112.61/:5173
+ENV NEXTAUTH_URL=http://137.59.112.61:5173
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules

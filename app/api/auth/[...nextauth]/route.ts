@@ -69,6 +69,7 @@ const options: NextAuthOptions = {
     signIn: "/login",
     signOut: "/login",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 };
 

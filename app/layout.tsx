@@ -25,7 +25,7 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession();
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} basePath="/pnev/api/auth">
       <QueryProvider>
         <AuthProvider>
           <html lang="en">

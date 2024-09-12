@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "/evp",
+  basePath: "/pnev",
   images: {
     remotePatterns: [
       {

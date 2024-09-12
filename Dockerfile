@@ -1,30 +1,42 @@
-FROM node:22-alpine AS deps
+# Stage 1: Install dependencies
+FROM node:22 AS deps
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
 
-FROM node:22-alpine AS builder
+RUN npm install -g npm
+COPY package.json yarn.lock* ./
+RUN npm install
+
+# Stage 2: Build the app
+FROM node:22 AS builder
 WORKDIR /app
-COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN yarn build
+COPY . .
 
-FROM node:22-alpine AS runner
+RUN npm run build
+
+# Stage 3: Run the production
+FROM node:22 AS runner
 WORKDIR /app
 
-ENV NODE_ENV development
-ENV NEXT_PUBLIC_API=http://137.59.112.61:3001/api/v1/
-ENV NEXT_PUBLIC_IMG=http://137.59.112.61:3001/
-# ENV NEXT_PUBLIC_API_PDF='http://localhost:4432/'
-ENV NEXTAUTH_SECRET='$argon2id$v=19$m=16,t=2,p=1$WWNpcjZYZm11TVRtczdOMg$rGioT108CRn21BwwplPVZg'
-ENV JWT_SECRET='$argon2id$v=19$m=16,t=2,p=1$WWNpcjZYZm11TVRtczdOMg$rGioT108CRn21BwwplPVZg'
-ENV NEXTAUTH_URL=http://137.59.112.61:5173/pnev
+ENV NODE_ENV production
+ENV NEXT_SHARP_PATH /app/node_modules/sharp
 
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+ENV PORT 5173
+
+# copy assets and the generated standalone server
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 5173
+
+
+CMD ["node", "server.js"]
+
 
 # CMD ["yarn", "start"]

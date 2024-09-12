@@ -5,11 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - no-cache=1
     container_name: platfromev-web
     ports:
       - "5173:5173"
     environment:
       NODE_ENV: production
 
-
-    command: ["yarn", "start"]

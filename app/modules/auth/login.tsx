@@ -118,7 +118,7 @@ const LoginPage = () => {
               className="flex justify-center mb-6 md:mb-8"
             >
               <Image
-                src="/logo.png"
+                src="/pnev/logo.png"
                 alt="logo"
                 className="w-full  object-cover h-full rounded-md"
                 width={800}

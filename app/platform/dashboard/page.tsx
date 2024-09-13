@@ -3,18 +3,24 @@ import React, { useEffect } from "react";
 import { useAuth } from "@/app/context/AuthContext";
 import Dashboard from "../../modules/platform/dashboard/dashboard";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const Page = () => {
   const router = useRouter();
-  const { token, session, status } = useAuth();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
+    if (status === "loading") {
+      console.log('loading')
+      return; // รอให้ session โหลดก่อน
+    }
     if (status === "unauthenticated") {
-      router.push("/login");
+      router.push("/pnev/login");
     }
   }, [status, router]);
   return (
     <>
+    {status === "loading" && <div>Loading...</div>}
       <Dashboard />
     </>
   );

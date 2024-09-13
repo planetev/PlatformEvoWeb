@@ -21,7 +21,13 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data: session, status } = useSession();
+  // useEffect(() => {
+  //   if (session?.user?.accessToken) {
+  //     localStorage.setItem('token', session.user?.accessToken);
+  //   }
+  // }, [session]);
 
+  console.log('session-rrrr', session)
   const router = useRouter();
 
   // useEffect(() => {
@@ -29,9 +35,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   //     router.push("/login");
   //   }
   // }, [status, router]);
+  // const token:any = localStorage.getItem('token');
+
   const token = session?.user?.accessToken;
-
-
 
   return (
     <AuthContext.Provider value={{ token, status, session }}>

@@ -18,6 +18,7 @@ const Dashboard = () => {
   return (
     <>
       <Main>
+
       <Head ltext={"Dashboard"} />
       <div className="w-full">
       <Tabs defaultValue="charger" className="w-full">

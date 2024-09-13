@@ -535,7 +535,7 @@ const Header = () => {
             <AiFillOpenAI className="mr-2 h-6 w-6" />
           </a> */}
           <Badge variant={`${session?.user?.role === 'ADMIN' ? 'destructive' : "secondary"}`} >
-            {session?.user?.role}
+          {session?.user?.role ? session?.user?.role : "loading..."}
           </Badge>
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -557,7 +557,7 @@ const Header = () => {
                   <small className="text-xs flex items-center font-medium leading-none gap-2">
                     <span>สถานะ:</span>
                     <Badge variant="secondary" className="border-gray-600">
-                      {session?.user?.role}
+                      {session?.user?.role ? session?.user?.role : "loading..."}
                     </Badge>
                   </small>
                 </div>

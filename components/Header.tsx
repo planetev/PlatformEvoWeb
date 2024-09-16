@@ -87,17 +87,16 @@ import {
 import { ScrollArea } from "./ui/scroll-area";
 import { useAuth } from "@/app/context/AuthContext";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Header = () => {
-  const { token, session } = useAuth();
+  const { token, session, profildAuth } = useAuth();
+  const router = useRouter();
   const [isMuted, setIsMuted] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleMute = () => {
     setIsMuted(!isMuted);
   };
   const [searchQuery, setSearchQuery] = useState("");
-
-
-
 
   const [activeTab, setActiveTab] = useState("Terminal 1"); // Track the active tab
   const [tabs, setTabs] = useState(["Terminal 1"]);
@@ -128,7 +127,7 @@ const Header = () => {
     }
   };
 
-  const menuItems:any[] = [
+  const menuItems: any[] = [
     { name: "Home", icon: <HomeIcon /> },
     { name: "Settings", icon: <Settings2 /> },
     { name: "User", icon: <UserIcon /> },
@@ -140,6 +139,13 @@ const Header = () => {
   const filteredMenuItems = menuItems.filter((item: any) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleLogout = async () => {
+    const response = await fetch("/pnev/api/logout", { method: "POST" });
+    if (response.ok) {
+      await signOut({ callbackUrl: "/pnev/login" });
+    }
+  };
 
   return (
     <>
@@ -354,9 +360,7 @@ const Header = () => {
             </Dialog>
           </MenubarMenu>
         </Menubar>
-        <div className="flex items-center  space-x-1">
-
-        </div>
+        <div className="flex items-center  space-x-1"></div>
 
         {/* <Menubar>
           <div className="flex space-x-2">
@@ -534,8 +538,12 @@ const Header = () => {
           >
             <AiFillOpenAI className="mr-2 h-6 w-6" />
           </a> */}
-          <Badge variant={`${session?.user?.role === 'ADMIN' ? 'destructive' : "secondary"}`} >
-          {session?.user?.role ? session?.user?.role : "loading..."}
+          <Badge
+            variant={`${
+              profildAuth?.role === "ADMIN" ? "destructive" : "secondary"
+            }`}
+          >
+            {profildAuth?.role ? profildAuth?.role : "loading..."}
           </Badge>
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -552,12 +560,12 @@ const Header = () => {
               <DropdownMenuLabel>
                 <div className="flex flex-col items-start gap-1">
                   <h5 className="text-sm font-medium leading-tight">
-                    {session?.user?.username}
+                    {profildAuth?.role}
                   </h5>
                   <small className="text-xs flex items-center font-medium leading-none gap-2">
                     <span>สถานะ:</span>
                     <Badge variant="secondary" className="border-gray-600">
-                      {session?.user?.role ? session?.user?.role : "loading..."}
+                      {profildAuth?.role ? profildAuth?.role : "loading..."}
                     </Badge>
                   </small>
                 </div>
@@ -586,10 +594,9 @@ const Header = () => {
                 </DropdownMenuItem> */}
               </DropdownMenuGroup>
 
-
               {session?.user?.role === "admin" && (
                 <>
-                 <DropdownMenuSeparator />
+                  <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem>
                       <Users className="mr-2 h-4 w-4" />
@@ -601,7 +608,10 @@ const Header = () => {
                         <span>Invite users</span>
                       </DropdownMenuSubTrigger>
                       <DropdownMenuPortal>
-                        <DropdownMenuSubContent className="text-right" sideOffset={5}>
+                        <DropdownMenuSubContent
+                          className="text-right"
+                          sideOffset={5}
+                        >
                           <DropdownMenuItem>
                             <Mail className="mr-2 h-4 w-4" />
                             <span>Email</span>
@@ -631,7 +641,10 @@ const Header = () => {
                       <span>Git</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="text-right" sideOffset={5}>
+                      <DropdownMenuSubContent
+                        className="text-right"
+                        sideOffset={5}
+                      >
                         <DropdownMenuItem>
                           <Github className="mr-2 h-4 w-4" />
                           <span>Github</span>
@@ -659,7 +672,10 @@ const Header = () => {
                       <span>Auth</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="text-right" sideOffset={5}>
+                      <DropdownMenuSubContent
+                        className="text-right"
+                        sideOffset={5}
+                      >
                         <DropdownMenuItem>
                           <SiGoogleauthenticator className="mr-2 h-4 w-4" />
                           <span>Google auth</span>
@@ -687,7 +703,10 @@ const Header = () => {
                       <span>GrSystem</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="text-right" sideOffset={5}>
+                      <DropdownMenuSubContent
+                        className="text-right"
+                        sideOffset={5}
+                      >
                         <DropdownMenuItem>
                           <IoLogoBuffer className="mr-2 h-4 w-4" />
                           <span>Log System</span>
@@ -714,7 +733,10 @@ const Header = () => {
                       <span>API</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="text-right" sideOffset={5}>
+                      <DropdownMenuSubContent
+                        className="text-right"
+                        sideOffset={5}
+                      >
                         <DropdownMenuItem disabled>
                           <SiOpenapiinitiative className="mr-2 h-4 w-4" />
                           <span>open API</span>
@@ -738,7 +760,8 @@ const Header = () => {
 
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => signOut({ callbackUrl: "/pnev/login" })}
+                // onClick={() => signOut({ callbackUrl: "/pnev/login" })}
+                onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>

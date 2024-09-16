@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import axios from "axios";
+import { cookies } from "next/headers";
 
 const options: NextAuthOptions = {
   providers: [
@@ -31,11 +32,13 @@ const options: NextAuthOptions = {
           const data = res.data.data;
 
           if (data) {
+            cookies().set('access_token', data?.accessToken);
             return data;
           }
 
           return null;
         } catch (error) {
+          console.log('first', error)
           return null;
         }
       },
@@ -67,6 +70,7 @@ const options: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
   },
   pages: {
     signIn: "/login",
@@ -74,7 +78,8 @@ const options: NextAuthOptions = {
   },
   cookies: {
     sessionToken: {
-      name: `__Secure-next-auth.session-token`,
+      // name: `__Secure-next-auth.session-token`,
+      name: `next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",

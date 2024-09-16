@@ -3,6 +3,9 @@
 import { createContext, useContext, ReactNode, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "@/service/auth/authCallAPI";
+import { getCookie } from "cookies-next";
 
 interface resAuth {
   id: number;
@@ -15,32 +18,46 @@ interface AuthContextProps {
   token?: string;
   status: "loading" | "authenticated" | "unauthenticated";
   session: any;
+  profildAuth: any;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { data: session, status } = useSession();
-  // useEffect(() => {
-  //   if (session?.user?.accessToken) {
-  //     localStorage.setItem('token', session.user?.accessToken);
-  //   }
-  // }, [session]);
-
-  console.log('session-rrrr', session)
+export const AuthProvider =  ({ children }: { children: ReactNode }) => {
   const router = useRouter();
+  const token =  getCookie("access_token");
 
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.push("/login");
-  //   }
-  // }, [status, router]);
-  // const token:any = localStorage.getItem('token');
+  console.log('auth_token', token)
 
-  const token = session?.user?.accessToken;
+  const {
+    isPending,
+    error,
+    data: profildAuth,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["get-profile"],
+    queryFn: async () => {
+      try {
+        const res: any = await getProfile({ token });
+        console.log('auth-res', res)
+        return res?.user
+      } catch (err) {
+        throw err;
+      }
+    },
+  });
+
+  console.log('profildAuth', profildAuth)
+
+  const { data: session, status } = useSession();
+
+
+
+
 
   return (
-    <AuthContext.Provider value={{ token, status, session }}>
+    <AuthContext.Provider value={{ token, status, session, profildAuth }}>
       {children}
     </AuthContext.Provider>
   );

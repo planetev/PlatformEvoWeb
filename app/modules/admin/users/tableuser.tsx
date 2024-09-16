@@ -1,5 +1,5 @@
 "use client";
-import { Role, StatusChargerSurveys, UserActive } from "@/app/inteface/charger";
+import { Role, StatusChargerSurveys } from "@/app/inteface/charger";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

@@ -63,10 +63,10 @@ export enum Role {
   Admin = "ADMIN",
   User = "USER",
 }
-export enum UserActive {
-  T = true,
-  F = false,
-}
+// export enum UserActive {
+//   T = true,
+//   F = false,
+// }
 
 export const RoleUser = [
   {

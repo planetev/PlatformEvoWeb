@@ -89,7 +89,7 @@ const TableListServey = ({ data }: any) => {
               Edit
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={() => console.log("MOU action")}>
+            <DropdownMenuItem onClick={() =>  window.open(`http://localhost:5282/api/Values/${item?.id}` , '_blank')}>
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center">
                   <FileText className="mr-2 h-4 w-4" />

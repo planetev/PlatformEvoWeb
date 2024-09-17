@@ -66,7 +66,7 @@ import Link from "next/link";
 import { SiPostman } from "react-icons/si";
 
 const Sidebar = () => {
-  const { token, session } = useAuth();
+  const { token, session, profildAuth } = useAuth();
   const pathname = usePathname();
   const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
     {}
@@ -208,7 +208,7 @@ const Sidebar = () => {
             ))}
           </nav>
           <Separator />
-          {token && session && session?.user?.role === "ADMIN" && (
+          {token && profildAuth && profildAuth?.role === "ADMIN" && (
             <>
               <nav className="grid gap-1 p-2">
                 {adminMenuItems.map((item, index) => (

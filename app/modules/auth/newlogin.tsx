@@ -333,7 +333,7 @@ const Newlogin = () => {
                         </div>
                       </motion.div>
                       <motion.div variants={itemVariants}>
-                        <Button
+                        <motion.button
                           className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 rounded-xl py-4 text-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                           type="submit"
                           disabled={isLoading}
@@ -348,7 +348,7 @@ const Newlogin = () => {
                           ) : (
                             "เข้าสู่ระบบ"
                           )}
-                        </Button>
+                        </motion.button>
                       </motion.div>
                     </motion.form>
                   </>

@@ -16,7 +16,10 @@ import Crw from "./form/crw";
 import { DateRange } from "react-day-picker";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/app/context/AuthContext";
-import { getChargerSurveyById, updateChargerSurvey } from "@/service/charger/chargerSurveyCallAPI";
+import {
+  getChargerSurveyById,
+  updateChargerSurvey,
+} from "@/service/charger/chargerSurveyCallAPI";
 import { addDays, format } from "date-fns";
 import Installation from "./form/Installation";
 import { toast } from "@/components/ui/use-toast";
@@ -59,8 +62,8 @@ const Edit = ({ id }: any) => {
   };
 
   const updateChargerSurveys = useMutation({
-    mutationFn: async ({ id,token, payload }: any) => {
-      return await updateChargerSurvey({ id,token, payload });
+    mutationFn: async ({ id, token, payload }: any) => {
+      return await updateChargerSurvey({ id, token, payload });
     },
     onSuccess: (res) => {
       if (res) {
@@ -69,8 +72,8 @@ const Edit = ({ id }: any) => {
           className: "bg-green-500 text-white font-semibold",
           description: "ดำเนินการแก้ไขข้อมูลสำเร็จ",
         });
-      // router.push("/platform/solar",);
-         navigateToSolarTab("2");
+        // router.push("/platform/solar",);
+        navigateToSolarTab("2");
       }
     },
     onError: (err) => {
@@ -152,7 +155,7 @@ const Edit = ({ id }: any) => {
                   status: values.status,
                   pjth: values.pjth,
                   pgen: values.pgen,
-                  day: convertDate(date),
+                  day: convertDate(date) || values.day,
                   latlong: values.latlong,
                   name_po: values.name_po,
                   tel_po: values.tel_po,
@@ -180,11 +183,13 @@ const Edit = ({ id }: any) => {
                   mou_taxt_no: values.mou_taxt_no,
                   mou_rate: values.mou_rate,
                   mou_date:
-                    convertDate(date2?.from) + " - " + convertDate(date2?.to),
+                  (date2?.from && date2?.to)
+                    ? convertDate(date2.from) + " - " + convertDate(date2.to)
+                    : values.mou_date,
                   image_mou: values.image_mou || [],
                 };
-                console.log("payload-charger", payload);
-                updateChargerSurveys.mutate({ id,token, payload });
+                // console.log("payload-charger", payload);
+                updateChargerSurveys.mutate({ id, token, payload });
               }}
             >
               {({
@@ -250,12 +255,13 @@ const Edit = ({ id }: any) => {
                             touched={touched}
                             errors={errors}
                           />
-                          <Pictureinfo   setFieldValue={setFieldValue}
+                          <Pictureinfo
+                            setFieldValue={setFieldValue}
                             values={values}
                             handleChange={handleChange}
                             touched={touched}
-                            errors={errors} />
-
+                            errors={errors}
+                          />
                         </div>
                         <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                           <Statusinfo
@@ -275,10 +281,14 @@ const Edit = ({ id }: any) => {
                         </div>
                       </div>
 
-
-
-                      <Installation dateIns={dateIns} setDateIns={setDateIns}  dateSim1={dateSim1} setDateSim1={setDateSim1} dateSim2={dateSim2} setDateSim2={setDateSim2} />
-
+                      <Installation
+                        dateIns={dateIns}
+                        setDateIns={setDateIns}
+                        dateSim1={dateSim1}
+                        setDateSim1={setDateSim1}
+                        dateSim2={dateSim2}
+                        setDateSim2={setDateSim2}
+                      />
                     </form>
                   </>
                 );

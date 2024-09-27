@@ -31,7 +31,7 @@ import { ImageIcon, X, ZoomIn } from "lucide-react";
 import Image from "next/image";
 
 const Images = ({ values, setFieldValue, handleChange }: any) => {
-  console.log("values-iamge", values);
+
 
   const [previewImages, setPreviewImages] = useState<string[]>(
     new Array(imagesArray.length).fill("")

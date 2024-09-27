@@ -223,7 +223,7 @@ const Newlogin = () => {
               initialValues={initialData}
               validationSchema={validationSchema}
               onSubmit={async (values, { setSubmitting }) => {
-                console.log("values", values);
+
                 const payload = {
                   email: values.email,
                   password: values.password,
@@ -320,8 +320,9 @@ const Newlogin = () => {
                           <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-200 h-5 w-5" />
                           <Button
                             type="button"
-                            variant="ghost"
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-200 hover:text-white"
+                            variant={"ghost"}
+                            size={"sm"}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-200 hover:text-white hover:bg-no"
                             onClick={() => setShowPassword(!showPassword)}
                           >
                             {showPassword ? (
@@ -333,12 +334,12 @@ const Newlogin = () => {
                         </div>
                       </motion.div>
                       <motion.div variants={itemVariants}>
-                        <motion.button
+                        <Button
                           className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 rounded-xl py-4 text-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                           type="submit"
                           disabled={isLoading}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          // whileHover={{ scale: 1.05 }}
+                          // whileTap={{ scale: 0.95 }}
                         >
                           {isLoading ? (
                             <>
@@ -348,7 +349,7 @@ const Newlogin = () => {
                           ) : (
                             "เข้าสู่ระบบ"
                           )}
-                        </motion.button>
+                        </Button>
                       </motion.div>
                     </motion.form>
                   </>

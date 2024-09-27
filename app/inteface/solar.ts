@@ -192,7 +192,7 @@ export const cableSystem: SolarBuilding[] = [
 export const internetProviders: SolarBuilding[] = [
   {
     id: 1,
-    name: "3 BB",
+    name: "3BB",
   },
   {
     id: 2,
@@ -242,7 +242,7 @@ export const surveyResults = [
 export const additionalElectricalInfo = [
   {
     id: 1,
-    name: "มีเบรกเกอร์รีไฟร์เวอร์",
+    name: "เบรคเกอร์มีไฟรั่ว",
   },
   {
     id: 2,
@@ -311,10 +311,15 @@ export const imagesArray = [
 ];
 
 export const imagesMiter = [
-  { id: 0, name: "รูปเลข miter" },
+  { id: 0, name: "รูปเลข miter รูปที่ 1" },
+  { id: 1, name: "รูปเลข miter รูปที่ 2" },
   {
-    id: 1,
-    name: " รูปเครื่องวัดขนาด miter",
+    id: 3,
+    name: " รูปเครื่องวัดขนาด miter รูปที่ 1",
+  },
+  {
+    id: 4,
+    name: " รูปเครื่องวัดขนาด miter รูปที่ 2",
   },
 ];
 
@@ -334,33 +339,45 @@ export const imagesOut = [
   },
   {
     id: 4,
-    name: "เส้นทางลําเลียงแผงโซลาร์เซลล์ขึนตําแหน่งติดตั้ง รูปที่ 1",
+    name: "แนวสาย DC cable รูปที่ 3",
   },
   {
     id: 5,
+    name: "แนวสาย DC cable รูปที่ 4",
+  },
+  {
+    id: 6,
+    name: "เส้นทางลําเลียงแผงโซลาร์เซลล์ขึนตําแหน่งติดตั้ง รูปที่ 1",
+  },
+  {
+    id: 7,
     name: "เส้นทางลําเลียงแผงโซลาร์เซลล์ขึนตําแหน่งติดตั้ง รูปที่ 2",
   },
   {
-    id: 12,
+    id: 8,
     name: "จุดติดตังระบบ Solar system รูปที่ 1",
   },
 
   {
-    id: 6,
+    id: 9,
     name: "จุดติดตังระบบ Solar system รูปที่ 2",
   },
 
   {
-    id: 7,
-    name: "รูปที่ 3.8 จุดติดตังระบบ Solar system 2",
+    id: 10,
+    name: "รูปที่ 3.8 จุดติดตังระบบ Solar system 3",
+  },
+  {
+    id: 11,
+    name: "รูปที่ 3.8 จุดติดตังระบบ Solar system 4",
   },
 
   {
-    id: 8,
+    id: 12,
     name: "การเดินสาย Ground รูปที่ 1",
   },
   {
-    id: 9,
+    id: 13,
     name: "การเดินสาย Ground รูปที่ 2",
   },
 ];

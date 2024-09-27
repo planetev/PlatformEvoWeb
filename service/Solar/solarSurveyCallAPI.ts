@@ -21,7 +21,7 @@ export const getSolarSurvey = async ({
     };
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "solar/survey",
+      process.env.NEXT_PUBLIC_API + "solar/surveysolar",
       {
         params,
         headers: {
@@ -46,7 +46,7 @@ export const getSolarSurveyById = async ({
 
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "solar/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "solar/surveysolar/" + id,
       {
 
         headers: {
@@ -67,9 +67,9 @@ export const createSolarSurvey = async ({
   payload,
 }: any): Promise<any> => {
   try {
-    console.log('payload', payload)
+
     const res = await axios.post(
-      process.env.NEXT_PUBLIC_API + "solar/survey",
+      process.env.NEXT_PUBLIC_API + "solar/surveysolar",
       payload,
       {
         headers: {
@@ -88,7 +88,7 @@ export const createSolarSurvey = async ({
 export const updateSolarSurvey = async ({ id, token, payload }: any): Promise<any> => {
   try {
     const res = await axios.put(
-      process.env.NEXT_PUBLIC_API + "solar/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "solar/surveysolar/" + id,
       payload,
       {
         headers: {

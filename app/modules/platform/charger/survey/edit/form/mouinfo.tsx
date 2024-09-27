@@ -234,7 +234,7 @@ const Mouinfo = ({
                           format(date2.from, "MM/dd/yyyy")
                         )
                       ) : (
-                        <span className="0">{values.mou_date}</span>
+                        <span className="0">{values?.mou_date}</span>
                       )}
                     </Button>
                   </PopoverTrigger>

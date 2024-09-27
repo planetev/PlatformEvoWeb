@@ -42,7 +42,7 @@ export const createUser = async ({
   payload,
 }: any): Promise<any> => {
   try {
-    console.log('payload', payload)
+
     const res = await axios.post(
       process.env.NEXT_PUBLIC_API + "users",
       payload,

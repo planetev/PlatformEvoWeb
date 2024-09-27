@@ -86,7 +86,7 @@ const CreateDialog = ({ openDialogCreateUsers, onClose,refetch,setOpenDialogCrea
                 telephone: values.telephone,
                 gender: values.gender,
               };
-              console.log("payload-users", payload);
+
               createUserData.mutate({ token, payload });
             }}
           >

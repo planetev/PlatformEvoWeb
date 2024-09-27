@@ -185,6 +185,8 @@ const Create = () => {
                         <Button
                           variant="outline"
                           size="icon"
+                          type="button"
+                          onClick={() => router.back()}
                           className="h-7 w-7"
                         >
                           <ChevronLeft className="h-4 w-4" />

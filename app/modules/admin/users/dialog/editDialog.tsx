@@ -51,7 +51,7 @@ const EditDialog = ({
     queryFn: async () => {
       try {
         const res: any = await getUserById({ id, token });
-        console.log("res-id3", res);
+
         return res;
       } catch (err) {
         throw err;
@@ -91,7 +91,7 @@ const EditDialog = ({
       });
     },
   });
-  console.log("first-id", id);
+
   const validationSchema = Yup.object({
     email: Yup.string().required("กรุณากรอกอีเมล"),
   });
@@ -120,7 +120,7 @@ const EditDialog = ({
                 telephone: values.telephone,
                 gender: values.gender,
               };
-              console.log("payload-users", payload);
+
               updateUser.mutate({ id, token, payload });
             }}
           >

@@ -70,7 +70,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
     },
   });
   useEffect(() => {}, [listData]);
-  console.log('listData', listData)
+
   const [rows, setRows] = useState([
     {
       id: 1,
@@ -110,7 +110,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
     setRows(updatedRows);
   };
 
-  console.log("listData", listData);
+
   const [date, setDate] = useState<Date>();
   const [date1, setDate1] = useState<Date>();
   const [date2, setDate2] = useState<Date>();
@@ -165,7 +165,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
     imagessolar: listData?.imagessolar,
     imagesins: listData?.imagesins,
   };
-  console.log("initialData", initialData);
+
 
   const validationSchema = Yup.object({
     customer_name: Yup.string().required("customer_name is required"),
@@ -275,7 +275,7 @@ const Formedit = ({ id }: EditsurveyProps) => {
 
                 boq: values.boq,
               };
-              console.log("payload-update", payload);
+
               updateSolarSurveys.mutate({ id, token, payload });
 
 

@@ -40,7 +40,7 @@ const Viewsurvey = ({ id }: ViewsurveyProps) => {
           }
         },
       });
-      console.log('listGetID', listGetID)
+
   return (
     <>
       <Main>

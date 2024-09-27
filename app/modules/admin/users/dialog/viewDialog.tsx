@@ -32,7 +32,7 @@ import { Badge } from "@/components/ui/badge";
 
 const ViewDialog = ({ openDialogViewUsers, onClose,id }: any) => {
 const { token, session } = useAuth();
-console.log('selecteId', id)
+
 
  const {
   isPending,
@@ -45,7 +45,7 @@ console.log('selecteId', id)
   queryFn: async () => {
     try {
       const res: any = await getUserById({ id ,token });
-      console.log('res-id2', res)
+
       return res;
     } catch (err) {
       throw err;

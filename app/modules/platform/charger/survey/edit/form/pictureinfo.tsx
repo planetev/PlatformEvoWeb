@@ -81,6 +81,24 @@ const Pictureinfo = ({
     });
   };
 
+  // const handleImageChange = async (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   index: number
+  // ) => {
+  //   const file = e.target.files?.[0];
+
+  //   if (file) {
+  //     const resizedBase64String = await resizeImage(file, 800, 800);
+
+  //     const newPreviewImages = [...previewImages];
+  //     newPreviewImages[index] = resizedBase64String;
+
+  //     setPreviewImages(newPreviewImages);
+
+  //     setFieldValue("image_mou", newPreviewImages);
+  //   }
+  // };
+
   const handleImageChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -92,20 +110,27 @@ const Pictureinfo = ({
 
       const newPreviewImages = [...previewImages];
       newPreviewImages[index] = resizedBase64String;
-
       setPreviewImages(newPreviewImages);
 
-      setFieldValue("image_mou", newPreviewImages);
+      const newImageHome = [...values.image_mou];
+      newImageHome[index] = resizedBase64String;
+      setFieldValue("image_mou", newImageHome);
     }
   };
+  // const handleRemoveImage = (index: number) => {
+  //   const newPreviewImages = [...previewImages];
+  //   newPreviewImages[index] = "";
+  //   setPreviewImages(newPreviewImages);
+  //   const fileInput = document.getElementById(
+  //     `picture-${index}`
+  //   ) as HTMLInputElement;
+  //   if (fileInput) fileInput.value = "";
+  // };
+
   const handleRemoveImage = (index: number) => {
-    const newPreviewImages = [...previewImages];
-    newPreviewImages[index] = "";
-    setPreviewImages(newPreviewImages);
-    const fileInput = document.getElementById(
-      `picture-${index}`
-    ) as HTMLInputElement;
-    if (fileInput) fileInput.value = "";
+    const list = [...values.image_mou];
+    list[index] = null;
+    setFieldValue("image_mou", list);
   };
   return (
     <>
@@ -119,10 +144,10 @@ const Pictureinfo = ({
         <CardContent>
           <div className="grid gap-6">
             <div className="grid grid-cols-2 gap-4">
-              {imageChager.map((i, x) => (
-                <div key={i.id} className="space-y-2">
+              {imageChager.map((i, index) => (
+                <div key={index} className="space-y-2">
                   <Label
-                    htmlFor={`picture-${i.id}`}
+                    htmlFor={`picture-${index}`}
                     className="block h-12 text-sm leading-tight"
                   >
                     {i.name}
@@ -130,19 +155,19 @@ const Pictureinfo = ({
 
                   <div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <Input
-                      id={`picture-${i.id}`}
+                      id={`picture-${index}`}
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageChange(e, x)}
+                      onChange={(e) => handleImageChange(e, index)}
                       className="sr-only"
                     />
-                  {values?.image_mou?.[x] ? (
+                  {values?.image_mou?.[index] ? (
                     <div className="relative w-full h-48">
                       <Image
                         src={
-                          values?.image_mou?.[x]?.path
-                            ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[x].path}`
-                            : values?.image_mou?.[x]
+                          values?.image_mou?.[index]?.path
+                            ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
+                            : values?.image_mou?.[index]
                         }
                         alt={`Preview ${i.id}`}
                         className="w-full  object-cover h-full rounded-md"
@@ -154,7 +179,7 @@ const Pictureinfo = ({
                         variant="destructive"
                         size="icon"
                         className="absolute top-2 right-2"
-                        onClick={() => handleRemoveImage(x)}
+                        onClick={() => handleRemoveImage(index)}
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -166,7 +191,7 @@ const Pictureinfo = ({
                             size="icon"
                             className="absolute bottom-2 right-2"
                             onClick={() =>
-                              setSelectedImage(previewImages[x])
+                              setSelectedImage(previewImages[index])
                             }
                           >
                             <ZoomIn className="h-4 w-4" />
@@ -175,9 +200,9 @@ const Pictureinfo = ({
                         <DialogContent className="max-w-3xl">
                           <Image
                             src={
-                              values?.image_mou?.[x]?.path
-                                ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[x].path}`
-                                : values?.image_mou?.[x]
+                              values?.image_mou?.[index]?.path
+                                ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
+                                : values?.image_mou?.[index]
                             }
                             alt="Full size preview"
                             className="w-full h-auto object-contain"
@@ -189,7 +214,7 @@ const Pictureinfo = ({
                     </div>
                   ) : (
                     <label
-                      htmlFor={`picture-${x}`}
+                      htmlFor={`picture-${index}`}
                       className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
                     >
                       <ImageIcon className="h-10 w-10 text-gray-400" />

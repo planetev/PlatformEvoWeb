@@ -21,7 +21,7 @@ export const getChargerSurvey = async ({
     };
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "charger/survey",
+      process.env.NEXT_PUBLIC_API + "charger/surveycharger/",
       {
         params,
         headers: {
@@ -46,7 +46,7 @@ export const getChargerSurveyById = async ({
 
 
     const res: AxiosResponse<any[]> = await axios.get(
-      process.env.NEXT_PUBLIC_API + "charger/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "charger/surveycharger/" + id,
       {
 
         headers: {
@@ -67,9 +67,9 @@ export const createChargerSurvey = async ({
   payload,
 }: any): Promise<any> => {
   try {
-    console.log('payload', payload)
+
     const res = await axios.post(
-      process.env.NEXT_PUBLIC_API + "charger/survey",
+      process.env.NEXT_PUBLIC_API + "charger/surveycharger",
       payload,
       {
         headers: {
@@ -88,7 +88,7 @@ export const createChargerSurvey = async ({
 export const updateChargerSurvey = async ({ id, token, payload }: any): Promise<any> => {
   try {
     const res = await axios.put(
-      process.env.NEXT_PUBLIC_API + "charger/survey/" + id,
+      process.env.NEXT_PUBLIC_API + "charger/surveycharger/" + id,
       payload,
       {
         headers: {

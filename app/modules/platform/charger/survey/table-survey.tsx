@@ -100,7 +100,7 @@ const TableSurvey = ({ data }: any) => {
                       Edit
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem onClick={() => console.log("MOU action")}>
+                    <DropdownMenuItem onClick={() =>  window.open(`${process.env.NEXT_PUBLIC_API_PDF}ChargerReport/generatepdf/survey/${item?.id}` , '_blank')}>
                       <div className="flex items-center justify-between w-full">
                         <div className="flex items-center">
                           <FileText className="mr-2 h-4 w-4" />
@@ -117,7 +117,7 @@ const TableSurvey = ({ data }: any) => {
                         </Badge>
                       </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => console.log("MOU action")}>
+                    <DropdownMenuItem onClick={() =>  window.open(`${process.env.NEXT_PUBLIC_API_PDF}Mou/generatepdf/mou/${item?.id}` , '_blank')}>
                       <div className="flex items-center justify-between w-full">
                         <div className="flex items-center">
                           <FileText className="mr-2 h-4 w-4" />

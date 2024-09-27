@@ -1,6 +1,6 @@
 // context/AuthContext.tsx
 "use client";
-import { createContext, useContext, ReactNode, useEffect } from "react";
+import { createContext, useContext, ReactNode, useEffect, use } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -23,11 +23,9 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider =  ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const token =  getCookie("access_token");
-
-  console.log('auth_token', token)
+  const token = getCookie("access_token");
 
   const {
     isPending,
@@ -40,21 +38,17 @@ export const AuthProvider =  ({ children }: { children: ReactNode }) => {
     queryFn: async () => {
       try {
         const res: any = await getProfile({ token });
-        console.log('auth-res', res)
-        return res?.user
+
+        return res;
       } catch (err) {
         throw err;
       }
     },
   });
 
-  console.log('profildAuth', profildAuth)
+  useEffect(() => {}, [profildAuth]);
 
   const { data: session, status } = useSession();
-
-
-
-
 
   return (
     <AuthContext.Provider value={{ token, status, session, profildAuth }}>

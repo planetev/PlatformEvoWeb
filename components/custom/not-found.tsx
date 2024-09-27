@@ -13,7 +13,7 @@ export default function NotFound() {
  const handleSearch = (e: React.FormEvent) => {
    e.preventDefault()
    // Implement search functionality here
-   console.log("Searching for:", searchQuery)
+
  }
 
  return (

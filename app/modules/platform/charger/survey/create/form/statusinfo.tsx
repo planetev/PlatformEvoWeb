@@ -36,6 +36,7 @@ const Statusinfo = ({
               <Label htmlFor="status">สถานะ</Label>
               <Select
                 name="status"
+                required
                 onValueChange={(value) =>
                   setFieldValue("status", value)
                 }

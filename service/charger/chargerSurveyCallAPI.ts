@@ -5,6 +5,7 @@ interface Base3 {
   page?: number;
   pageSize?: number;
   token: any;
+  status?: any;
 }
 
 export const getChargerSurvey = async ({
@@ -12,12 +13,14 @@ export const getChargerSurvey = async ({
   page,
   pageSize,
   token,
+  status,
 }: Base3): Promise<any[]> => {
   try {
     const params = {
       search,
       page,
       pageSize,
+      status,
     };
 
     const res: AxiosResponse<any[]> = await axios.get(
@@ -37,18 +40,14 @@ export const getChargerSurvey = async ({
   }
 };
 
-
 export const getChargerSurveyById = async ({
   id,
   token,
 }: any): Promise<any[]> => {
   try {
-
-
     const res: AxiosResponse<any[]> = await axios.get(
       process.env.NEXT_PUBLIC_API + "charger/surveycharger/" + id,
       {
-
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +66,6 @@ export const createChargerSurvey = async ({
   payload,
 }: any): Promise<any> => {
   try {
-
     const res = await axios.post(
       process.env.NEXT_PUBLIC_API + "charger/surveycharger",
       payload,
@@ -85,7 +83,11 @@ export const createChargerSurvey = async ({
   }
 };
 
-export const updateChargerSurvey = async ({ id, token, payload }: any): Promise<any> => {
+export const updateChargerSurvey = async ({
+  id,
+  token,
+  payload,
+}: any): Promise<any> => {
   try {
     const res = await axios.put(
       process.env.NEXT_PUBLIC_API + "charger/surveycharger/" + id,
@@ -97,10 +99,26 @@ export const updateChargerSurvey = async ({ id, token, payload }: any): Promise<
       }
     );
     return res;
-  }
-  catch (error: any) {
+  } catch (error: any) {
     console.error("Error fetching survey data:", error);
     throw error;
   }
-}
+};
 
+export const getChargerStatus = async ({ token }: any): Promise<any[]> => {
+  try {
+    const res: AxiosResponse<any[]> = await axios.get(
+      process.env.NEXT_PUBLIC_API + "charger/surveycharger/getAllStatusCharger",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (error: any) {
+    console.error("Error fetching survey data:", error);
+    throw error;
+  }
+};

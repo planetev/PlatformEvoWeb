@@ -208,8 +208,10 @@ const Edit = ({ id }: any) => {
                       <div className="flex items-center gap-4 p-2">
                         <Button
                           variant="outline"
+                          type="button"
                           size="icon"
                           className="h-7 w-7"
+                          onClick={() => router.back()}
                         >
                           <ChevronLeft className="h-4 w-4" />
                           <span className="sr-only">Back</span>

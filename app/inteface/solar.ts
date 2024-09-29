@@ -7,7 +7,7 @@ interface SolarBuilding {
 
 export interface SolarInstallation {
   datebook: string;
-  status : string;
+  status: string;
   wno: string;
   customer_name: string;
   tel: string;
@@ -56,11 +56,11 @@ export interface SolarInstallation {
   mounting: string;
   boq: any[];
   imagehome?: any[];
-  imagesmiter?:any[];
-  imagesout?:any[];
-  imagesin?:any[];
-  imagessolar?:any[];
-  imagesins?:any[];
+  imagesmiter?: any[];
+  imagesout?: any[];
+  imagesin?: any[];
+  imagessolar?: any[];
+  imagesins?: any[];
 }
 
 export const building: SolarBuilding[] = [
@@ -92,7 +92,6 @@ export const building: SolarBuilding[] = [
     id: 7,
     name: "โรงงาน",
   },
-
 ];
 
 export const roofMaterials: SolarBuilding[] = [
@@ -124,7 +123,6 @@ export const roofMaterials: SolarBuilding[] = [
     id: 7,
     name: "ลาคาที",
   },
-
 ];
 
 export const roofDirection: SolarBuilding[] = [
@@ -175,7 +173,6 @@ export const frameMaterials: SolarBuilding[] = [
     id: 3,
     name: "อลูมิเนียม (รางสำเร็จ)",
   },
-
 ];
 
 export const cableSystem: SolarBuilding[] = [
@@ -206,7 +203,6 @@ export const internetProviders: SolarBuilding[] = [
     id: 4,
     name: "TOT",
   },
-
 ];
 
 export const electricalConnections = [
@@ -291,7 +287,6 @@ export const breakerSizes = [
     id: 9,
     name: "200 3 P",
   },
-
 ];
 
 export const imagesArray = [
@@ -415,14 +410,12 @@ export const imagesIN = [
   },
 ];
 
-
 export const imagesSolarE = [
   { id: 0, name: "รูป designer report Page 1" },
   {
     id: 1,
     name: "รูป designer report Page 2",
   },
-
 ];
 
 export const Inverter = [
@@ -430,7 +423,6 @@ export const Inverter = [
   { id: 1, name: "รูปที่ 2" },
   { id: 2, name: "รูปที่ 3" },
   { id: 3, name: "รูปที่ 4" },
-
 ];
 
 export const Tool = [
@@ -443,22 +435,20 @@ export const Tool = [
   { id: 6, name: "รูปที่ 7" },
   { id: 7, name: "รูปที่ 8" },
   { id: 8, name: "รูปที่ 9" },
-
 ];
 
 export const StatusSolarSurvey = [
-  { id: 1, name: "รอการเข้าสำรวจพื้นที่" },
-  { id: 2, name: "เข้าสำรวจพิ้นที่" },
-  { id: 3, name: "ดำเนินการติดตั่งแผงโซลาเซล" },
-  { id: 4, name: "พื้นที่ไม่เหมาะสมในการติดตั้ง" },
-
-
-
+  { id: 1, name: "ติดต่อและนัดหมายการสำรวจ" },
+  { id: 2, name: "สำรวจสถานที่และประเมินระบบ" },
+  { id: 3, name: "ติดตั้งระบบโซล่าเซลล์" },
+  { id: 4, name: "ตรวจสอบและส่งมอบ" },
+  { id: 5, name: "พื้นที่ไม่เหมาะสมสำหรับการติดตั้ง" },
 ];
 
-
-
-
-
-
-
+export enum StatusSolarSurveys {
+  Visit = "ติดต่อและนัดหมายการสำรวจ",
+  Final = "สำรวจสถานที่และประเมินระบบ",
+  Process = "ติดตั้งระบบโซล่าเซลล์",
+  Onboard = "ตรวจสอบและส่งมอบ",
+  Ready = "พื้นที่ไม่เหมาะสมสำหรับการติดตั้ง",
+}

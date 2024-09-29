@@ -279,7 +279,7 @@ const Header = ({userId}:any) => {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={ ()=>  router.push('profile/'+userId?.id)}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -289,7 +289,7 @@ const Header = ({userId}:any) => {
                   <span>Billing</span>
                   <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                 </DropdownMenuItem> */}
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={ ()=>  router.push('profile/'+userId?.id)}>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                   <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

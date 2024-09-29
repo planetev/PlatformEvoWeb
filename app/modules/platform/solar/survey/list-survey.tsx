@@ -24,11 +24,12 @@ import {
 import { debounce } from "@/lib/debounced";
 import { getSolarSurvey } from "@/service/Solar/solarSurveyCallAPI";
 import { useQuery } from "@tanstack/react-query";
-import { Edit, Eye, FileText, MoreHorizontal } from "lucide-react";
+import { Edit, Eye, FileText, MoreHorizontal, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { FaRegFilePdf } from "react-icons/fa";
-import TableListServey from "./table/table-list-servey";
+import TableListServey, { renderStatus2 } from "./table/table-list-servey";
+import { StatusSolarSurvey } from "@/app/inteface/solar";
 
 const Listsurvey = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const Listsurvey = () => {
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(10);
   const [search, setSearch] = useState("");
-
+  const [slectedstatus, setSlectedStatus] = useState<string[]>([]);
   const {
     isPending,
     error,
@@ -45,7 +46,7 @@ const Listsurvey = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["list-data-survey-solar", search, page, pageSize, token],
+    queryKey: ["list-data-survey-solar", search, page, pageSize, token,slectedstatus],
     queryFn: async () => {
       try {
         const res: any = await getSolarSurvey({
@@ -53,6 +54,7 @@ const Listsurvey = () => {
           page,
           pageSize,
           token,
+          status: slectedstatus,
         });
 
         return res;
@@ -65,8 +67,11 @@ const Listsurvey = () => {
   //   refetch();
   // }, [search]);
 
-
-
+  const handleRemoveStatus = (statusToRemove: string) => {
+    setSlectedStatus((prevStatuses) =>
+      prevStatuses.filter((status) => status !== statusToRemove)
+    );
+  };
 
   return (
     <>
@@ -79,12 +84,35 @@ const Listsurvey = () => {
             </CardDescription>
           </div>
           <div className="flex items-center mb-3 space-x-3">
-            <InputFilter search={search} setSearch={setSearch} />
+            {slectedstatus.length > 0 ? (
+              slectedstatus.map((status, index) => (
+                <div key={index} className="flex items-center">
+                  {renderStatus2(status)}
+
+                  <button
+                    onClick={() => handleRemoveStatus(status)} // Function to remove the status
+                    className="text-red-500 hover:text-red-700 focus:outline-none"
+                  >
+                    {/* Replace X with your icon */}
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ))
+            ) : (
+              <span className="text-gray-500">No statuses selected</span>
+            )}
+            <InputFilter
+              search={search}
+              setSearch={setSearch}
+              Statusall={StatusSolarSurvey}
+              setSlectedStatus={setSlectedStatus}
+              type={2}
+            />
           </div>
         </CardHeader>
         <CardContent>
           {/* <TableCustom rows={rows} data={listData?.rows} /> */}
-          <TableListServey  data={listData?.rows} />
+          <TableListServey data={listData?.rows} />
         </CardContent>
         <CardFooter className="flex items-center justify-between">
           <Paginations

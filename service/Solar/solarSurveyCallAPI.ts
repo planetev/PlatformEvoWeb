@@ -5,6 +5,7 @@ interface Base3 {
   page?: number;
   pageSize?: number;
   token: any;
+  status?: any;
 }
 
 export const getSolarSurvey = async ({
@@ -12,12 +13,14 @@ export const getSolarSurvey = async ({
   page,
   pageSize,
   token,
+  status,
 }: Base3): Promise<any[]> => {
   try {
     const params = {
       search,
       page,
       pageSize,
+      status,
     };
 
     const res: AxiosResponse<any[]> = await axios.get(
@@ -104,3 +107,20 @@ export const updateSolarSurvey = async ({ id, token, payload }: any): Promise<an
   }
 }
 
+export const getSolarStatus = async ({ token }: any): Promise<any[]> => {
+  try {
+    const res: AxiosResponse<any[]> = await axios.get(
+      process.env.NEXT_PUBLIC_API + "solar/surveysolar/getAllStatusSolar",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (error: any) {
+    console.error("Error fetching survey data:", error);
+    throw error;
+  }
+};

@@ -9,6 +9,7 @@ import Listsurvey from "./survey/list-survey";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useSearchParams } from 'next/navigation';
+import Dashboard from "./survey/dashboard";
 interface TabDashboard {
   value: string;
   label: string;
@@ -22,7 +23,7 @@ const MainPage = () => {
 
 
   const tabsDashboard: TabDashboard[] = [
-    { value: "1", label: "Dashboard", component: "1" },
+    { value: "1", label: "Dashboard", component: <Dashboard /> },
     { value: "2", label: "Survey", component: <Listsurvey /> },
     { value: "3", label: "other", component: "other" },
   ];

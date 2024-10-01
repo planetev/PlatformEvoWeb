@@ -32,7 +32,13 @@ const options: NextAuthOptions = {
           console.log("data-auth", data.accessToken);
 
           if (data) {
-            cookies().set("access_token", data?.accessToken);
+            cookies().set("access_token", data?.accessToken,{
+              httpOnly: true,
+              sameSite: "lax",
+              // secure: process.env.NODE_ENV === "production",
+              secure:true,
+
+            } );
             return data;
           }
 
@@ -78,7 +84,7 @@ const options: NextAuthOptions = {
   cookies: {
     sessionToken: {
       // name: `__Secure-next-auth.session-token`,
-      name: `next-auth.session-token`,
+      name: `access_token_dd`,
       options: {
         httpOnly: true,
         sameSite: "lax",

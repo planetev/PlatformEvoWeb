@@ -1,11 +1,17 @@
 // context/AuthContext.tsx
 "use client";
-import { createContext, useContext, ReactNode, useEffect, use } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+  use,
+  useState,
+} from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "@/service/auth/authCallAPI";
-import { getCookie } from "cookies-next";
 
 interface resAuth {
   id: number;
@@ -22,10 +28,34 @@ interface AuthContextProps {
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+// eslint-disable-next-line react-hooks/rules-of-hooks
+
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const token = getCookie("access_token");
+  const [token, setToken] = useState<any>("");
+
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    if (status === "authenticated") {
+      const fetchToken = async () => {
+        try {
+          const res = await fetch("/pnev/api/get-token");
+          const data = await res.json();
+          console.log("Token fetched: ", data.token); // ตรวจสอบการดึง token
+          if (res.ok) {
+            setToken(data.token); // ตั้งค่า token
+          } else {
+            console.error("Failed to fetch token", res.status);
+          }
+        } catch (error) {
+          console.error("Error fetching token:", error);
+        }
+      };
+
+      fetchToken();
+    }
+  }, [status]);
 
   const {
     isPending,
@@ -48,7 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {}, [profildAuth]);
 
-  const { data: session, status } = useSession();
+
 
   return (
     <AuthContext.Provider value={{ token, status, session, profildAuth }}>

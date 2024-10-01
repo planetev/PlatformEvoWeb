@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
+
 import {
   AudioLines,
   Globe,
@@ -38,12 +38,7 @@ import {
   QrCode,
   BellIcon,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "./ui/tooltip";
+
 import { PiSolarPanelFill, PiChargingStation } from "react-icons/pi";
 import { FaChargingStation, FaCar, FaDev } from "react-icons/fa";
 import { GiOffshorePlatform, GiSemiClosedEye } from "react-icons/gi";
@@ -56,14 +51,11 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TbAuth2Fa } from "react-icons/tb";
 import { useAuth } from "@/app/context/AuthContext";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+
 import Link from "next/link";
 import { SiPostman } from "react-icons/si";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Button } from "../ui/button";
 
 const Sidebar = () => {
   const { token, session, profildAuth } = useAuth();
@@ -172,17 +164,21 @@ const Sidebar = () => {
       path: "/platform",
     },
   ];
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleSidebar = () => setIsOpen(!isOpen)
   return (
     <>
-      <TooltipProvider>
-        <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r  ">
-
-          <div className="border-b p-2">
+   <TooltipProvider>
+        <aside
+          className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r bg-white w-64 md:w-16 transition-transform duration-300 ease-in-out ${
+            isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
+        >
+          <div className="border-b p-2 flex justify-center">
             <Button variant="outline" size="icon" aria-label="Home">
-              <h2 className="text-md font-extrabold  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 text-emerald-500">
+              <h2 className="text-md font-extrabold rotate-0 duration-300 ease-in-out hover:rotate-180 text-emerald-500">
                 EV
               </h2>
-              {/* <GiOffshorePlatform className="size-5 fill-foreground  rotate-0 duration-300 ease-in-out  hover:rotate-180 hover:duration-300 " /> */}
             </Button>
           </div>
           <nav className="grid gap-1 p-2">

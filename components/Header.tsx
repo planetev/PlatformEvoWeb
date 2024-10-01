@@ -149,7 +149,8 @@ const Header = ({userId}:any) => {
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex h-[57px] items-center justify-between gap-1 border-b bg-white   px-4">
+      <header className="sticky top-0 z-10 flex h-[57px] items-center justify-between gap-1 border-b bg-white   px-4 ">
+
         <Menubar className="bg-transparent border-none">
           <MenubarMenu>
             <MenubarTrigger className="font-semibold">

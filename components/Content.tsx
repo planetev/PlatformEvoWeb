@@ -3,10 +3,11 @@ import React from "react";
 const Content = ({ children }: any) => {
   return (
     <>
-      <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 bg-gray-50">
+    <main className="flex-1 flex flex-col min-h-screen bg-gray-50 overflow-y-auto">
+      <div className="flex-1 flex flex-col gap-4 p-4 lg:gap-6 lg:p-6">
         {children}
-
-      </main>
+      </div>
+    </main>
     </>
   );
 };

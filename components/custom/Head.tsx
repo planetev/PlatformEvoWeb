@@ -25,7 +25,7 @@ const Head = ({ ltext }: Itex) => {
       <div className="flex items-center justify-between mb-2 ">
       <h1 className="text-lg font-semibold md:text-2xl ">{ltext}</h1>
 
-        <Breadcrumb>
+        <Breadcrumb className="hidden md:block">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">Home</BreadcrumbLink>

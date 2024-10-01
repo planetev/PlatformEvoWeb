@@ -32,15 +32,16 @@ const options: NextAuthOptions = {
           console.log("data-auth", data.accessToken);
 
           if (data) {
-            cookies().set("access_token", data?.accessToken,{
-              httpOnly: true,
-              sameSite: "lax",
-              // secure: process.env.NODE_ENV === "production",
-              secure:true,
-
-            } );
+            cookies().set("access_token", data?.accessToken);
             return data;
           }
+          // ,{
+          //   // httpOnly: true,
+          //   // sameSite: "lax",
+          //   // secure: process.env.NODE_ENV === "production",
+          //   //secure:true,
+
+          // }
 
           return null;
         } catch (error) {

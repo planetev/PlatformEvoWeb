@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<any>("");
 
   const { data: session, status } = useSession();
+  console.log('status-token', status)
   useEffect(() => {
     if (status === "authenticated") {
       const fetchToken = async () => {
@@ -64,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["get-profile"],
+    queryKey: ["get-profile",token],
     queryFn: async () => {
       try {
         const res: any = await getProfile({ token });
@@ -78,6 +79,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {}, [profildAuth]);
 
+  console.log('token-auth', token)
 
 
   return (

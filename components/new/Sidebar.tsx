@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import {
@@ -37,6 +37,7 @@ import {
   ScanFace,
   QrCode,
   BellIcon,
+  ArrowLeftFromLine,
 } from "lucide-react";
 
 import { PiSolarPanelFill, PiChargingStation } from "react-icons/pi";
@@ -54,10 +55,16 @@ import { useAuth } from "@/app/context/AuthContext";
 
 import Link from "next/link";
 import { SiPostman } from "react-icons/si";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }: any) => {
   const { token, session, profildAuth } = useAuth();
   const pathname = usePathname();
   const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
@@ -108,7 +115,7 @@ const Sidebar = () => {
 
   const adminMenuItems: any[] = [
     {
-      label: "Users",
+      label: "user",
       icon: <UserRoundCog className="size-5" />,
       path: "/platform/admin/users",
     },
@@ -164,37 +171,113 @@ const Sidebar = () => {
       path: "/platform",
     },
   ];
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleSidebar = () => setIsOpen(!isOpen)
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+  // ฟังก์ชันสำหรับการเปิด/ปิด sidebar
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // ใช้ useEffect เพื่อตรวจจับการคลิกนอก sidebar
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false); // ปิด sidebar เมื่อคลิกนอก sidebar
+      }
+    }
+
+    // เพิ่ม event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // ลบ event listener เมื่อ component ถูกทำลาย
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sidebarRef]);
+
   return (
     <>
-   <TooltipProvider>
+      <TooltipProvider>
         <aside
+          ref={sidebarRef}
           className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r bg-white w-64 md:w-16 transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           }`}
         >
-          <div className="border-b p-2 flex justify-center">
-            <Button variant="outline" size="icon" aria-label="Home">
-              <h2 className="text-md font-extrabold rotate-0 duration-300 ease-in-out hover:rotate-180 text-emerald-500">
+          <div className="border-b border-gray-200 p-4 md:p-2 flex items-center justify-between md:justify-center bg-gradient-to-r from-white to-gray-50">
+
+          <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Home"
+        className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-all duration-300"
+      >
+        <h2 className="text-xl font-extrabold text-emerald-500 transform rotate-0 transition-transform duration-300 ease-in-out hover:rotate-180">
                 EV
               </h2>
             </Button>
+
+            <Badge
+              variant="outline"
+              className="px-3 py-1 text-lg font-semibold bg-white shadow-sm border-gray-300 md:hidden"
+            >
+              Planet<span className="text-emerald-500 font-bold">EV</span>
+            </Badge>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(false)}
+              aria-label="Close sidebar"
+              className="md:hidden text-gray-600 hover:text-gray-800 transition-colors duration-200"
+            >
+              <ArrowLeftFromLine className="w-5 h-5" />
+            </Button>
           </div>
+          {/* <div className="border-b p-4 md:p-2 flex justify-between md:justify-center ">
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Home"
+              className="hidden md:block"
+            >
+              <h2 className="text-md font-extrabold rotate-0 duration-300 ease-in-out hover:rotate-180 text-emerald-500  ">
+                EV
+              </h2>
+            </Button>
+            <Badge
+              variant="secondary"
+              className="border-gray-600 block md:hidden"
+            >
+              Planet<span className="text-emerald-500">EV</span>
+            </Badge>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setIsOpen(false)}
+              aria-label="Home"
+              className="md:hidden"
+            >
+              <ArrowLeftFromLine className="w-4 h" />
+            </Button>
+          </div> */}
           <nav className="grid gap-1 p-2">
             {menuItems.map((item: any, index: any) => (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
-                  <Link href={item?.path}>
+                  <Link href={item?.path} onClick={() => setIsOpen(false)}>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className={`rounded-lg ${
-                        pathname === item?.path ? "bg-gray-200" : ""
+                      className={`w-full justify-start md:justify-center rounded-lg p-3 ${
+                        pathname === item.path ? "bg-gray-200 " : ""
                       }`}
                       aria-label={item?.aria}
                     >
                       {item?.icon}
+                      <span className="ml-2 md:hidden">{item.label}</span>
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -205,22 +288,24 @@ const Sidebar = () => {
             ))}
           </nav>
           <Separator />
+
           {token && profildAuth && profildAuth?.role === "ADMIN" && (
             <>
               <nav className="grid gap-1 p-2">
                 {adminMenuItems.map((item, index) => (
                   <Tooltip key={index}>
                     <TooltipTrigger asChild>
-                      <Link href={item?.path}>
+                      <Link href={item?.path} onClick={() => setIsOpen(false)}>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className={`rounded-lg ${
-                            pathname === item?.path ? "bg-gray-200" : ""
+                          className={`w-full justify-start md:justify-center rounded-lg  p-3 ${
+                            pathname === item.path ? "bg-gray-200 " : ""
                           }`}
                           aria-label={item?.label}
                         >
-                          {item?.icon}
+                          {item?.icon}{" "}
+                          <span className="ml-2 md:hidden">{item.label}</span>
                         </Button>
                       </Link>
                     </TooltipTrigger>
@@ -233,22 +318,22 @@ const Sidebar = () => {
             </>
           )}
 
-
           <Separator className="bg-gray-50" />
           <nav className="mt-auto grid gap-1 p-2">
             {footerMenuItems.map((item, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
-                  <Link href={item.path}>
+                  <Link href={item.path} onClick={() => setIsOpen(false)}>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className={`rounded-lg mt-auto ${
-                        pathname === item?.path ? "bg-gray-200" : ""
+                      className={`w-full justify-start md:justify-center rounded-lg  p-3 ${
+                        pathname === item.path ? "bg-gray-200 " : ""
                       }`}
                       aria-label={item.label}
                     >
                       {item.icon}
+                      <span className="ml-2 md:hidden">{item.label}</span>
                     </Button>
                   </Link>
                 </TooltipTrigger>

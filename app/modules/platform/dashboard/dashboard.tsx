@@ -20,11 +20,11 @@ const Dashboard = () => {
       <Main>
 
       <Head ltext={"Dashboard"} />
-      <div className="w-full">
+      <div className="w-full px-4 sm:px-6 lg:px-0">
       <Tabs defaultValue="charger" className="w-full">
-            <TabsList className="grid grid-cols-3 w-[600px]">
+            <TabsList className="grid grid-cols-3 sm:grid-cols-3 lg:w-[600px] w-full mb-4">
             {tabsDashboard.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value}>
+              <TabsTrigger key={tab.value} value={tab.value} className='px-2 py-1 text-sm sm:text-base'>
                 {tab.label}
               </TabsTrigger>
             ))}
@@ -32,8 +32,8 @@ const Dashboard = () => {
 
             {/* ปรับขนาดของ TabsContent ให้แสดงเต็มพื้นที่ */}
             {tabsDashboard.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value} className="w-full h-full">
-              <div className="bg-gray-100 h-full w-full p-4">
+            <TabsContent key={tab.value} value={tab.value} className="w-full">
+              <div className="bg-gray-100 w-full p-4 rounded-lg min-h-[300px]">
                 {tab.component}
               </div>
             </TabsContent>

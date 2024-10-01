@@ -63,6 +63,7 @@ import {
   UserIcon,
   UserPlus,
   Users,
+  X,
 } from "lucide-react";
 import { AiFillOpenAI } from "react-icons/ai";
 import {
@@ -81,7 +82,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-const Header = ({ userId }: any) => {
+const Header = ({ userId, toggleSidebar,isOpen }: any) => {
   const { token, session, profildAuth } = useAuth();
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(false);
@@ -149,12 +150,12 @@ const Header = ({ userId }: any) => {
             <Button
                   variant="ghost"
                   size="icon"
-                  // onClick={toggleSidebar}
+                  onClick={toggleSidebar}
                   className="md:hidden"
                   aria-label="Toggle sidebar"
                 >
-                  <Menu className="h-6 w-6" />
-                  {/* {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />} */}
+
+                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
               <MenubarTrigger className="font-semibold hidden md:block">
                 <Badge variant="secondary" className="border-gray-600">

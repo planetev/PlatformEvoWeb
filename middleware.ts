@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
 
   const isProtectedRoute = url.pathname.startsWith('/platform');
   if (isProtectedRoute) {
-    console.log('token-mid', token)
+    // console.log('token-mid', token)
     // Redirect to login if user is not authenticated
     if (!token) {
       url.pathname = '/';

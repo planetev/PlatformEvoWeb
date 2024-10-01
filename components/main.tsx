@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { getProfile } from "@/service/auth/authCallAPI";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
@@ -32,13 +32,14 @@ const Main = ({
       }
     },
   });
-
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleSidebar = () => setIsOpen(!isOpen)
   return (
     <>
       <div className="flex min-h-screen overflow-hidden bg-gray-50  hide-scrollbar">
-        <Sidebar />
+        <Sidebar  isOpen={isOpen} setIsOpen={setIsOpen}/>
         <div className="flex-1 flex flex-col min-h-screen overflow-hidden md:ml-16  hide-scrollbar">
-          <Header userId={userId} />
+          <Header toggleSidebar={toggleSidebar} userId={userId}  isOpen={isOpen} />
           <Content> {children}</Content>
         </div>
       </div>

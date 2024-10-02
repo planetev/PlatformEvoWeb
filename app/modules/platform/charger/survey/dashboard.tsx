@@ -35,7 +35,8 @@ import {
   Line,
   ResponsiveContainer,
 } from "recharts";
-import Maps from "./map";
+import dynamic from "next/dynamic";
+
 
 const DashboardCharger = () => {
   const { token, session } = useAuth();
@@ -166,7 +167,7 @@ const DashboardCharger = () => {
       icon: <Zap className="h-4 w-4" />,
     },
   ];
-
+  const ComponentWithWindow = dynamic(() => import('./map'), { ssr: false });
   return (
     <>
       {/* <div className="grid gap-2 md:grid-cols-2 md:gap-6 lg:grid-cols-6  mb-4">
@@ -299,7 +300,7 @@ const DashboardCharger = () => {
             <CardTitle>Survey Locations</CardTitle>
           </CardHeader>
           <CardContent className="h-[800px]">
-            {/* <Maps /> */}
+            <ComponentWithWindow />
           </CardContent>
         </Card>
       </div>

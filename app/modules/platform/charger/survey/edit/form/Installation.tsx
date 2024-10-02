@@ -33,15 +33,18 @@ const Installation = ({dateIns,setDateIns,dateSim1,setDateSim1,dateSim2,setDateS
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>Installation Detail</CardTitle>
-          <CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          Installation Detail
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
           รายละเอียดการติดตั้ง
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid  grid-cols-1 md:grid-cols-4 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   วันที่ทำการติดตั้งระบบ Charger
@@ -90,7 +93,7 @@ const Installation = ({dateIns,setDateIns,dateSim1,setDateSim1,dateSim2,setDateS
               </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   SerialNumber 1 (AC 7kW)
@@ -121,7 +124,7 @@ const Installation = ({dateIns,setDateIns,dateSim1,setDateSim1,dateSim2,setDateS
             </div>
 
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                 SIM Card Number
@@ -171,7 +174,7 @@ const Installation = ({dateIns,setDateIns,dateSim1,setDateSim1,dateSim2,setDateS
             </div>
 
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   SerialNumber 2 (AC 7kW)
@@ -202,7 +205,7 @@ const Installation = ({dateIns,setDateIns,dateSim1,setDateSim1,dateSim2,setDateS
             </div>
 
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                 SIM Card Number

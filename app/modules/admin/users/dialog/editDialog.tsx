@@ -30,7 +30,7 @@ import {
 } from "@/service/users/userCallAPI";
 import { useAuth } from "@/app/context/AuthContext";
 import { Gender, RoleUser } from "@/app/inteface/charger";
-
+import { Phone, User, Users, Lock, AtSign } from "lucide-react";
 const EditDialog = ({
   openDialogEditUsers,
   onClose,
@@ -145,143 +145,176 @@ const EditDialog = ({
                         กรอกข้อมูลด้านล่างเพื่อแก้ไขบัญชีผู้ใช้
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-6 py-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="username">ชื่อผู้ใช้</Label>
+                    <div className="grid grid-cols-1 gap-4 mb-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-sm font-medium">
+                          อีเมล
+                        </Label>
+                        <div className="relative">
+                          <AtSign className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <Input
                             id="email"
+                            name="email"
                             type="email"
-                            className="h-12"
-                            disabled
+                            className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="กรอกอีเมล"
                             value={values.email}
                             onChange={handleChange}
-                            placeholder="กรอกอีเมล"
                           />
+                        </div>
+                        {/* {errors.email && touched.email && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.email}
+                          </p>
+                        )} */}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="firstname"
+                            className="text-sm font-medium"
+                          >
+                            ชื่อจริง
+                          </Label>
+                          <div className="relative">
+                            <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="firstname"
+                              name="firstname"
+                              type="text"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="กรอกชื่อจริง"
+                              value={values.firstname}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          {/* {errors.firstname && touched.firstname && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.firstname}
+                            </p>
+                          )} */}
+                        </div>
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="lastname"
+                            className="text-sm font-medium"
+                          >
+                            นามสกุล
+                          </Label>
+                          <div className="relative">
+                            <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="lastname"
+                              name="lastname"
+                              type="text"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="กรอกนามสกุล"
+                              value={values.lastname}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          {/* {errors.lastname && touched.lastname && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.lastname}
+                            </p>
+                          )} */}
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="firstname">ชื่อจริง</Label>
-                          <Input
-                            id="firstname"
-                            type="text"
-                            className="h-12"
-                            placeholder="กรอกชื่อจริง"
-                            value={values.firstname}
-                            onChange={handleChange}
-                          />
+                          <Label
+                            htmlFor="telephone"
+                            className="text-sm font-medium"
+                          >
+                            เบอร์โทรศัพท์
+                          </Label>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="telephone"
+                              name="telephone"
+                              type="tel"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="กรอกเบอร์โทรศัพท์"
+                              value={values.telephone}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          {/* {errors.telephone && touched.telephone && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.telephone}
+                          </p>
+                        )} */}
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="lastname">นามสกุล</Label>
-                          <Input
-                            id="lastname"
-                            type="text"
-                            className="h-12"
-                            placeholder="กรอกนามสกุล"
-                            value={values.lastname}
-                            onChange={handleChange}
-                          />
+                          <Label
+                            htmlFor="gender"
+                            className="text-sm font-medium"
+                          >
+                            เพศ
+                          </Label>
+                          <div className="relative">
+                            <Users className="absolute left-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
+                            <Select
+                              name="gender"
+                              onValueChange={(value) =>
+                                setFieldValue("gender", value)
+                              }
+                            >
+                              <SelectTrigger
+                                id="gender"
+                                className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              >
+                                <SelectValue placeholder="เลือกเพศ" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="1">เพศชาย</SelectItem>
+                                <SelectItem value="2">เพศหญิง</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          {/* {errors.gender && touched.gender && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.gender}
+                          </p>
+                        )} */}
                         </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="telephone">เบอร์โทรศัพท์</Label>
-                          <Input
-                            id="telephone"
-                            type="text"
-                            className="h-12"
-                            value={values?.telephone}
-                            onChange={handleChange}
-                            placeholder="กรอกเบอร์โทรศัพท์"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="gender">เพศ</Label>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="gender" className="text-sm font-medium">
+                          บทบาท
+                        </Label>
+                        <div className="relative">
+                          <Users className="absolute left-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
                           <Select
                             name="gender"
-                            value={values.gender}
                             onValueChange={(value) =>
                               setFieldValue("gender", value)
                             }
                           >
                             <SelectTrigger
-                              id="category"
-                              aria-label="Select category"
-                              className="h-12"
+                              id="gender"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             >
-                              <SelectValue placeholder="เลือกเพศ" />
+                              <SelectValue placeholder="เลือกบทบาท" />
                             </SelectTrigger>
                             <SelectContent>
-                              {Gender.map(
-                                (i, x: number) =>
-                                  (!values.gender ||
-                                    i.name !== values.gender ||
-                                    x ===
-                                      Gender.findIndex(
-                                        (item) => item.name === values.gender
-                                      )) && (
-                                    <SelectItem key={x} value={i.name}>
-                                      {i.name}
-                                    </SelectItem>
-                                  )
-                              )}
-                              {/* <SelectItem value={"1"}>เพศชาย</SelectItem>
-                              <SelectItem value={"2"}>เพศหญืง</SelectItem> */}
+                              <SelectItem value="1">ผู้ดูแลระบบ/แอดมิน</SelectItem>
+                              <SelectItem value="2">ผู้ใช้งานทั่วไป</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="gender">role</Label>
-                          <Select
-                            name="role"
-                            value={values.role}
-                            onValueChange={(value) =>
-                              setFieldValue("role", value)
-                            }
-                          >
-                            <SelectTrigger
-                              id="category"
-                              aria-label="Select category"
-                              className="h-12"
-                            >
-                              <SelectValue placeholder="เลือก Role" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {RoleUser.map(
-                                (i, x: number) =>
-                                  (!values.role ||
-                                    i.name !== values.role ||
-                                    x ===
-                                      RoleUser.findIndex(
-                                        (item) => item.name === values.role
-                                      )) && (
-                                    <SelectItem key={x} value={i.name}>
-                                      {i.name}
-                                    </SelectItem>
-                                  )
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        {/* <div className="space-y-2">
-                  <Label htmlFor="gender">บาทบาท</Label>
-                  <Select >
-                    <SelectTrigger id="category" aria-label="Select category" className="h-12">
-                      <SelectValue placeholder="เลือกบทบาทผู้ใช้" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={"USER"}>ผู้ใช้งานทั่วไป</SelectItem>
-                      <SelectItem value={"ADMIN"}>ผู้ดูแลระบบ</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div> */}
+                        {/* {errors.gender && touched.gender && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.gender}
+                          </p>
+                        )} */}
                       </div>
                     </div>
                     <DialogFooter>
                       <Button type="submit" className="w-full h-12 ">
-                        แก้ไขผู้ใช้
+                        เพิ่มผู้ใช้
                       </Button>
                     </DialogFooter>
                   </form>

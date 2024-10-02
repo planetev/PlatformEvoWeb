@@ -13,13 +13,19 @@ const Lgn = ({ values, setFieldValue, handleChange }: any) => {
   return (
     <>
       <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
-        <CardHeader>
-          <CardTitle>ค่าความต่างศักย์</CardTitle>
-          <CardDescription>หากเลือก ALL จะเป็นการเลือกทุกอย่าง</CardDescription>
+
+
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          ค่าความต่างศักย์
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+         รายละเอียดของค่าความต่างศักย์
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   L-N (V)
@@ -40,7 +46,7 @@ const Lgn = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   N-G (V)

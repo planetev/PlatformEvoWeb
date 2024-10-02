@@ -24,11 +24,18 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
 import { createUser } from "@/service/users/userCallAPI";
 import { useAuth } from "@/app/context/AuthContext";
+import { Phone, User, Users, Lock, AtSign } from "lucide-react";
 
-const CreateDialog = ({ openDialogCreateUsers, onClose,refetch,setOpenDialogCreateUsers }: any) => {
+const CreateDialog = ({
+  openDialogCreateUsers,
+  onClose,
+  refetch,
+  setOpenDialogCreateUsers,
+}: any) => {
   const { token, session } = useAuth();
   const validationSchema = Yup.object({
     email: Yup.string().required("กรุณากรอกอีเมล"),
+    password: Yup.string().required("กรุณากรอกอีเมล"),
   });
 
   const initialData: any = {
@@ -45,10 +52,9 @@ const CreateDialog = ({ openDialogCreateUsers, onClose,refetch,setOpenDialogCrea
       return await createUser({ token, payload });
     },
     onSuccess: (res) => {
-
       if (res) {
-       refetch();
-       setOpenDialogCreateUsers(false);
+        refetch();
+        setOpenDialogCreateUsers(false);
         toast({
           title: "Create Successful",
           className: "bg-green-500 text-white font-semibold",
@@ -111,67 +117,137 @@ const CreateDialog = ({ openDialogCreateUsers, onClose,refetch,setOpenDialogCrea
                         กรอกข้อมูลด้านล่างเพื่อสร้างบัญชีผู้ใช้ใหม่
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-6 py-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="username">ชื่อผู้ใช้</Label>
+                    <div className="grid grid-cols-1 gap-4 mb-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-sm font-medium">
+                          อีเมล
+                        </Label>
+                        <div className="relative">
+                          <AtSign className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <Input
                             id="email"
+                            name="email"
                             type="email"
-                            className="h-12"
+                            className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="กรอกอีเมล"
                             value={values.email}
                             onChange={handleChange}
-                            placeholder="กรอกอีเมล"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="password">รหัสผ่าน</Label>
+                        {/* {errors.email && touched.email && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.email}
+                          </p>
+                        )} */}
+                      </div>
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="password"
+                          className="text-sm font-medium"
+                        >
+                          รหัสผ่าน
+                        </Label>
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <Input
                             id="password"
+                            name="password"
                             type="password"
-                            className="h-12"
+                            className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="กรอกรหัสผ่าน"
                             value={values.password}
                             onChange={handleChange}
                           />
                         </div>
-
+                        {/* {errors.password && touched.password && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.password}
+                          </p>
+                        )} */}
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="firstname">ชื่อจริง</Label>
-                          <Input
-                            id="firstname"
-                            type="text"
-                            className="h-12"
-                            placeholder="กรอกชื่อจริง"
-                            value={values.firstname}
-                            onChange={handleChange}
-                          />
+                          <Label
+                            htmlFor="firstname"
+                            className="text-sm font-medium"
+                          >
+                            ชื่อจริง
+                          </Label>
+                          <div className="relative">
+                            <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="firstname"
+                              name="firstname"
+                              type="text"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="กรอกชื่อจริง"
+                              value={values.firstname}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          {/* {errors.firstname && touched.firstname && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.firstname}
+                            </p>
+                          )} */}
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="lastname">นามสกุล</Label>
-                          <Input
-                            id="lastname"
-                            type="text"
-                            className="h-12"
-                            placeholder="กรอกนามสกุล"
-                            value={values.lastname}
-                            onChange={handleChange}
-                          />
+                          <Label
+                            htmlFor="lastname"
+                            className="text-sm font-medium"
+                          >
+                            นามสกุล
+                          </Label>
+                          <div className="relative">
+                            <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="lastname"
+                              name="lastname"
+                              type="text"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="กรอกนามสกุล"
+                              value={values.lastname}
+                              onChange={handleChange}
+                            />
+                          </div>
+                          {/* {errors.lastname && touched.lastname && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.lastname}
+                            </p>
+                          )} */}
                         </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="telephone">เบอร์โทรศัพท์</Label>
+                      </div>
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="telephone"
+                          className="text-sm font-medium"
+                        >
+                          เบอร์โทรศัพท์
+                        </Label>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <Input
                             id="telephone"
-                            type="text"
-                            className="h-12"
+                            name="telephone"
+                            type="tel"
+                            className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="กรอกเบอร์โทรศัพท์"
                             value={values.telephone}
                             onChange={handleChange}
-                            placeholder="กรอกเบอร์โทรศัพท์"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="gender">เพศ</Label>
+                        {/* {errors.telephone && touched.telephone && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.telephone}
+                          </p>
+                        )} */}
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="gender" className="text-sm font-medium">
+                          เพศ
+                        </Label>
+                        <div className="relative">
+                          <Users className="absolute left-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
                           <Select
                             name="gender"
                             onValueChange={(value) =>
@@ -179,31 +255,22 @@ const CreateDialog = ({ openDialogCreateUsers, onClose,refetch,setOpenDialogCrea
                             }
                           >
                             <SelectTrigger
-                              id="category"
-                              aria-label="Select category"
-                              className="h-12"
+                              id="gender"
+                              className="pl-10 h-11 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             >
-                              <SelectValue placeholder="เลือกเจ้าหน้าที่สำรวจ" />
+                              <SelectValue placeholder="เลือกเพศ" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value={"1"}>เพศชาย</SelectItem>
-                              <SelectItem value={"2"}>เพศหญืง</SelectItem>
+                              <SelectItem value="1">เพศชาย</SelectItem>
+                              <SelectItem value="2">เพศหญิง</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
-
-                        {/* <div className="space-y-2">
-                  <Label htmlFor="gender">บาทบาท</Label>
-                  <Select >
-                    <SelectTrigger id="category" aria-label="Select category" className="h-12">
-                      <SelectValue placeholder="เลือกบทบาทผู้ใช้" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={"USER"}>ผู้ใช้งานทั่วไป</SelectItem>
-                      <SelectItem value={"ADMIN"}>ผู้ดูแลระบบ</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div> */}
+                        {/* {errors.gender && touched.gender && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.gender}
+                          </p>
+                        )} */}
                       </div>
                     </div>
                     <DialogFooter>

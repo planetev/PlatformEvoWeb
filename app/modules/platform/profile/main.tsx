@@ -1,8 +1,9 @@
 "use client";
 import Head from "@/components/custom/Head";
 import Main from "@/components/main";
+import { useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Personalinfo from "./personal-info";
 import Changepassword from "./change-password";
 import { useQuery } from "@tanstack/react-query";
@@ -11,8 +12,16 @@ import { useAuth } from "@/app/context/AuthContext";
 import Settings from "./settings";
 
 const MainProfile = ({ id }: any) => {
+  const searchParams = useSearchParams();
   const [activeSection, setActiveSection] = useState("personal-info");
 
+  const tap = searchParams.get('tap');
+
+  useEffect(() => {
+    if (tap) {
+      setActiveSection(tap); // Set the active section based on the query parameter
+    }
+  }, [tap]);
   const { token, session } = useAuth();
 
   const {
@@ -33,13 +42,13 @@ const MainProfile = ({ id }: any) => {
       }
     },
   });
-  console.log('getUserprofileId', getUserprofileId)
+
   return (
     <Main>
-      <Head ltext={"โปรไฟล์ผู้ใช้"} />
+      <Head ltext={"โปรไฟล์ผู้ใช้"} icc="Information" />
 
       <div className="flex">
-        <div className="w-48 flex-shrink-0 space-y-2">
+        <div className="w-48 flex-shrink-0 space-y-2 hidden md:block">
           <Button
             variant={activeSection === "personal-info" ? "default" : "ghost"}
             className="w-full justify-start"
@@ -62,7 +71,8 @@ const MainProfile = ({ id }: any) => {
             การตั้งค่า
           </Button>
         </div>
-        <div className="flex-grow ml-6">
+        {/* <div className="flex items-center justify-center ml-0 md:ml-6 md:flex-grow "> */}
+        <div className="w-full md:ml-6 md:flex-grow">
         <Personalinfo  activeSection={activeSection} setActiveSection={setActiveSection} getUserprofileId={getUserprofileId}/>
         <Changepassword  activeSection={activeSection} setActiveSection={setActiveSection}/>
         <Settings  activeSection={activeSection} setActiveSection={setActiveSection}/>

@@ -62,34 +62,34 @@ const Listuser = () => {
   });
   return (
     <Main>
-      <Head ltext={"users"} />
+      <Head ltext={"ผู้ใช้งาน"}  icc={'users'}/>
       <div className="w-full  mb-4 ">
-        <div className="flex items-center justify-between  mb-4">
-          <Button
-            onClick={() => setOpenDialogCreateUsers(true)}
-            size="sm"
-            type="button"
-            className="w-30 h-10 flex items-center space-x-2"
-          >
-            <CirclePlus className="h-4 w-4" />
-            <span>เพื่มข้อมูล</span>
-          </Button>
-        </div>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex flex-col items-start ">
-              <CardTitle className="text-start">Users</CardTitle>
+        <Card className="w-full">
+          <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
+            <div className="flex flex-col items-start space-y-2">
+              <CardTitle className="text-start">ผู้ใช้งาน</CardTitle>
               <CardDescription>
-                Manage your Users and view their charger performance.
+              จัดการผู้ใช้งานของคุณและตรวจสอบประสิทธิภาพการใช้งานแพลตฟอร์มของพวกเขา
               </CardDescription>
             </div>
-            <div className="flex items-center mb-3 space-x-3">
+            <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
               <InputFilter search={search} setSearch={setSearch} />
             </div>
           </CardHeader>
           <CardContent>
             {/* <TableCustom rows={rows} data={listData?.rows} /> */}
             {/* <TableSurvey data={listServeyCharger?.rows} /> */}
+            <div className="flex items-center gap-2 mb-3">
+              <Button
+                size="sm"
+                className="w-full sm:w-auto h-8 px-6 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                onClick={() => setOpenDialogCreateUsers(true)}
+              >
+                <CirclePlus className="h-4 w-4 animate-pulse" />
+                <span className="text-sm">เพิ่มข้อมูล</span>
+              </Button>
+            </div>
+
             <Tableuser
               data={listUser?.rows}
               setOpenDialogViewUsers={setOpenDialogViewUsers}
@@ -128,7 +128,6 @@ const Listuser = () => {
         }}
         id={selecteId}
         lsh={refetch}
-
       />
     </Main>
   );

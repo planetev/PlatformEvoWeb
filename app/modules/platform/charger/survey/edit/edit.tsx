@@ -142,7 +142,7 @@ const Edit = ({ id }: any) => {
   return (
     <>
       <Main>
-        <Head ltext={"Edit-survey"} />
+        <Head ltext={"Edit-survey"} icc="Edit-survey" />
 
         <div className="w-full ">
           <main className="grid w-full  gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 bg-white overflow-hidden hide-scrollbar">
@@ -205,24 +205,26 @@ const Edit = ({ id }: any) => {
                 return (
                   <>
                     <form onSubmit={handleSubmit}>
-                      <div className="flex items-center gap-4 p-2">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 bg-background">
+                    <div className="hidden md:block">
                         <Button
                           variant="outline"
-                          type="button"
                           size="icon"
-                          className="h-7 w-7"
+                          type="button"
                           onClick={() => router.back()}
+                          className="h-7 w-7 "
                         >
                           <ChevronLeft className="h-4 w-4" />
                           <span className="sr-only">Back</span>
                         </Button>
+                        </div>
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                           Charger Controller
                         </h1>
-                        <Badge variant="outline" className="ml-auto sm:ml-0">
+                        <Badge variant="outline" className="ml-auto sm:ml-0 hidden md:block">
                           In Charger
                         </Badge>
-                        <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <div className="flex items-center gap-2 md:ml-auto md:flex sm:gap-2">
                           <Button
                             variant="outline"
                             size="sm"
@@ -232,10 +234,11 @@ const Edit = ({ id }: any) => {
                             cancel
                           </Button>
                           <Button type="submit" size="sm">
-                            Edit Survey
+                          Edit Survey
                           </Button>
                         </div>
                       </div>
+
 
                       <div className="grid gap-4 p-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8 overflow-auto ">
                         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">

@@ -17,7 +17,7 @@ const Editsolar = ({ id }: EditsurveyProps) => {
   return (
     <>
       <Main>
-        <Head ltext={"ข้อมูลสำรวจโซลาเซล์"} />
+        <Head ltext={"ข้อมูลสำรวจโซลาเซล์"} icc="Edit-survey-solar" />
         <Formedit id={id} />
       </Main>
     </>

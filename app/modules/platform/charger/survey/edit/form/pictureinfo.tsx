@@ -27,7 +27,6 @@ const Pictureinfo = ({
   touched,
   errors,
 }: any) => {
-
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [previewImages, setPreviewImages] = useState<string[]>(
     new Array(imageChager.length).fill("")
@@ -135,15 +134,17 @@ const Pictureinfo = ({
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>Picture Info</CardTitle>
-          <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            Picture Info
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            รายละเอียดและข้อมูลสำหรับรูปภาพ
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {imageChager.map((i, index) => (
                 <div key={index} className="space-y-2">
                   <Label
@@ -161,68 +162,68 @@ const Pictureinfo = ({
                       onChange={(e) => handleImageChange(e, index)}
                       className="sr-only"
                     />
-                  {values?.image_mou?.[index] ? (
-                    <div className="relative w-full h-48">
-                      <Image
-                        src={
-                          values?.image_mou?.[index]?.path
-                            ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
-                            : values?.image_mou?.[index]
-                        }
-                        alt={`Preview ${i.id}`}
-                        className="w-full  object-cover h-full rounded-md"
-                        width={800}
-                        height={800}
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-2 right-2"
-                        onClick={() => handleRemoveImage(index)}
+                    {values?.image_mou?.[index] ? (
+                      <div className="relative w-full h-48">
+                        <Image
+                          src={
+                            values?.image_mou?.[index]?.path
+                              ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
+                              : values?.image_mou?.[index]
+                          }
+                          alt={`Preview ${i.id}`}
+                          className="w-full  object-cover h-full rounded-md"
+                          width={800}
+                          height={800}
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-2 right-2"
+                          onClick={() => handleRemoveImage(index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              size="icon"
+                              className="absolute bottom-2 right-2"
+                              onClick={() =>
+                                setSelectedImage(previewImages[index])
+                              }
+                            >
+                              <ZoomIn className="h-4 w-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-3xl">
+                            <Image
+                              src={
+                                values?.image_mou?.[index]?.path
+                                  ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
+                                  : values?.image_mou?.[index]
+                              }
+                              alt="Full size preview"
+                              className="w-full h-auto object-contain"
+                              width={800}
+                              height={800}
+                            />
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    ) : (
+                      <label
+                        htmlFor={`picture-${index}`}
+                        className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
                       >
-                        <X className="h-4 w-4" />
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            type="button"
-                            variant="secondary"
-                            size="icon"
-                            className="absolute bottom-2 right-2"
-                            onClick={() =>
-                              setSelectedImage(previewImages[index])
-                            }
-                          >
-                            <ZoomIn className="h-4 w-4" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-3xl">
-                          <Image
-                            src={
-                              values?.image_mou?.[index]?.path
-                                ? `${process.env.NEXT_PUBLIC_IMG}${values.image_mou[index].path}`
-                                : values?.image_mou?.[index]
-                            }
-                            alt="Full size preview"
-                            className="w-full h-auto object-contain"
-                            width={800}
-                            height={800}
-                          />
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  ) : (
-                    <label
-                      htmlFor={`picture-${index}`}
-                      className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
-                    >
-                      <ImageIcon className="h-10 w-10 text-gray-400" />
-                      <span className="mt-2 text-sm text-gray-500">
-                        ไม่มีรูปภาพ
-                      </span>
-                    </label>
-                  )}
+                        <ImageIcon className="h-10 w-10 text-gray-400" />
+                        <span className="mt-2 text-sm text-gray-500">
+                          ไม่มีรูปภาพ
+                        </span>
+                      </label>
+                    )}
                   </div>
                 </div>
               ))}

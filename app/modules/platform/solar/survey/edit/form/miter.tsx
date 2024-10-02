@@ -23,9 +23,13 @@ const Miter = ({ values, setFieldValue, handleChange }: any) => {
   return (
     <>
       <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
-        <CardHeader>
-          <CardTitle>ขนาดมิเตอร์ไฟฟ้า (พร้อมเลขทีมิเตอร์)</CardTitle>
-          <CardDescription>หากเลือก ALL จะเป็นการเลือกทุกอย่าง</CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          ขนาดมิเตอร์ไฟฟ้า (พร้อมเลขทีมิเตอร์)
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          รายละเอียดของขนาดมิเตอร์ไฟฟ้า
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">

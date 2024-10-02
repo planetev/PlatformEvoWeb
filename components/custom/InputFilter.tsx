@@ -20,7 +20,7 @@ const InputFilter = ({
   setSearch,
   Statusall,
   setSlectedStatus,
-  type
+  type,
 }: any) => {
   const [inputValue, setInputValue] = useState(search);
 
@@ -48,8 +48,8 @@ const InputFilter = ({
   };
   return (
     <>
-      <div className="relative flex-1 md:grow-0">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <div className="relative w-full max-w-sm mx-auto md:max-w-md lg:max-w-lg xl:max-w-xl">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         <Input
           type="text"
           placeholder="Search..."
@@ -57,7 +57,7 @@ const InputFilter = ({
           value={inputValue}
           onChange={(e) => handleSearch(e)}
           autoFocus
-          className="w-full rounded-lg bg-background pl-10 py-2.5 md:w-[200px] lg:w-[336px] border-2 border-dashed"
+          className="w-full rounded-lg bg-background pl-10 pr-4 py-2.5 border-2 border-dashed focus:border-solid focus:border-primary transition-all duration-300 ease-in-out"
         />
       </div>
 
@@ -66,16 +66,17 @@ const InputFilter = ({
           <Button
             variant="outline"
             size="lg"
-            className="h-10 text-sm px-4 border-2 border-dashed flex items-center gap-2"
+            className="h-10 text-sm px-4 border-2 border-dashed flex items-center gap-2 w-full sm:w-auto"
           >
             <ListFilter className="h-4 w-4" />
-            <span className="sr-only sm:not-sr-only">กรอง</span>
+            <span className="sm:hidden">กรอง</span>
+            <span className="hidden sm:inline">กรอง</span>
           </Button>
         </DropdownMenuTrigger>
 
         {/* Positioning adjustment to align dropdown */}
         <DropdownMenuContent
-          className="w-100 mt-2"
+          className="w-[280px] sm:w-[320px] mt-2"
           align="end"
           sideOffset={5}
           style={{ zIndex: 10 }}
@@ -86,33 +87,38 @@ const InputFilter = ({
               className="text-sm text-muted-foreground hover:text-foreground"
             >
               <RotateCcw className="h-4 w-4 mr-0" />
+              <span className="hidden sm:inline ml-2 text-sm">รีเซ็ต</span>
             </DropdownMenuItem>
-            <DropdownMenuLabel className="font-semibold">
+            <DropdownMenuLabel className="font-semibold text-sm sm:text-base">
               สถานะการสำรวจ
             </DropdownMenuLabel>
           </div>
           <DropdownMenuSeparator />
-          {Statusall?.map((item: any, index: number) => (
-            <>
-              <DropdownMenuItem
-                key={index}
-                onClick={() => handleStatusSelection(item.name)}
-              >
-                <div className="flex items-center">
-                  <span className="mr-2">Filter by</span>
-                  { type === 2 ? renderStatus2(item.name) : renderStatus(item.name)}
+          <div className="max-h-[200px] overflow-y-auto">
+            {Statusall?.map((item: any, index: number) => (
+              <>
+                <DropdownMenuItem
+                  key={index}
+                  onClick={() => handleStatusSelection(item.name)}
+                  className="flex items-center py-2 px-4 hover:bg-accent cursor-pointer"
+                >
+                  <div className="flex items-center">
+                  <span className="mr-2 text-sm">Filter by</span>
+                    {type === 2
+                      ? renderStatus2(item.name)
+                      : renderStatus(item.name)}
+                  </div>
+                </DropdownMenuItem>
+              </>
+            ))}
 
-                </div>
-              </DropdownMenuItem>
-            </>
-          ))}
-
-          {/* <DropdownMenuItem onClick={() => console.log("Filter by Category")}>
+            {/* <DropdownMenuItem onClick={() => console.log("Filter by Category")}>
             Filter by Category
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => console.log("Filter by Status")}>
             Filter by Status
           </DropdownMenuItem> */}
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

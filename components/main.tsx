@@ -36,7 +36,7 @@ const Main = ({
   const toggleSidebar = () => setIsOpen(!isOpen)
   return (
     <>
-      <div className="flex min-h-screen overflow-hidden bg-gray-50  hide-scrollbar">
+      <div className="flex min-h-screen overflow-hidden   hide-scrollbar">
         <Sidebar  isOpen={isOpen} setIsOpen={setIsOpen}/>
         <div className="flex-1 flex flex-col min-h-screen overflow-hidden md:ml-16  hide-scrollbar">
           <Header toggleSidebar={toggleSidebar} userId={userId}  isOpen={isOpen} />

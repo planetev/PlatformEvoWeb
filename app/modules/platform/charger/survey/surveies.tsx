@@ -8,6 +8,7 @@ import {
   PlusCircle,
   MoreHorizontal,
   X,
+  CirclePlus,
 } from "lucide-react";
 
 import {
@@ -60,16 +61,23 @@ const Surveies = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["list-data-survey-charger", search, page, pageSize, slectedstatus, token],
+    queryKey: [
+      "list-data-survey-charger",
+      search,
+      page,
+      pageSize,
+      slectedstatus,
+      token,
+    ],
     queryFn: async () => {
       try {
-        console.log('slectedstatus1', slectedstatus)
+        console.log("slectedstatus1", slectedstatus);
         const res: any = await getChargerSurvey({
           search,
           page,
           pageSize,
           token,
-          status:slectedstatus,
+          status: slectedstatus,
         });
 
         return res;
@@ -79,9 +87,6 @@ const Surveies = () => {
     },
   });
 
-
-
-
   const handleRemoveStatus = (statusToRemove: string) => {
     setSlectedStatus((prevStatuses) =>
       prevStatuses.filter((status) => status !== statusToRemove)
@@ -89,37 +94,40 @@ const Surveies = () => {
   };
   return (
     <>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <div className="flex flex-col items-start ">
-            <CardTitle className="text-start">SurveyCharger</CardTitle>
-            <CardDescription>
+      <Card className="w-full">
+        <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
+          <div className="flex flex-col items-start space-y-2">
+            <CardTitle className="text-start text-xl sm:text-2xl">
+              SurveyCharger
+            </CardTitle>
+            <CardDescription className="text-sm sm:text-base">
               Manage your Chargeres and view their charger performance.
             </CardDescription>
           </div>
-          <div className="flex items-center  gap-3 mb-3 space-x-2">
-            {slectedstatus.length > 0 ? (
-              slectedstatus.map((status, index) => (
-                <div
-                  key={index}
-                  className="flex items-center"
-                >
-
-                  {renderStatus(status)}
-
-
-                  <button
-                    onClick={() => handleRemoveStatus(status)} // Function to remove the status
-                    className="text-red-500 hover:text-red-700 focus:outline-none"
+          <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
+            <div className="flex flex-wrap gap-2">
+              {slectedstatus.length > 0 ? (
+                slectedstatus.map((status, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center bg-gray-100 rounded-full px-3 py-1"
                   >
-                    {/* Replace X with your icon */}
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ))
-            ) : (
-              <span className="text-gray-500">No statuses selected</span>
-            )}
+                    <span className="mr-2 text-sm">{renderStatus(status)}</span>
+                    <button
+                      onClick={() => handleRemoveStatus(status)}
+                      className="text-red-500 hover:text-red-700 focus:outline-none"
+                      aria-label={`Remove ${status} status`}
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <span className="text-gray-500 text-sm">
+                  No statuses selected
+                </span>
+              )}
+            </div>
             <InputFilter
               search={search}
               setSearch={setSearch}
@@ -129,10 +137,23 @@ const Surveies = () => {
           </div>
         </CardHeader>
         <CardContent>
-          {/* <TableCustom rows={rows} data={listData?.rows} /> */}
-          <TableSurvey data={listServeyCharger?.rows} />
+          <div className="flex items-center gap-2 mb-4">
+            <Button
+              size="sm"
+              className="w-full sm:w-auto h-12 px-6 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              onClick={() =>
+                router.push("/platform/charger/survey/createsurvey")
+              }
+            >
+              <CirclePlus className="h-5 w-5 animate-pulse" />
+              <span className="text-sm">เพิ่มข้อมูล</span>
+            </Button>
+          </div>
+          <div className="overflow-x-auto">
+            <TableSurvey data={listServeyCharger?.rows} />
+          </div>
         </CardContent>
-        <CardFooter className="flex items-center justify-between">
+        <CardFooter className="flex flex-col sm:flex-row items-center justify-between">
           <Paginations
             totalRows={10}
             pageSize={pageSize}

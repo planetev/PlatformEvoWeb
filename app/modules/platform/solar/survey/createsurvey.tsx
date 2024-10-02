@@ -49,8 +49,6 @@ import { createSolarSurvey } from "@/service/Solar/solarSurveyCallAPI";
 import { useAuth } from "@/app/context/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 
-
-
 const Createsurvey = () => {
   const router = useRouter();
   const { token, session } = useAuth();
@@ -62,12 +60,10 @@ const Createsurvey = () => {
   const validationSchema = Yup.object({
     customer_name: Yup.string().required("กรุณากรอกชื่อลูกค้า"),
     tel: Yup.string()
-    .matches(/^0/, "เบอร์โทรศัพท์ต้องขึ้นต้นด้วย 0")
-    .length(10, "เบอร์โทรศัพท์ต้องมี 10 ตัวอักษร")
-    .required("กรุณากรอกเบอร์โทรศัพท์"),
+      .matches(/^0/, "เบอร์โทรศัพท์ต้องขึ้นต้นด้วย 0")
+      .length(10, "เบอร์โทรศัพท์ต้องมี 10 ตัวอักษร")
+      .required("กรุณากรอกเบอร์โทรศัพท์"),
   });
-
-
 
   const convertDate = (date: any) => {
     if (!date) {
@@ -190,8 +186,8 @@ const Createsurvey = () => {
           className: "bg-green-500 text-white font-semibold",
           description: "You have successfully logged in.",
         });
-      // router.push("/platform/solar",);
-      navigateToSolarTab("2");
+        // router.push("/platform/solar",);
+        navigateToSolarTab("2");
       }
     },
     onError: (err) => {
@@ -207,7 +203,7 @@ const Createsurvey = () => {
   return (
     <>
       <Main>
-        <Head ltext={"Createsurvey"} />
+        <Head ltext={"Createsurvey"} icc="Create-survey" />
 
         <div className="w-full ">
           <main className="grid w-full  gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 bg-white overflow-hidden hide-scrollbar">
@@ -269,10 +265,6 @@ const Createsurvey = () => {
                 };
                 console.log("payload", payload);
                 createSolarSurveys.mutate({ token, payload });
-
-
-
-
               }}
             >
               {({
@@ -288,22 +280,26 @@ const Createsurvey = () => {
                 return (
                   <>
                     <form onSubmit={handleSubmit}>
-                      <div className="flex items-center gap-4 p-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-7 w-7"
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                          <span className="sr-only">Back</span>
-                        </Button>
+                      <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 bg-background">
+                        <div className="hidden md:block">
+                          <Button
+                            type="button"
+                            onClick={() => router.back()}
+                            variant="outline"
+                            size="icon"
+                            className="h-7 w-7"
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                            <span className="sr-only">Back</span>
+                          </Button>
+                        </div>
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                           Solar Controller
                         </h1>
-                        <Badge variant="outline" className="ml-auto sm:ml-0">
+                        <Badge variant="outline" className="ml-auto sm:ml-0 hidden md:block">
                           In Solar
                         </Badge>
-                        <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <div className="flex items-center gap-2 md:ml-auto md:flex sm:gap-2">
                           <Button
                             variant="outline"
                             size="sm"
@@ -312,7 +308,11 @@ const Createsurvey = () => {
                           >
                             cancel
                           </Button>
-                          <Button type="submit" size="sm" disabled={!values.customer_name}>
+                          <Button
+                            type="submit"
+                            size="sm"
+                            disabled={!values.customer_name}
+                          >
                             Create Survey
                           </Button>
                         </div>
@@ -416,12 +416,12 @@ const Createsurvey = () => {
                           />
                         </div>
                       </div>
-                      <div className="flex items-center justify-center gap-2 md:hidden">
+                      {/* <div className="flex items-center justify-center gap-2 md:hidden">
                         <Button variant="outline" size="sm">
                           Discard
                         </Button>
                         <Button size="sm">Save Product</Button>
-                      </div>
+                      </div> */}
                     </form>
                   </>
                 );

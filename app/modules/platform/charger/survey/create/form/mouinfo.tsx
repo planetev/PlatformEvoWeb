@@ -40,10 +40,12 @@ const Mouinfo = ({
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>MOU Info</CardTitle>
-          <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            ข้อมูลการสำรวจ MOU
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            รายละเอียดและข้อมูลสำคัญสำหรับการ MOU
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -60,7 +62,7 @@ const Mouinfo = ({
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1  md:grid-cols-2  gap-2 md:gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ธนาคาร
@@ -163,10 +165,10 @@ const Mouinfo = ({
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   อัตราส่วนแบ่ง
                 </Label>
-                <Select name="mou_rate"
-                  onValueChange={(value) =>
-                    setFieldValue("mou_rate", value)
-                  }>
+                <Select
+                  name="mou_rate"
+                  onValueChange={(value) => setFieldValue("mou_rate", value)}
+                >
                   <SelectTrigger id="category" aria-label="Select category">
                     <SelectValue placeholder="เลือกอัตราส่วนแบ่ง" />
                   </SelectTrigger>

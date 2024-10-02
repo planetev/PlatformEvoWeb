@@ -27,9 +27,9 @@ import { createUser, getUserById } from "@/service/users/userCallAPI";
 import { useAuth } from "@/app/context/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Briefcase, Calendar, Mail, MapPin, Phone, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
+import { motion, AnimatePresence } from "framer-motion"
 const ViewDialog = ({ openDialogViewUsers, onClose,id }: any) => {
 const { token, session } = useAuth();
 
@@ -60,32 +60,149 @@ useEffect(() => {
  }
 }, [openDialogViewUsers, id, refetch]);
 
-const getStatusColor = (status:string) => {
- switch (status) {
-   case 'ADMIN':
-     return 'bg-red-500'
-   case 'USER':
-     return 'bg-gray-500'
-   default:
-     return 'bg-gray-400'
- }
+// const getStatusColor = (status:string) => {
+//  switch (status) {
+//    case 'ADMIN':
+//      return 'bg-red-500'
+//    case 'USER':
+//      return 'bg-gray-500'
+//    default:
+//      return 'bg-gray-400'
+//  }
+// }
+
+// const renderTextGebder = (text:string) =>{
+//  switch (text) {
+//   case '1':
+//     return 'ชาย'
+//   case '2':
+//     return 'หญิง'
+//   default:
+//     return 'ไม่ระบุ'
+// }
+
+// }
+
+const getStatusColor = (role: string) => {
+  switch (role?.toLowerCase()) {
+    case 'admin':
+      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+    case 'manager':
+      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+    default:
+      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+  }
 }
 
-const renderTextGebder = (text:string) =>{
- switch (text) {
-  case '1':
-    return 'ชาย'
-  case '2':
-    return 'หญิง'
-  default:
-    return 'ไม่ระบุ'
-}
-
+const renderTextGender = (gender: string) => {
+  switch (gender) {
+    case '1':
+      return 'ชาย'
+    case '2':
+      return 'หญิง'
+    default:
+      return 'ไม่ระบุ'
+  }
 }
 
   return (
     <>
- <Dialog open={openDialogViewUsers} onOpenChange={onClose}>
+    <Dialog open={openDialogViewUsers} onOpenChange={onClose}>
+
+      <DialogContent className="sm:max-w-[425px] md:max-w-[700px] lg:max-w-[900px] bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 border-blue-100 dark:border-blue-900">
+        <DialogHeader>
+          <DialogTitle className="text-3xl font-bold text-center text-blue-600 dark:text-blue-300 pb-2">
+            โปรไฟล์ผู้ใช้
+          </DialogTitle>
+        </DialogHeader>
+        <Card className="w-full overflow-hidden bg-transparent shadow-none border-0">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-start md:space-x-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center space-y-4 mb-6 md:mb-0"
+              >
+                <div className="relative">
+                  <Avatar className="w-48 h-48 border-4 border-white dark:border-gray-700 shadow-lg">
+                    <AvatarImage src={getUserId?.avatar || "https://ui.shadcn.com/avatars/02.png"} alt={`${getUserId?.firstName} ${getUserId?.lastName}`} />
+                    <AvatarFallback className="text-5xl font-bold bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                      {getUserId?.firstName}{getUserId?.lastName}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Badge className="absolute bottom-2 right-2 text-sm px-3 py-1 bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 rounded-full">
+                    {getUserId?.role}
+                  </Badge>
+                </div>
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white">{getUserId?.firstName} {getUserId?.lastName}</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{getUserId?.email}</p>
+                </div>
+              </motion.div>
+              <AnimatePresence>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-6"
+                >
+                  <InfoItem icon={<Mail className="w-6 h-6" />} label="อีเมล" value={getUserId?.email} />
+                  <InfoItem icon={<Phone className="w-6 h-6" />} label="เบอร์โทรศัพท์" value={getUserId?.phone} />
+                  <InfoItem icon={<User className="w-6 h-6" />} label="เพศ" value={getUserId?.gender} />
+                  <InfoItem icon={<Briefcase className="w-6 h-6" />} label="แผนก" value={getUserId?.department} />
+                  <InfoItem icon={<Calendar className="w-6 h-6" />} label="วันที่เข้าร่วม" value={getUserId?.joinDate} />
+                  <InfoItem icon={<MapPin className="w-6 h-6" />} label="ที่อยู่" value={getUserId?.address} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </CardContent>
+        </Card>
+      </DialogContent>
+    </Dialog>
+    {/* <Dialog open={openDialogViewUsers} onOpenChange={onClose}>
+      <DialogContent className="max-w-[360px]  bg-white dark:bg-gray-900">
+        <DialogHeader>
+          <DialogTitle className="text-3xl font-bold text-center text-gray-900 dark:text-white">
+            โปรไฟล์ผู้ใช้
+          </DialogTitle>
+        </DialogHeader>
+        <Card className="w-full overflow-hidden bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <Avatar className="w-32 h-32 border-4 border-white dark:border-gray-800 shadow-xl">
+                  <AvatarImage src={getUserId?.profile?.avatar || "https://ui.shadcn.com/avatars/02.png"} alt={`${getUserId?.firstname} ${getUserId?.lastname}`} />
+                  <AvatarFallback className="text-3xl font-bold bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white">
+                    {getUserId?.firstname.charAt(0)}{getUserId?.lastname.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <Badge className={`absolute bottom-0 right-0 text-xs px-2 py-1 rounded-full ${getStatusColor(getUserId?.role)}`}>
+                  {getUserId?.role || 'ไม่ระบุ'}
+                </Badge>
+              </div>
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{getUserId?.firstname} {getUserId?.lastname}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{getUserId?.email}</p>
+              </div>
+              <div className="w-full space-y-4">
+                <InfoItem icon={<Phone className="w-5 h-5" />} label="เบอร์โทรศัพท์" value={getUserId?.profile?.telephone || 'ไม่ระบุ'} />
+                <InfoItem icon={<User className="w-5 h-5" />} label="เพศ" value={renderTextGender(getUserId?.profile?.gender)} />
+                <InfoItem icon={<MapPin className="w-5 h-5" />} label="ที่อยู่" value={getUserId?.profile?.bio || 'ไม่ระบุที่อยู่'} />
+                <InfoItem icon={<Briefcase className="w-5 h-5" />} label="แผนก" value={getUserId?.profile?.department || 'ไม่ระบุ'} />
+                <InfoItem icon={<Calendar className="w-5 h-5" />} label="วันที่เข้าร่วม" value={getUserId?.profile?.joinDate || 'ไม่ระบุ'} />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose} className="w-full mt-4 bg-white text-gray-900 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700">
+            ปิด
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog> */}
+ {/* <Dialog open={openDialogViewUsers} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-900">
         <DialogHeader>
           <DialogTitle className="text-3xl font-bold text-center text-gray-900 dark:text-white">
@@ -134,53 +251,23 @@ const renderTextGebder = (text:string) =>{
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
-      {/* <Dialog open={openDialogViewUsers} onOpenChange={onClose}>
-        <DialogTrigger asChild></DialogTrigger>
-        <DialogContent>
-          <form>
-            <DialogHeader>
-              <DialogTitle className="text-2xl">ดูข้อมูล</DialogTitle>
-              <DialogDescription className="text-lg">
-              ดูข้อมูลของผู้ใช้งาน:{getUserId?.email}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-6 py-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="username">อีเมล:{getUserId?.email}</Label>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">รหัสผ่าน</Label>
+    </Dialog> */}
 
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="firstname">ชื่อ-นามสกุล:{getUserId?.firstname +' ' + getUserId?.lastname}</Label>
-
-                </div>
-
-
-                <div className="space-y-2">
-                  <Label htmlFor="telephone">เบอร์โทรศัพท์:{getUserId?.profile?.telephone }</Label>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="gender">เพศ:{getUserId?.profile?.gender}</Label>
-                </div>
-              </div>
-            </div>
-            <DialogFooter>
-              <div className="flex items-center justify-end">
-                <Button variant={'destructive'} type={'button'} className="w-full  " onClick={onClose}>
-                  Close
-                </Button>
-              </div>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog> */}
     </>
   );
+  function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+    return (
+      <div className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-sm transition-all duration-200 hover:shadow-md">
+        <div className="flex-shrink-0 text-gray-500 dark:text-gray-400">
+          {icon}
+        </div>
+        <div className="flex-grow">
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</p>
+          <p className="text-base font-semibold text-gray-900 dark:text-white">{value}</p>
+        </div>
+      </div>
+    )
+  }
 };
 
 export default ViewDialog;

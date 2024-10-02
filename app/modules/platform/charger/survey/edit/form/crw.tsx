@@ -40,22 +40,26 @@ const Crw = ({ values, setFieldValue, handleChange, touched, errors }: any) => {
     setFieldValue("work_free_ele", 40);
     setFieldValue("work_true_ele", work);
   };
-  console.log('fffff', values.work_tor_ele)
+  console.log("fffff", values.work_tor_ele);
   return (
-
     <>
       <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
-        <CardHeader>
-          <CardTitle>งานเดินท่อร้อยสาย</CardTitle>
-          <CardDescription>หากเลือก ALL จะเป็นการเลือกทุกอย่าง</CardDescription>
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            งานเดินท่อร้อยสาย
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            หากเลือก ALL จะเป็นการเลือกทุกอย่าง
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-6">
+          <div className="grid gap-6 ">
             <ToggleGroup
               size="lg"
               type="multiple"
               value={values.work_tor_ele} // Bind selected items to the ToggleGroup
               variant="outline"
+              className="grid   grid-cols-2 md:grid-cols-5 gap-4"
               onValueChange={handleChangeAll} // Handle the value change
             >
               {items.map((item) => (
@@ -69,9 +73,11 @@ const Crw = ({ values, setFieldValue, handleChange, touched, errors }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-5">
-        <CardHeader>
-          <CardTitle>งานเดินสายไฟฟ้า</CardTitle>
-          <CardDescription>
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            งานเดินสายไฟฟ้า
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
             ระยะเดินสายไฟฟ้าพร้อมงานท่อ (ระยะจริงทั้งหมด)
           </CardDescription>
         </CardHeader>
@@ -113,7 +119,12 @@ const Crw = ({ values, setFieldValue, handleChange, touched, errors }: any) => {
                   <Label htmlFor="price-1" className="sr-only">
                     Price
                   </Label>
-                  <Input id="price-1" type="number" value={values.work_ele - 40} disabled />
+                  <Input
+                    id="price-1"
+                    type="number"
+                    value={values.work_ele - 40}
+                    disabled
+                  />
                 </TableCell>
               </TableRow>
             </TableBody>

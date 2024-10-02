@@ -28,9 +28,9 @@ const MainPage = () => {
     { value: "3", label: "other", component: "other" },
   ];
 
-  const handleClick = () => {
-    router.push("/platform/solar/survey/createsurvey");
-   };
+  // const handleClick = () => {
+  //   router.push("/platform/solar/survey/createsurvey");
+  //  };
    const searchParams = useSearchParams();
    const currentTab = searchParams.get('tab') || "1";
 
@@ -44,8 +44,8 @@ const MainPage = () => {
     <>
       <Main>
 
-        <Head ltext={"Solar"} />
-        <div className="w-full">
+        <Head ltext={"Solar"} icc={'Solar'} />
+        {/* <div className="w-full">
           <Tabs defaultValue={currentTab} className="w-full" onValueChange={navigateToSolarTab}>
           <div className="flex items-center justify-between">
             <TabsList className="grid grid-cols-3 w-[600px]">
@@ -55,14 +55,7 @@ const MainPage = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-            <Button
-                size="sm"
-                className="w-30 h-10 flex items-center space-x-2"
-                onClick={handleClick}
-              >
-                <CirclePlus className="h-4 w-4" />
-                <span>เพื่มข้อมูล</span>
-              </Button>
+
           </div>
 
 
@@ -78,6 +71,34 @@ const MainPage = () => {
               </TabsContent>
             ))}
           </Tabs>
+        </div> */}
+         <div className="w-full  px-4 sm:px-6 lg:px-0">
+        <Tabs defaultValue={currentTab} className="w-full" onValueChange={navigateToSolarTab}>
+          <div className="flex items-center justify-between">
+            <TabsList className="grid grid-cols-3 sm:grid-cols-3 lg:w-[600px] w-full mb-4">
+              {tabsDashboard.map((tab) => (
+                <TabsTrigger key={tab.value} value={tab.value} className='px-2 py-1 text-sm sm:text-base'>
+                  {tab.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+          </div>
+
+
+            {tabsDashboard.map((tab) => (
+              <TabsContent
+                key={tab.value}
+                value={tab.value}
+                className="w-full "
+              >
+                <div className="bg-gray-100 w-full p-4 rounded-lg min-h-[300px]">
+                  {tab.component}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+          {/* <Surveies /> */}
         </div>
       </Main>
     </>

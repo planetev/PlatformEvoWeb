@@ -63,9 +63,22 @@ import {
 } from "../ui/tooltip";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const Sidebar = ({ isOpen, setIsOpen }: any) => {
   const { token, session, profildAuth } = useAuth();
+  const [helpDialog, setHelpDialog] = useState<boolean>(false);
   const pathname = usePathname();
   const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
     {}
@@ -206,14 +219,13 @@ const Sidebar = ({ isOpen, setIsOpen }: any) => {
           }`}
         >
           <div className="border-b border-gray-200 p-4 md:p-2 flex items-center justify-between md:justify-center bg-gradient-to-r from-white to-gray-50">
-
-          <Button
-        variant="ghost"
-        size="icon"
-        aria-label="Home"
-        className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-all duration-300"
-      >
-        <h2 className="text-xl font-extrabold text-emerald-500 transform rotate-0 transition-transform duration-300 ease-in-out hover:rotate-180">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Home"
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm hover:bg-gray-50 transition-all duration-300"
+            >
+              <h2 className="text-xl font-extrabold text-emerald-500 transform rotate-0 transition-transform duration-300 ease-in-out hover:rotate-180">
                 EV
               </h2>
             </Button>
@@ -323,19 +335,21 @@ const Sidebar = ({ isOpen, setIsOpen }: any) => {
             {footerMenuItems.map((item, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
-                  <Link href={item.path} onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className={`w-full justify-start md:justify-center rounded-lg  p-3 ${
-                        pathname === item.path ? "bg-gray-200 " : ""
-                      }`}
-                      aria-label={item.label}
-                    >
-                      {item.icon}
-                      <span className="ml-2 md:hidden">{item.label}</span>
-                    </Button>
-                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setHelpDialog(true);
+                      setIsOpen(false);
+                    }}
+                    className={`w-full justify-start md:justify-center rounded-lg  p-3 ${
+                      pathname === item.path ? "bg-gray-200 " : ""
+                    }`}
+                    aria-label={item.label}
+                  >
+                    {item.icon}
+                    <span className="ml-2 md:hidden">{item.label}</span>
+                  </Button>
                 </TooltipTrigger>
                 <TooltipContent side="right" sideOffset={5}>
                   {item.label}
@@ -343,6 +357,50 @@ const Sidebar = ({ isOpen, setIsOpen }: any) => {
               </Tooltip>
             ))}
           </nav>
+          <Dialog open={helpDialog} onOpenChange={setHelpDialog}>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Report an Issue</DialogTitle>
+                <DialogDescription>
+                  Please provide details about the issue you're experiencing.
+                </DialogDescription>
+              </DialogHeader>
+              <form  className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="topic">Topic</Label>
+                  {/* <Select value={topic} onValueChange={setTopic} required> */}
+                  <Select  required>
+                    <SelectTrigger id="topic">
+                      <SelectValue placeholder="Select a topic" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="technical">Technical Issue</SelectItem>
+                      <SelectItem value="billing">Billing Problem</SelectItem>
+                      <SelectItem value="account">
+                        Account Management
+                      </SelectItem>
+                      <SelectItem value="feature">Feature Request</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="details">Details</Label>
+                  <Textarea
+                    id="details"
+                    placeholder="Please describe the issue in detail..."
+                    // value={details}
+                    // onChange={(e) => setDetails(e.target.value)}
+                    required
+                    className="min-h-[100px]"
+                  />
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Submit Report</Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
         </aside>
       </TooltipProvider>
       {/* <div className="w-64 p-3 mt-10 space-y-8 bg-white border-r shadow-lg shadow-orange-100 fixed top-0 left-0 h-full overflow-y-auto hide-scrollbar">

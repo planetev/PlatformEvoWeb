@@ -28,9 +28,7 @@ const MainPage = () => {
     { value: "3", label: "other", component: "other" },
   ];
 
-  const handleClick = () => {
-    router.push("/platform/charger/survey/createsurvey");
-   };
+
    const searchParams = useSearchParams();
    const currentTab = searchParams.get('tab') || "1";
 
@@ -43,7 +41,7 @@ const MainPage = () => {
   return (
     <>
       <Main>
-        <Head ltext={"Charger"} />
+        <Head ltext={"Charger"} icc="Charger" />
 
         <div className="w-full  px-4 sm:px-6 lg:px-0">
         <Tabs defaultValue={currentTab} className="w-full" onValueChange={navigateToChargerTab}>
@@ -55,14 +53,7 @@ const MainPage = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-            <Button
-                size="sm"
-                className="w-30 h-10 flex items-center space-x-2"
-                onClick={handleClick}
-              >
-                <CirclePlus className="h-4 w-4" />
-                <span>เพื่มข้อมูล</span>
-              </Button>
+
           </div>
 
 

@@ -12,13 +12,18 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-5">
-        <CardHeader>
-          <CardTitle>ขนาดของโครงสร้าง</CardTitle>
-          <CardDescription>ขนาดของโครงสร้าง</CardDescription>
+
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          ขนาดของโครงสร้าง
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          ขนาดของโครงสร้าง
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   แป (นิ้ว)
@@ -47,7 +52,7 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   จันทึก (นิ้ว)
@@ -83,7 +88,7 @@ const Size = ({ values, setFieldValue, handleChange }: any) => {
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   ระยะห่างแป (ม.)

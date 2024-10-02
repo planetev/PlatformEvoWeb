@@ -82,7 +82,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-const Header = ({ userId, toggleSidebar,isOpen }: any) => {
+const Header = ({ userId, toggleSidebar, isOpen }: any) => {
   const { token, session, profildAuth } = useAuth();
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(false);
@@ -147,22 +147,23 @@ const Header = ({ userId, toggleSidebar,isOpen }: any) => {
         <div className="flex items-center">
           <Menubar className="bg-transparent border-none">
             <MenubarMenu>
-            <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleSidebar}
-                  className="md:hidden"
-                  aria-label="Toggle sidebar"
-                >
-
-                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleSidebar}
+                className="md:hidden"
+                aria-label="Toggle sidebar"
+              >
+                {isOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </Button>
               <MenubarTrigger className="font-semibold hidden md:block">
                 <Badge variant="secondary" className="border-gray-600">
                   Planet<span className="text-emerald-500">EV</span>
                 </Badge>
-
-
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
@@ -228,14 +229,24 @@ const Header = ({ userId, toggleSidebar,isOpen }: any) => {
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem
-                  onClick={() => router.push("profile/" + userId?.id)}
+                  // onClick={() => router.push("/platform/profile/" + userId?.id)}
+                  onClick={() =>
+                    router.push(
+                      `/platform/profile/${userId?.id}?tap=personal-info`
+                    )
+                  }
                 >
+
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => router.push("profile/" + userId?.id)}
+                  onClick={() =>
+                    router.push(
+                      `/platform/profile/${userId?.id}?tap=settings`
+                    )
+                  }
                 >
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>

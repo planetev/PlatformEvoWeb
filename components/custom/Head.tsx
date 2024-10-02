@@ -18,8 +18,9 @@ import React from "react";
 
 interface Itex {
   ltext: string;
+  icc: string;
 }
-const Head = ({ ltext }: Itex) => {
+const Head = ({ ltext,icc }: Itex) => {
   return (
     <>
       <div className="flex items-center justify-between mb-2 ">
@@ -47,12 +48,12 @@ const Head = ({ ltext }: Itex) => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href="/docs/components">
-                Components
+              Platform
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Platform</BreadcrumbPage>
+              <BreadcrumbPage>{icc}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

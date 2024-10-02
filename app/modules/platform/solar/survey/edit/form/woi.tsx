@@ -20,7 +20,13 @@ import Link from "next/link";
 
 import React, { use, useEffect } from "react";
 import { addDays, format } from "date-fns";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { empoyee_survey } from "@/app/inteface/charger";
 const Woi = ({
   values,
@@ -36,15 +42,17 @@ const Woi = ({
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>Work order information</CardTitle>
-          <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            Work order information
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            ข้อมูลเกี่ยวกับใบสั่งงาน
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   Wos NO:
@@ -94,7 +102,7 @@ const Woi = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ชื่อลูกค้า
@@ -123,7 +131,7 @@ const Woi = ({
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   วันที่ติดตั้ง
@@ -188,7 +196,7 @@ const Woi = ({
                 </Popover>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   กำหนดผลิตเป้าหมาย
@@ -216,7 +224,10 @@ const Woi = ({
                   value={values.servey_name}
                   onValueChange={(value) => setFieldValue("servey_name", value)}
                 >
-                  <SelectTrigger id="servey_name" aria-label="Select servey_name">
+                  <SelectTrigger
+                    id="servey_name"
+                    aria-label="Select servey_name"
+                  >
                     <SelectValue placeholder="เลือกผู้สำรวจ" />
                   </SelectTrigger>
                   <SelectContent>
@@ -225,7 +236,7 @@ const Woi = ({
                         (!values.servey_name ||
                           i.name !== values.servey_name ||
                           x ===
-                          empoyee_survey.findIndex(
+                            empoyee_survey.findIndex(
                               (item) => item.name === values.servey_name
                             )) && (
                           <SelectItem key={x} value={i.name}>
@@ -235,11 +246,10 @@ const Woi = ({
                     )}
                   </SelectContent>
                 </Select>
-
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="location" className="font-medium text-gray-500">
                   Lat , Long

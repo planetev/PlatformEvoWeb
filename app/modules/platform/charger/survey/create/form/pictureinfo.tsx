@@ -20,8 +20,13 @@ import { TooltipContent } from "@radix-ui/react-tooltip";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-const Pictureinfo = ({ values, setFieldValue, handleChange, touched, errors }: any) => {
-
+const Pictureinfo = ({
+  values,
+  setFieldValue,
+  handleChange,
+  touched,
+  errors,
+}: any) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [previewImages, setPreviewImages] = useState<string[]>(
     new Array(imageChager.length).fill("")
@@ -105,15 +110,17 @@ const Pictureinfo = ({ values, setFieldValue, handleChange, touched, errors }: a
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>Picture Info</CardTitle>
-          <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+        <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            Picture Info
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            รายละเอียดและข้อมูลสำหรับรูปภาพ
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  grid-cols-1 md:grid-cols-2 gap-4">
               {imageChager.map((i, x) => (
                 <div key={i.id} className="space-y-2">
                   <Label
@@ -131,62 +138,60 @@ const Pictureinfo = ({ values, setFieldValue, handleChange, touched, errors }: a
                       onChange={(e) => handleImageChange(e, x)}
                       className="sr-only"
                     />
-                   {previewImages[x] ? (
-                    <div className="relative w-full h-48">
-                      <Image
-                        src={previewImages[x]}
-                        alt={`Preview ${i.name}`}
-                        className="w-full  object-cover h-full rounded-md"
-                        width={800}
-                        height={800}
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-2 right-2"
-                        onClick={() => handleRemoveImage(x)}
+                    {previewImages[x] ? (
+                      <div className="relative w-full h-48">
+                        <Image
+                          src={previewImages[x]}
+                          alt={`Preview ${i.name}`}
+                          className="w-full  object-cover h-full rounded-md"
+                          width={800}
+                          height={800}
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-2 right-2"
+                          onClick={() => handleRemoveImage(x)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              size="icon"
+                              className="absolute bottom-2 right-2"
+                              onClick={() => setSelectedImage(previewImages[x])}
+                            >
+                              <ZoomIn className="h-4 w-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-3xl">
+                            <Image
+                              src={selectedImage || ""}
+                              alt="Full size preview"
+                              className="w-full   rounded-md"
+                              width={800}
+                              height={400}
+                            />
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    ) : (
+                      <label
+                        htmlFor={`picture-${x}`}
+                        className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
                       >
-                        <X className="h-4 w-4" />
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            type="button"
-                            variant="secondary"
-                            size="icon"
-                            className="absolute bottom-2 right-2"
-                            onClick={() =>
-                              setSelectedImage(previewImages[x])
-                            }
-                          >
-                            <ZoomIn className="h-4 w-4" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-3xl">
-                          <Image
-                            src={selectedImage || ""}
-                            alt="Full size preview"
-                            className="w-full   rounded-md"
-                            width={800}
-                            height={400}
-                          />
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  ) : (
-                    <label
-                      htmlFor={`picture-${x}`}
-                      className="flex flex-col items-center justify-center w-full h-48 cursor-pointer"
-                    >
-                      <ImageIcon className="h-10 w-10 text-gray-400" />
-                      <span className="mt-2 text-sm text-gray-500">
-                        คลิกเพื่อเลือกรูปภาพ
-                      </span>
-                    </label>
-                  )}
+                        <ImageIcon className="h-10 w-10 text-gray-400" />
+                        <span className="mt-2 text-sm text-gray-500">
+                          คลิกเพื่อเลือกรูปภาพ
+                        </span>
+                      </label>
+                    )}
+                  </div>
                 </div>
-              </div>
               ))}
             </div>
           </div>

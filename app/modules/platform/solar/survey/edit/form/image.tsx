@@ -399,9 +399,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>รูปถ่ายภาพบ้าน</CardTitle>
-          <CardDescription>บริเวณบ้าน (ทั้งหลัง)</CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            รูปถ่ายภาพบ้าน
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            บริเวณบ้าน (ทั้งหลัง)
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -491,10 +495,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>รูปถ่ายมิเตอร์ไฟฟ้า</CardTitle>
-          <CardDescription>
-            ขนาดมิเตอร์ไฟฟ้า (พร้อมเลขทีมิเตออร์)
+
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          รูปถ่ายมิเตอร์ไฟฟ้า
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          ขนาดมิเตอร์ไฟฟ้า (พร้อมเลขทีมิเตออร์)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -585,9 +592,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>รูปถ่ายภายนอกอาคาร</CardTitle>
-          <CardDescription> บริเวณจุดติดตั้งแผงโซล่าเซลล์</CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          รูปถ่ายภายนอกอาคาร
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          บริเวณจุดติดตั้งแผงโซล่าเซลล์
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -677,11 +688,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>การเชือมระบบไฟฟ้า และการเดินสายติดตั้งภายใน</CardTitle>
-          <CardDescription>
-            {" "}
-            จุดเชือมไฟฟ้าเข้ากบระบบไฟบ้านของลูกค้า (main breaker)
+
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-md md:text-md font-bold">
+          รูการเชือมระบบไฟฟ้า และการเดินสายติดตั้งภายใน
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          จุดเชือมไฟฟ้าเข้ากบระบบไฟบ้านของลูกค้า (main breaker)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -772,9 +785,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>Solar Edge</CardTitle>
-          <CardDescription> DESIGNER REPORT</CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          Solar Edg
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          DESIGNER REPORT
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -864,9 +881,13 @@ const Images = ({ values, setFieldValue, handleChange }: any) => {
       </Card>
 
       <Card x-chunk="dashboard-07-chunk-2">
-        <CardHeader>
-          <CardTitle>Installation model Inverter Room</CardTitle>
-          <CardDescription> Installation model Inverter Room</CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+          Installation model Inverter Room
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+          Installation model Inverter Room
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-2">

@@ -46,15 +46,17 @@ const Boq = ({
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-1">
-        <CardHeader>
-          <CardTitle>สรุปชุดที่ใช้งาน</CardTitle>
-          <CardDescription>
-            Lipsum dolor sit amet, consectetur adipiscing elit
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+          <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">
+            สรุปชุดที่ใช้งาน
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base md:text-sm">
+            ข้อมูลที่ได้รับจากการสำรวจ
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   สรุปชุดที่ใช้งาน
@@ -83,7 +85,7 @@ const Boq = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="grid gap-3">
                 <Label htmlFor="name" className="font-medium text-gray-500">
                   PV panal (แผ่น)
@@ -112,7 +114,7 @@ const Boq = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="grid gap-3">
                 <Label
                   htmlFor="name"
@@ -127,7 +129,7 @@ const Boq = ({
               </div>
             </div>
             {values?.boq?.map((row: any, index: any) => (
-              <div key={row.id} className="grid grid-cols-7 gap-3 mb-2">
+              <div key={row.id} className="grid grid-cols-1 md:grid-cols-7 gap-3 mb-2">
                 <div className="grid gap-2">
                 <Label
                   htmlFor="name"
@@ -236,7 +238,7 @@ const Boq = ({
                     placeholder="Unit"
                   />
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center md:justify-end gap-4">
                   {/* <Pencil className="h-4 w-4 cursor-pointer" /> */}
                   <Trash2
                     className="h-4 w-4 cursor-pointer"

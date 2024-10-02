@@ -119,7 +119,7 @@ const Create = () => {
   return (
     <>
       <Main>
-        <Head ltext={"Create-survey"} />
+        <Head ltext={"Create-survey"} icc="Create-survey" />
 
         <div className="w-full ">
           <main className="grid w-full  gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 bg-white overflow-hidden hide-scrollbar">
@@ -164,7 +164,7 @@ const Create = () => {
 
 
                 };
-                console.log("payload-charger", payload);
+
                 createChargerSurveys.mutate({ token, payload });
               }}
             >
@@ -181,24 +181,26 @@ const Create = () => {
                 return (
                   <>
                     <form onSubmit={handleSubmit}>
-                      <div className="flex items-center gap-4 p-2">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-4 bg-background">
+                    <div className="hidden md:block">
                         <Button
                           variant="outline"
                           size="icon"
                           type="button"
                           onClick={() => router.back()}
-                          className="h-7 w-7"
+                          className="h-7 w-7 "
                         >
                           <ChevronLeft className="h-4 w-4" />
                           <span className="sr-only">Back</span>
                         </Button>
+                        </div>
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                           Charger Controller
                         </h1>
-                        <Badge variant="outline" className="ml-auto sm:ml-0">
+                        <Badge variant="outline" className="ml-auto sm:ml-0 hidden md:block">
                           In Charger
                         </Badge>
-                        <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <div className="flex items-center gap-2 md:ml-auto md:flex sm:gap-2">
                           <Button
                             variant="outline"
                             size="sm"

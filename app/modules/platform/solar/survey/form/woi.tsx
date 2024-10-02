@@ -44,15 +44,15 @@ const Woi = ({
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-0">
-        <CardHeader>
-          <CardTitle>Work order information</CardTitle>
-          <CardDescription>
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+      <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">Work order information</CardTitle>
+      <CardDescription className="text-sm sm:text-base md:text-sm">
           ข้อมูลเกี่ยวกับใบสั่งงาน
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   Wos NO:
@@ -102,7 +102,7 @@ const Woi = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
 
@@ -136,7 +136,7 @@ const Woi = ({
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   วันที่ติดตั้ง
@@ -201,7 +201,7 @@ const Woi = ({
                 </Popover>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid ggrid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   กำหนดผลิตเป้าหมาย
@@ -245,7 +245,7 @@ const Woi = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="location" className="font-medium text-gray-500">
                   Lat , Long

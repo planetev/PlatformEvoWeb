@@ -43,14 +43,15 @@ const Paginations = ({ totalRows, pageSize, setPageSize, page, setPage }: any) =
 
   return (
     <>
+   <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 w-full">
       {/* Left Side - Rows Count Display */}
-      <div className="text-xs text-muted-foreground">
+      <div className="text-xs text-muted-foreground w-full sm:w-auto text-center sm:text-left">
         {`0 of ${totalRows} row(s) selected.`}
       </div>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
         <div className="text-xs text-muted-foreground flex items-center space-x-2">
-          <span>Rows per page</span>
+          <span className="whitespace-nowrap">Rows per page</span>
           <Select onValueChange={handleRowsPerPageChange}>
             <SelectTrigger className="w-16">
               <SelectValue placeholder={pageSize} />
@@ -64,7 +65,7 @@ const Paginations = ({ totalRows, pageSize, setPageSize, page, setPage }: any) =
           </Select>
         </div>
 
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs text-muted-foreground whitespace-nowrap">
           {`Page ${page} of ${totalPages}`}
         </div>
 
@@ -74,35 +75,44 @@ const Paginations = ({ totalRows, pageSize, setPageSize, page, setPage }: any) =
             size="sm"
             onClick={handleFirstPage}
             disabled={page === 1}
+            className="p-1 sm:p-2"
           >
             <ChevronsLeft className="h-4 w-4" />
+            <span className="sr-only">First page</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={handlePreviousPage}
             disabled={page === 1}
+            className="p-1 sm:p-2"
           >
             <ChevronLeft className="h-4 w-4" />
+            <span className="sr-only">Previous page</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleNextPage}
             disabled={page === totalPages}
+            className="p-1 sm:p-2"
           >
             <ChevronRight className="h-4 w-4" />
+            <span className="sr-only">Next page</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleLastPage}
             disabled={page === totalPages}
+            className="p-1 sm:p-2"
           >
             <ChevronsRight className="h-4 w-4" />
+            <span className="sr-only">Last page</span>
           </Button>
         </div>
       </div>
+    </div>
     </>
   );
 };

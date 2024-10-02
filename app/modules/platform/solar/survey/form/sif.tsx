@@ -42,15 +42,16 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
   return (
     <>
       <Card x-chunk="dashboard-07-chunk-1">
-        <CardHeader>
-          <CardTitle>Survey information</CardTitle>
-          <CardDescription>
-          ข้อมูลที่ได้รับจากการสำรวจ
+      <CardHeader className="space-y-1 text-center sm:text-left sm:space-y-2 md:space-y-2">
+      <CardTitle className="text-xl sm:text-2xl md:text-md font-bold">Survey information</CardTitle>
+      <CardDescription className="text-sm sm:text-base md:text-sm">
+      ข้อมูลที่ได้รับจากการสำรวจ
           </CardDescription>
         </CardHeader>
         <CardContent>
+
           <div className="grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ประเภทอาคาร
@@ -185,7 +186,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   สภาพอายุหลังคา (ปี)
@@ -214,7 +215,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   ทิศของหลังคา
@@ -252,7 +253,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   โครงหลังคาทำจากวัสดุ
@@ -320,7 +321,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="location" className="font-medium text-gray-500">
                   ข้อมูลอินเตอร์เน็ต
@@ -379,7 +380,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   การเชื่อมต่อไฟฟ้า
@@ -427,7 +428,7 @@ const Sif = ({ values, setFieldValue, handleChange }: any) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="date" className="font-medium text-gray-500">
                   หมายเหตุ

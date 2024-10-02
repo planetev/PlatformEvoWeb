@@ -362,7 +362,7 @@ const Sidebar = ({ isOpen, setIsOpen }: any) => {
               <DialogHeader>
                 <DialogTitle>Report an Issue</DialogTitle>
                 <DialogDescription>
-                  Please provide details about the issue you're experiencing.
+                  Please provide details about the issue you&lsquo;re experiencing.
                 </DialogDescription>
               </DialogHeader>
               <form  className="space-y-4">

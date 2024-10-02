@@ -1,3 +1,4 @@
+"use client";
 import Head from "@/components/custom/Head";
 import Main from "@/components/main";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

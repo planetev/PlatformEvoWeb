@@ -1,6 +1,7 @@
 "use client";
-import MainPage from '@/app/modules/platform/charger/main'
 import React, { useEffect } from "react";
+import MainPage from "@/app/modules/platform/charger/main";
+
 import { useAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
 const Page = () => {
@@ -14,9 +15,9 @@ const Page = () => {
   }, [status, router]);
   return (
     <>
-    <MainPage />
+      <MainPage />
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

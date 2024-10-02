@@ -9,7 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useSearchParams } from 'next/navigation';
-import Dashboard from "./survey/dashboard";
+import DashboardCharger from "./survey/dashboard";
+
 
 interface TabDashboard {
   value: string;
@@ -23,7 +24,7 @@ const MainPage = () => {
 
 
   const tabsDashboard: TabDashboard[] = [
-    { value: "1", label: "Dashboard", component: <Dashboard /> },
+    { value: "1", label: "Dashboard", component: <DashboardCharger /> },
     { value: "2", label: "Survey", component: <Surveies /> },
     { value: "3", label: "other", component: "other" },
   ];

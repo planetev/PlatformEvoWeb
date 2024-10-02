@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Card,
@@ -35,9 +35,7 @@ import {
   Line,
   ResponsiveContainer,
 } from "recharts";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import Maps from "./map";
 
 const DashboardCharger = () => {
   const { token, session } = useAuth();
@@ -62,16 +60,6 @@ const DashboardCharger = () => {
       }
     },
   });
-
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon-2x.png",
-    iconUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png",
-    shadowUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png",
-  });
-
 
   const icons = [
     <Clock className="h-4 w-4" key="clock" />,
@@ -141,11 +129,6 @@ const DashboardCharger = () => {
     { name: "Week 4", revenue: 81 },
   ];
 
-  const surveyLocations = [
-    { name: "Site A", lat: 13.7563, lng: 100.5018 },
-    { name: "Site B", lat: 13.7469, lng: 100.5386 },
-    { name: "Site C", lat: 13.7279, lng: 100.5247 },
-  ];
   const menuPie = [
     {
       id: 0,
@@ -182,7 +165,6 @@ const DashboardCharger = () => {
       cls: "from-rose-50 to-rose-100 text-rose-600",
       icon: <Zap className="h-4 w-4" />,
     },
-
   ];
 
   return (
@@ -219,19 +201,19 @@ const DashboardCharger = () => {
                         hover:shadow-lg hover:-translate-y-1 group overflow-hidden`}
             >
               <CardHeader className="pb-2">
-              <div className="flex items-start justify-between space-x-2">
-                <CardTitle className="text-sm font-medium leading-tight ">
-                  <div className="w-full h-12 flex items-center justify-start">
-                    {item.name}
+                <div className="flex items-start justify-between space-x-2">
+                  <CardTitle className="text-sm font-medium leading-tight ">
+                    <div className="w-full h-12 flex items-center justify-start">
+                      {item.name}
+                    </div>
+                  </CardTitle>
+                  <div className="p-2 rounded-full bg-white bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300 flex-shrink-0">
+                    {React.cloneElement(icons[index], {
+                      className: `${icons[index].props.className}  w-4 h-4  opacity-70 group-hover:opacity-100 transition-all duration-300`,
+                    })}
                   </div>
-                </CardTitle>
-                <div className="p-2 rounded-full bg-white bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-300 flex-shrink-0">
-                  {React.cloneElement(icons[index], {
-                    className: `${icons[index].props.className}  w-4 h-4  opacity-70 group-hover:opacity-100 transition-all duration-300`,
-                  })}
                 </div>
-              </div>
-            </CardHeader>
+              </CardHeader>
 
               <CardContent>
                 <div className="text-3xl font-bold mb-1 group-hover:scale-105 transition-transform duration-300 origin-left">
@@ -317,21 +299,7 @@ const DashboardCharger = () => {
             <CardTitle>Survey Locations</CardTitle>
           </CardHeader>
           <CardContent className="h-[800px]">
-            <MapContainer
-              center={[13.7563, 100.5018]}
-              zoom={12}
-              style={{ height: "100%", width: "100%" }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {surveyLocations.map((location, index) => (
-                <Marker key={index} position={[location.lat, location.lng]}>
-                  <Popup>{location.name}</Popup>
-                </Marker>
-              ))}
-            </MapContainer>
+            {/* <Maps /> */}
           </CardContent>
         </Card>
       </div>

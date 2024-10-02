@@ -6,7 +6,7 @@ const MainPage = () => {
   return (
     <>
      <Main>
-      <Head ltext={"Ev-car"} />
+      <Head ltext={"Ev-car"} icc='ev-car' />
       </Main>
     </>
   )

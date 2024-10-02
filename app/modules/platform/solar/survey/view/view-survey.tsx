@@ -44,7 +44,7 @@ const Viewsurvey = ({ id }: ViewsurveyProps) => {
   return (
     <>
       <Main>
-        <Head ltext={"ข้อมูลสำรวจโซลาเซล์" } />
+        <Head ltext={"ข้อมูลสำรวจโซลาเซล์" }  icc="view-solar"/>
 
         <div className="w-full">
         <main className="grid w-full   bg-white overflow-hidden hide-scrollbar">

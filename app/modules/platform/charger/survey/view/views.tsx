@@ -31,7 +31,7 @@ const Views = ({id}:any) => {
     <>
 
     <Main>
-        <Head ltext={"ข้อมูลสำรวจ" } />
+        <Head ltext={"ข้อมูลสำรวจ" } icc="view-Charger" />
 
         <div className="w-full">
         <main className="grid w-full   bg-white overflow-hidden hide-scrollbar">

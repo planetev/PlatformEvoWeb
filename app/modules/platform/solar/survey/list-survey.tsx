@@ -93,10 +93,10 @@ const Listsurvey = () => {
         <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
           <div className="flex flex-col items-start space-y-2">
             <CardTitle className="text-start text-xl sm:text-2xl">
-              SurveySolar
+            สำรวจโซลาร์
             </CardTitle>
             <CardDescription className="text-sm sm:text-base">
-              Manage your surveies and view their charger performance.
+            จัดการแบบสำรวจของคุณ พร้อมทั้งตรวจสอบประสิทธิภาพการชาร์จอย่างละเอียด
             </CardDescription>
           </div>
           <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
@@ -133,7 +133,7 @@ const Listsurvey = () => {
           <div className="flex items-center gap-2 mb-4">
             <Button
               size="sm"
-              className="w-full sm:w-auto h-12 px-6 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              className="w-full sm:w-auto h-9 px-4 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               onClick={() => router.push("/platform/solar/survey/createsurvey")}
             >
               <CirclePlus className="h-5 w-5 animate-pulse" />

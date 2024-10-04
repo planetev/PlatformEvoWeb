@@ -192,7 +192,7 @@ const DashboardCharger = () => {
           </>
         ))}
       </div> */}
-      <div className="p-4 sm:p-10 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+      <div className="p-3 sm:p-4 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
         <div className="grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-10">
           {menu.map((item, index) => (
             <Card

@@ -56,7 +56,7 @@ export enum StatusChargerSurveys {
   Final = "Final Contract Survey Scheduler Installation",
   Process = "Process Installation",
   Onboard = "Onboard test with platform",
-  Ready = "Ready to Revenuem",
+  Ready = "Ready to Revenue",
 }
 
 export enum Role {
@@ -111,7 +111,7 @@ export const StatusChargerSurvey = [
   },
   {
     id: 5,
-    name: "Ready to Revenuem",
+    name: "Ready to Revenue",
   },
 ];
 export const empoyee_survey = [

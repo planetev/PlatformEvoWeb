@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useSearchParams } from 'next/navigation';
 import Dashboard from "./survey/dashboard";
+import Dh from "./summary/dh";
 interface TabDashboard {
   value: string;
   label: string;
@@ -25,7 +26,7 @@ const MainPage = () => {
   const tabsDashboard: TabDashboard[] = [
     { value: "1", label: "Dashboard", component: <Dashboard /> },
     { value: "2", label: "Survey", component: <Listsurvey /> },
-    { value: "3", label: "other", component: "other" },
+    { value: "3", label: "SolarDashboard", component: <Dh /> },
   ];
 
   // const handleClick = () => {
@@ -92,7 +93,7 @@ const MainPage = () => {
                 value={tab.value}
                 className="w-full "
               >
-                <div className="bg-gray-100 w-full p-4 rounded-lg min-h-[300px]">
+                <div className="bg-gray-100 w-full  rounded-lg min-h-[300px]">
                   {tab.component}
                 </div>
               </TabsContent>

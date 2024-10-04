@@ -64,7 +64,7 @@ const MainPage = () => {
                 value={tab.value}
                 className="w-full "
               >
-                <div className="bg-gray-100 w-full p-4 rounded-lg min-h-[300px]">
+                <div className="bg-gray-100 w-full  rounded-lg min-h-[300px]">
                   {tab.component}
                 </div>
               </TabsContent>

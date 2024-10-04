@@ -20,10 +20,10 @@ export async function middleware(req: NextRequest) {
   if (isProtectedRoute) {
     // console.log('token-mid', token)
     // Redirect to login if user is not authenticated
-    if (!token) {
-      url.pathname = '/';
-      return NextResponse.redirect(url);
-    }
+    // if (!token) {
+    //   url.pathname = '/';
+    //   return NextResponse.redirect(url);
+    // }
 
     // const currentTime = Math.floor(Date.now() / 1000);
     // if (token.exp && token.exp < currentTime) {

@@ -8,11 +8,11 @@ const Page = () => {
   const router = useRouter();
   const { token, session, status } = useAuth();
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/login");
+  //   }
+  // }, [status, router]);
   return (
     <>
       <MainPage />

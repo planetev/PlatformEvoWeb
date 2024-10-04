@@ -75,8 +75,9 @@ const TableListServey = ({ data }: any) => {
   const renderText = (item: any) => {
     return (
       <div>
-        <span>{item ? item : "N/A"}</span>
+        <span className="text-sm sm:text-sm md:text-sm lg:text-md">{item ? item : "N/A"}</span>
       </div>
+      // text-sm sm:text-sm md:text-sm lg:text-md xl:text-2xl
     );
   };
 

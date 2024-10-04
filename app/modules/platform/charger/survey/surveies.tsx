@@ -98,10 +98,10 @@ const Surveies = () => {
         <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
           <div className="flex flex-col items-start space-y-2">
             <CardTitle className="text-start text-xl sm:text-2xl">
-              SurveyCharger
+            สำรวจการชาร์จ
             </CardTitle>
             <CardDescription className="text-sm sm:text-base">
-              Manage your Chargeres and view their charger performance.
+            จัดการอุปกรณ์ชาร์จของคุณ พร้อมตรวจสอบประสิทธิภาพการทำงานของการชาร์จอย่างละเอียด
             </CardDescription>
           </div>
           <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
@@ -140,7 +140,7 @@ const Surveies = () => {
           <div className="flex items-center gap-2 mb-4">
             <Button
               size="sm"
-              className="w-full sm:w-auto h-12 px-6 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              className="w-full sm:w-auto h-9 px-4 flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               onClick={() =>
                 router.push("/platform/charger/survey/createsurvey")
               }

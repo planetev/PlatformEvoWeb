@@ -38,7 +38,7 @@ const Main = ({
   return (
     <>
       <div className="flex min-h-screen overflow-hidden   hide-scrollbar">
-        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}        userId={userId} />
         <div className="flex-1 flex flex-col min-h-screen overflow-hidden md:ml-16  hide-scrollbar">
           <Header
             toggleSidebar={toggleSidebar}

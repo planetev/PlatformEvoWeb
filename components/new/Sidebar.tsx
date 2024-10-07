@@ -76,8 +76,8 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-const Sidebar = ({ isOpen, setIsOpen }: any) => {
-  const { token, session, profildAuth } = useAuth();
+const Sidebar = ({userId, isOpen, setIsOpen }: any) => {
+  const { token, session } = useAuth();
   const [helpDialog, setHelpDialog] = useState<boolean>(false);
   const pathname = usePathname();
   const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
@@ -301,7 +301,7 @@ const Sidebar = ({ isOpen, setIsOpen }: any) => {
           </nav>
           <Separator />
 
-          {token && profildAuth && profildAuth?.role === "ADMIN" && (
+          {token && userId && userId?.role === "ADMIN" && (
             <>
               <nav className="grid gap-1 p-2">
                 {adminMenuItems.map((item, index) => (

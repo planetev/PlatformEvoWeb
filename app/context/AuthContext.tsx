@@ -31,17 +31,21 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-
+  const [token, setToken] = useState(null);
   const { data: session, status } = useSession();
-  console.log("session-data 1", session);
-  console.log("session-data 2", status);
 
   useEffect(() => {
     if (status === "authenticated" && session?.user?.accessToken) {
       localStorage.setItem("accessToken", session.user.accessToken);
     }
   }, [session, status]);
-  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    const storedToken:any = localStorage.getItem("accessToken");
+    if (storedToken) {
+      setToken(storedToken); // ตั้งค่า token ใน state ถ้ามีใน localStorage
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ token, status, session }}>

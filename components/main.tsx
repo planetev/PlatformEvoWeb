@@ -14,6 +14,7 @@ const Main = ({
   children: ReactNode;
 }>) => {
   const { token, session } = useAuth();
+  console.log('token-main', token)
   const {
     isPending,
     error,
@@ -21,7 +22,7 @@ const Main = ({
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["get-profile"],
+    queryKey: ["get-profile", { token }],
     queryFn: async () => {
       try {
         const res: any = await getProfile({ token });
@@ -32,13 +33,13 @@ const Main = ({
       }
     },
   });
-  console.log('userId', userId)
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
   return (
     <>
       <div className="flex min-h-screen overflow-hidden   hide-scrollbar">
-        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}        userId={userId} />
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} userId={userId} />
         <div className="flex-1 flex flex-col min-h-screen overflow-hidden md:ml-16  hide-scrollbar">
           <Header
             toggleSidebar={toggleSidebar}

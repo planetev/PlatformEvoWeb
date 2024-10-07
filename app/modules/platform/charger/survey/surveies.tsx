@@ -75,9 +75,10 @@ const Surveies = () => {
         const res: any = await getChargerSurvey({
           search,
           page,
-          pageSize,
+          pageSize: 200,
           token,
           status: slectedstatus,
+          sort: "desc",
         });
 
         return res;

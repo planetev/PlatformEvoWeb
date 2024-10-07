@@ -21,69 +21,30 @@ interface resAuth {
 }
 
 interface AuthContextProps {
-  token?: string;
+  token?: any;
   status: "loading" | "authenticated" | "unauthenticated";
   session: any;
-  profildAuth: any;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const [token, setToken] = useState<any>("");
 
   const { data: session, status } = useSession();
-  console.log('status-token', status)
+  console.log("session-data 1", session);
+  console.log("session-data 2", status);
+
   useEffect(() => {
-    if (status === "authenticated") {
-      const fetchToken = async () => {
-        try {
-          const res = await fetch("/pnev/api/get-token");
-          const data = await res.json();
-          console.log("Token fetched: ", data.token); // ตรวจสอบการดึง token
-          if (res.ok) {
-            setToken(data.token); // ตั้งค่า token
-          } else {
-            console.error("Failed to fetch token", res.status);
-          }
-        } catch (error) {
-          console.error("Error fetching token:", error);
-        }
-      };
-
-      fetchToken();
+    if (status === "authenticated" && session?.user?.accessToken) {
+      localStorage.setItem("accessToken", session.user.accessToken);
     }
-  }, [status]);
-
-  const {
-    isPending,
-    error,
-    data: profildAuth,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["get-profile",token],
-    queryFn: async () => {
-      try {
-        const res: any = await getProfile({ token });
-
-        return res;
-      } catch (err) {
-        throw err;
-      }
-    },
-  });
-
-  useEffect(() => {}, [profildAuth]);
-
-  console.log('token-auth', token)
-
+  }, [session, status]);
+  const token = localStorage.getItem("accessToken");
 
   return (
-    <AuthContext.Provider value={{ token, status, session, profildAuth }}>
+    <AuthContext.Provider value={{ token, status, session }}>
       {children}
     </AuthContext.Provider>
   );

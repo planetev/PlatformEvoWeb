@@ -81,6 +81,7 @@ const TableSurvey = ({ data }: any) => {
       <Table>
         <TableHeader>
           <TableRow>
+
             <TableHead>สถานะ</TableHead>
             <TableHead>วันที่สำรวจ</TableHead>
             <TableHead>ชื่อโครงการ</TableHead>
@@ -89,84 +90,12 @@ const TableSurvey = ({ data }: any) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* {data?.map((item: any) => (
-            <TableRow key={item?.id} className="bg-white">
-              <TableCell>{renderStatus(item?.status)}</TableCell>
-              <TableCell>{renderText(item.day)}</TableCell>
-              <TableCell>{renderText(item.pjth)}</TableCell>
 
-              <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button aria-haspopup="true" size="icon" variant="ghost">
-                      <MoreHorizontal className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        router.push("/platform/charger/survey/view/" + item?.id)
-                      }
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      View
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        router.push(
-                          "/platform/charger/survey/editsurvey/" + item?.id
-                        )
-                      }
-                    >
-                      <Edit className="mr-2 h-4 w-4" />
-                      Edit
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem onClick={() =>  window.open(`${process.env.NEXT_PUBLIC_API_PDF}ChargerReport/generatepdf/survey/${item?.id}` , '_blank')}>
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center">
-                          <FileText className="mr-2 h-4 w-4" />
-                          Survey Report
-                        </div>
-
-                        <Badge
-                          variant="secondary"
-                          className="flex items-center space-x-1 border border-gray-600 border-dotted px-1 py-0.5 text-xs"
-                        >
-                          <FaRegFilePdf className="h-3 w-3" />
-
-                          <span>PDF</span>
-                        </Badge>
-                      </div>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() =>  window.open(`${process.env.NEXT_PUBLIC_API_PDF}Mou/generatepdf/mou/${item?.id}` , '_blank')}>
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center">
-                          <FileText className="mr-2 h-4 w-4" />
-                          MOU
-                        </div>
-
-                        <Badge
-                          variant="secondary"
-                          className="flex items-center space-x-1 border border-gray-600 border-dotted px-1 py-0.5 text-xs"
-                        >
-                          <FaRegFilePdf className="h-3 w-3" />
-
-                          <span>PDF</span>
-                        </Badge>
-                      </div>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-          ))} */}
           {data && data.length > 0 ? (
-            data.map((item: any) => (
+            data.map((item: any,index:any) => (
               <>
                 <TableRow key={item?.id} className="bg-white">
+
                   <TableCell>{renderStatus(item?.status)}</TableCell>
                   <TableCell>{renderText(item.day)}</TableCell>
                   <TableCell>{renderText(item.pjth)}</TableCell>

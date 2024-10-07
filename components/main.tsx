@@ -6,14 +6,14 @@ import { getCookie } from "cookies-next";
 import Header from "./new/Header";
 import Sidebar from "./new/Sidebar";
 import Content from "./new/Content";
+import { useAuth } from "@/app/context/AuthContext";
 
 const Main = ({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) => {
-  const token = getCookie("access_token");
-
+  const { token, session } = useAuth();
   const {
     isPending,
     error,
@@ -32,14 +32,19 @@ const Main = ({
       }
     },
   });
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleSidebar = () => setIsOpen(!isOpen)
+  console.log('userId', userId)
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSidebar = () => setIsOpen(!isOpen);
   return (
     <>
       <div className="flex min-h-screen overflow-hidden   hide-scrollbar">
-        <Sidebar  isOpen={isOpen} setIsOpen={setIsOpen}/>
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="flex-1 flex flex-col min-h-screen overflow-hidden md:ml-16  hide-scrollbar">
-          <Header toggleSidebar={toggleSidebar} userId={userId}  isOpen={isOpen} />
+          <Header
+            toggleSidebar={toggleSidebar}
+            userId={userId}
+            isOpen={isOpen}
+          />
           <Content> {children}</Content>
         </div>
       </div>

@@ -19,7 +19,7 @@ import {
   Clock,
   BarChart,
 } from "lucide-react";
-import { getChargerStatus } from "@/service/charger/chargerSurveyCallAPI";
+import { getChargerStatus, getChargerSurvey } from "@/service/charger/chargerSurveyCallAPI";
 import {
   PieChart,
   Pie,
@@ -42,6 +42,35 @@ const DashboardCharger = () => {
   const { token, session } = useAuth();
 
   const {
+
+    data: locationServey,
+
+  } = useQuery({
+    queryKey: ["list-location-survey-charger"],
+    queryFn: async () => {
+      try {
+        const res: any = await getChargerSurvey({
+          page: 1,
+          pageSize: 200,
+          token,
+        });
+
+        return res;
+      } catch (err) {
+        throw err;
+      }
+    },
+  });
+
+  const surveyLocations = locationServey?.rows.map((item: any) => {
+    return {
+      name: item.pjth,
+      lat: item?.latlong ? item?.latlong?.split(",")[0] : null,  // ตรวจสอบว่ามีค่า latitude หรือไม่ก่อนที่จะ split
+      lng: item?.latlong ? item?.latlong?.split(",")[1] : null, // ตรวจสอบว่ามีค่า longitude หรือไม่ก่อนที่จะ split
+    };
+  });
+
+  const {
     isPending,
     error,
     data: statuCharger,
@@ -61,6 +90,10 @@ const DashboardCharger = () => {
       }
     },
   });
+
+
+
+
 
   const icons = [
     <Clock className="h-4 w-4" key="clock" />,
@@ -300,7 +333,7 @@ const DashboardCharger = () => {
             <CardTitle>Survey Locations</CardTitle>
           </CardHeader>
           <CardContent className="h-[800px]">
-            <ComponentWithWindow />
+            <ComponentWithWindow  surveyLocations={surveyLocations}/>
           </CardContent>
         </Card>
       </div>

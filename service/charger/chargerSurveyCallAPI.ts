@@ -6,6 +6,7 @@ interface Base3 {
   pageSize?: number;
   token: any;
   status?: any;
+  sort?: any;
 }
 
 export const getChargerSurvey = async ({
@@ -14,6 +15,7 @@ export const getChargerSurvey = async ({
   pageSize,
   token,
   status,
+  sort,
 }: Base3): Promise<any[]> => {
   try {
     const params = {
@@ -21,6 +23,7 @@ export const getChargerSurvey = async ({
       page,
       pageSize,
       status,
+      sort,
     };
 
     const res: AxiosResponse<any[]> = await axios.get(

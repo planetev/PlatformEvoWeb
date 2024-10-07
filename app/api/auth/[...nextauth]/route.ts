@@ -32,16 +32,9 @@ const options: NextAuthOptions = {
           console.log("data-auth", data.accessToken);
 
           if (data) {
-            cookies().set("access_token", data?.accessToken);
+            // cookies().set("access_token", data?.accessToken);
             return data;
           }
-          // ,{
-          //   // httpOnly: true,
-          //   // sameSite: "lax",
-          //   // secure: process.env.NODE_ENV === "production",
-          //   //secure:true,
-
-          // }
 
           return null;
         } catch (error) {
@@ -51,6 +44,9 @@ const options: NextAuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: any }) {
       if (user) {
@@ -59,6 +55,9 @@ const options: NextAuthOptions = {
         token.accessToken = user.accessToken;
       }
 
+      // if (user) {
+      //   token.id = user.userId
+      // }
       return token;
     },
     async session({ session, token }: { session: any; token: JWT }) {
@@ -73,30 +72,13 @@ const options: NextAuthOptions = {
       return session;
     },
   },
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
-  },
+
   pages: {
     signIn: "/login",
     signOut: "/login",
   },
-  cookies: {
-    sessionToken: {
-      // name: `__Secure-next-auth.session-token`,
-      name: `access_token_dd`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-  },
 
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
 };
 
 const handler = NextAuth(options);

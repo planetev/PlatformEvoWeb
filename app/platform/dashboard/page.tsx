@@ -9,15 +9,17 @@ const Page = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    if (status === "loading") {
-      console.log('loading')
-      return; // รอให้ session โหลดก่อน
-    }
-    if (status === "unauthenticated") {
-      router.push("/pnev/login");
-    }
-  }, [status, router]);
+  console.log('first-session 1', session)
+  console.log('first-session 2', status)
+  // useEffect(() => {
+  //   if (status === "loading") {
+  //     console.log('loading')
+  //     return; // รอให้ session โหลดก่อน
+  //   }
+  //   if (status === "unauthenticated") {
+  //     router.push("/pnev/login");
+  //   }
+  // }, [status, router]);
   return (
     <>
     {status === "loading" && <div>Loading...</div>}

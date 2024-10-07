@@ -83,7 +83,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 const Header = ({ userId, toggleSidebar, isOpen }: any) => {
-  const { token, session, profildAuth } = useAuth();
+  const { token, session } = useAuth();
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -137,6 +137,7 @@ const Header = ({ userId, toggleSidebar, isOpen }: any) => {
   const handleLogout = async () => {
     const response = await fetch("/pnev/api/logout", { method: "POST" });
     if (response.ok) {
+      // localStorage.removeItem("accessToken");
       await signOut({ callbackUrl: "/pnev/login" });
     }
   };
@@ -220,7 +221,9 @@ const Header = ({ userId, toggleSidebar, isOpen }: any) => {
                   </h5>
                   <small className="text-xs flex items-center font-medium leading-none gap-2">
                     <span>สถานะ:</span>
-                    <Badge variant="secondary" className="border-gray-600">
+                    <Badge
+                      variant={userId?.role === "ADMIN" ? "destructive" : "secondary"}
+                    className="border-gray-600">
                       {userId?.role ? userId?.role : "loading..."}
                     </Badge>
                   </small>

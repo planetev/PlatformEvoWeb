@@ -1,0 +1,45 @@
+ console.log('session-data', session)
+  // console.log('status-token', status)
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     const fetchToken = async () => {
+  //       try {
+  //         const res = await fetch("/pnev/api/get-token");
+  //         const data = await res.json();
+  //         console.log("Token fetched: ", data.token); // ตรวจสอบการดึง token
+  //         if (res.ok) {
+  //           setToken(data.token); // ตั้งค่า token
+  //         } else {
+  //           console.error("Failed to fetch token", res.status);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching token:", error);
+  //       }
+  //     };
+
+  //     fetchToken();
+  //   }
+  // }, [status]);
+
+  const {
+    isPending,
+    error,
+    data: profildAuth,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["get-profile",token],
+    queryFn: async () => {
+      try {
+        const res: any = await getProfile({ token });
+
+        return res;
+      } catch (err) {
+        throw err;
+      }
+    },
+  });
+
+  useEffect(() => {}, [profildAuth]);
+
+  console.log('token-auth', token)

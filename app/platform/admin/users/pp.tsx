@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Pp = () => {
-  const { token, session, status,profildAuth } = useAuth();
+  const { token, session, status } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -14,12 +14,12 @@ const Pp = () => {
   }, [status, session, router]);
   return (
     <>
-      <div>
+      {/* <div>
         fron useAuth:
         {profildAuth?.role}
       </div>
       <div>สถานะ:{status}</div>
-      <div>token:{token}</div>
+      <div>token:{token}</div> */}
     </>
   );
 };

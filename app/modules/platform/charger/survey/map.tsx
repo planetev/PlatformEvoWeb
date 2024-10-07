@@ -66,11 +66,11 @@ const Maps = ({ surveyLocations }: any) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {/* {surveyLocations?.map((location: any, index: any) => (
+        {surveyLocations?.map((location: any, index: any) => (
           <Marker key={index} position={[location?.lat, location?.lng]}>
             <Popup>{location?.name}</Popup>
           </Marker>
-        ))} */}
+        ))}
       </MapContainer>
     </>
   );

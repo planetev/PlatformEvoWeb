@@ -65,8 +65,8 @@ const DashboardCharger = () => {
   const surveyLocations = locationServey?.rows.map((item: any) => {
     return {
       name: item.pjth,
-      lat: item?.latlong ? item?.latlong?.split(",")[0] : null,  // ตรวจสอบว่ามีค่า latitude หรือไม่ก่อนที่จะ split
-      lng: item?.latlong ? item?.latlong?.split(",")[1] : null, // ตรวจสอบว่ามีค่า longitude หรือไม่ก่อนที่จะ split
+      lat: item?.latlong ? item?.latlong?.split(",")[0] : "",  // ตรวจสอบว่ามีค่า latitude หรือไม่ก่อนที่จะ split
+      lng: item?.latlong ? item?.latlong?.split(",")[1] : "", // ตรวจสอบว่ามีค่า longitude หรือไม่ก่อนที่จะ split
     };
   });
 
